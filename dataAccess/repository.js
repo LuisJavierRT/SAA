@@ -2,7 +2,6 @@
  *Tecnologico de Costa Rica
  *Proyecto de ingenieria de software
  *Luis Javier Ramírez Torres
- *Jose Alberto Hidalgo Bonilla
  *Sistema de apoyo administrativo
 */
 var connection = require('./connection.js');

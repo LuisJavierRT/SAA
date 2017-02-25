@@ -10,8 +10,8 @@
 	'use strict';
 	angular
 		.module('saaApp')
-	    .controller('LoginCtrl', ['$scope','$location','$state', 'userService', 'shareSessionService', 'messageHandlerService',
-	    function($scope, $location, $state, userService, shareSessionService, messageHandlerService){
+	    .controller('LoginCtrl', ['$scope', '$state', 'userService', 'shareSessionService', 'messageHandlerService',
+	    function($scope, $state, userService, shareSessionService, messageHandlerService){
 			$scope.userData = {
 				userName: '',
 				password: ''

@@ -1,7 +1,7 @@
 /*
  *Tecnologico de Costa Rica
  *Proyecto de ingenieria de software
- *Carlos Fernandez Jimenez
+ *Luis Javier Ramírez Torres
  *Sistema de apoyo administrativo
 */
 
@@ -24,7 +24,6 @@ var readJsonFile = function() {
 };  
 
 exports.createConnection = function() {
-
     var config = readJsonFile();
     return mysql.createConnection(config.params);
 };

@@ -9,7 +9,7 @@
     'use strict';
     angular
         .module('saaApp') 
-        .factory('userService', ['requestService', function(requestService) {
+        .factory('LoginService', ['requestService', function(requestService) {
             var logInUser = function(pData){
                 var link = '/login';                
                 return  requestService.postRequest({data: pData, params: ""}, {url: link}).then(function(pResp){
