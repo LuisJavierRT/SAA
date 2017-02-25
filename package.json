@@ -2,7 +2,7 @@
   "name": "saa",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "saaApi.js",
   "dependencies": {
     "body-parser": "^1.16.1",
     "express": "^4.14.1",
