@@ -2,7 +2,7 @@ var express       = require('express'),
     app           = express(),
     server        = require('http').createServer(app),
     bodyParser    = require('body-parser'),
-    sessionController     = require('./services/sessionController.js');
+    sessionController     = require('./controllers/sessionController.js');
 
 app.use(bodyParser.urlencoded({
 	extended: true

@@ -9,8 +9,8 @@
 	'use strict';
 	angular
 		.module('saaApp')
-	    .controller('LogoutCtrl', ['$scope','$location', '$state', 'userService', 'shareSessionService', 'messageHandlerService', 
-	    function($scope, $location, $state, userService, shareSessionService, messageHandlerService){
+	    .controller('LogoutCtrl', ['$scope', '$state', 'shareSessionService',
+	    function($scope, $state, shareSessionService){
             
             var sendToLogin = function() {
             	$state.go('login');

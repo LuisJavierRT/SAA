@@ -3,7 +3,7 @@ USE `mydb`;
 
 create table `mydb`.`Usuario` (
   `usuario` VARCHAR(30) NOT NULL,
-  `contraseña` VARCHAR(30) NOT NULL, 
+  `contraseña` VARCHAR(32) NOT NULL, 
   `cedula` VARCHAR(11) NOT NULL,
   `nombre` VARCHAR(60) NOT NULL,
   `correo` VARCHAR(60) NOT NULL,
@@ -34,8 +34,8 @@ create table `mydb`.`Dependencia` (
 ENGINE = InnoDB;
 
 create table `mydb`.`Pertenece` (
-  `idFuncionario` INT NOT NULL AUTO_INCREMENT,
-  `idDependencia` INT NOT NULL AUTO_INCREMENT, 
+  `idFuncionario` INT NOT NULL,
+  `idDependencia` INT NOT NULL, 
   `activo` BIT NOT NULL DEFAULT 1,
   
   PRIMARY KEY (`idFuncionario`,`idDependencia`),
@@ -51,7 +51,7 @@ ENGINE = InnoDB;
 
 create table `mydb`.`Antecedente` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `idFuncionario` INT NOT NULL AUTO_INCREMENT, 
+  `idFuncionario` INT NOT NULL, 
   `descripcion` VARCHAR(60) NOT NULL,
   
   PRIMARY KEY (`id`,`idFuncionario`),
@@ -63,7 +63,7 @@ ENGINE = InnoDB;
 
 create table `mydb`.`Titulo` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `idFuncionario` INT NOT NULL AUTO_INCREMENT, 
+  `idFuncionario` INT NOT NULL, 
   `titulo` VARCHAR(30) NOT NULL,
   `universidad` VARCHAR(30) NOT NULL,
   `gradoAcademico` VARCHAR(30) NOT NULL,
@@ -89,7 +89,7 @@ ENGINE = InnoDB;
 
 create table `mydb`.`CaracteristicaPlaza` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `idPlaza` INT NOT NULL AUTO_INCREMENT, 
+  `idPlaza` INT NOT NULL, 
   `codigo` VARCHAR(8) NOT NULL,
   `periodo` VARCHAR(30) NOT NULL,  -- ??
   `programa` INT NOT NULL,
@@ -114,8 +114,8 @@ ENGINE = InnoDB;
 
 create table `mydb`.`PlazaDependencia` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `idPlaza` INT NOT NULL AUTO_INCREMENT, 
-  `idDependencia` INT NOT NULL AUTO_INCREMENT,
+  `idPlaza` INT NOT NULL, 
+  `idDependencia` INT NOT NULL,
   `porcentajeAcordado` INT NOT NULL,
   `activo` BIT NOT NULL DEFAULT 1,
   `fechaInicio` DATETIME NOT NULL,
@@ -173,9 +173,45 @@ create table `mydb`.`PlazaResolucionRectoriaPlaza` (
 		foreign key (`idPlaza`)
         references `mydb`.`Plaza` (`id`),
         
-	constraint `fk_idResolucionRectoriaPlaza`
+	constraint `fk_idPlazaResolucionRectoriaPlaza`
 		foreign key (`idResolucionRectoriaPlaza`)
         references `mydb`.`ResolucionRectoriaPlaza` (`id`)
+)
+engine = innodb;
+
+
+create table `mydb`.`Contrato` (
+	`id` int not null auto_increment,
+    `idContratoLiberado` int null,
+    `idDependencia` int not null,
+    `idFuncionario` int not null,
+    `activo` bit not null,
+    `actividad` varchar(30) not null,
+    `descripcion` varchar(40) not null,
+    `anno` int not null,
+    `fechaInicio` datetime not null,
+    `fechaFinal` datetime not null,
+    `númeroConcurso` varchar(10) not null,
+    `suplencia` bit not null,
+    `porqueContratacion` varchar(40) not null,
+    `quienNombro` varchar(50) not null,
+    `puestoQuienNombro` varchar(15) not null,
+    `porcentajeTotalContratacion` int not null,
+    `porcentajeLiberado` int null,
+    
+    primary key (`id`, `idDependencia`, `idFuncionario`),
+    
+    constraint `fk_idDependenciaContrato`
+		foreign key (`idDependencia`)
+        references `mydb`.`Dependencia` (`id`),
+        
+	constraint `fk_idFuncionarioContrato`
+		foreign key (`idFuncionario`)
+        references `mydb`.`Funcionario` (`id`)
+	/*
+	constraint `fk_idContratoLiberadoContrato`
+		foreign key (`idContratoLiberado`)
+        references `mydb`.`Contrato` (`idContratoLiberado`)*/
 )
 engine = innodb;
 
@@ -241,45 +277,9 @@ create table `mydb`.`Ampliacion` (
     
     primary key (`id`),
     
-    constraint `fk_idContratoDependenciaFuncionario`
+    constraint `fk_idContratoDependenciaFuncionarioAmpliacion`
 		foreign key (`idContrato`, `idDependencia`, `idFuncionario`)
 		references `mydb`.`Contrato` (`id`, `idDependencia`, `idFuncionario`)
-)
-engine = innodb;
-
-
-create table `mydb`.`Contrato` (
-	`id` int not null auto_increment,
-    `idContratoLiberado` int null,
-    `idDependencia` int not null,
-    `idFuncionario` int not null,
-    `activo` bit not null,
-    `actividad` varchar(30) not null,
-    `descripcion` varchar(40) not null,
-    `anno` int not null,
-    `fechaInicio` datetime not null,
-    `fechaFinal` datetime not null,
-    `númeroConcurso` varchar(10) not null,
-    `suplencia` bit not null,
-    `porqueContratacion` varchar(40) not null,
-    `quienNombro` varchar(50) not null,
-    `puestoQuienNombro` varchar(15) not null,
-    `porcentajeTotalContratacion` int not null,
-    `porcentajeLiberado` int null,
-    
-    primary key (`id`, `idDependencia`, `idFuncionario`),
-    
-    constraint `fk_idDependencia`
-		foreign key (`idDependencia`)
-        references `mydb`.`Dependencia` (`id`),
-        
-	constraint `fk_idFuncionario`
-		foreign key (`idFuncionario`)
-        references `mydb`.`Funcionario`,
-        
-	constraint `fk_idContratoLiberado`
-		foreign key (`idContratoLiberado`)
-        references `mydb`.`Contrato` (`idContratoLiberado`)
 )
 engine = innodb;
 
@@ -289,6 +289,7 @@ create table `mydb`.`PlazaContratacion` (
     `idContrato` int not null,
     `idDependencia` int not null,
     `idFuncionario` int not null,
+    `idCaracteristicaPlaza` int not null,
     `porcentajeContratacion` int not null,
     
     primary key (`idCaracteristicaPlaza`, `idPlaza`, `idContrato`, `idDependencia`, `idFuncionario`),
@@ -302,3 +303,7 @@ create table `mydb`.`PlazaContratacion` (
         references `mydb`.`Contrato` (`id`, `idDependencia`, `idFuncionario`)
 )
 engine = innodb; 
+
+
+INSERT INTO Usuario(usuario, contraseña, cedula, nombre, correo, tipo, activo, fechaInicioAutorizacion, fechaFinalAutorizacion) 
+    VALUES('jose', md5('123'), '207510507', 'Jose', 'correo', 'admi', 1, '20170102', '20170203');

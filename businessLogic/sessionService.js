@@ -15,7 +15,7 @@ exports.validateUser = function(data, callback){
     }, 
     function(success, data) {
         if(success) {
-            data = data[0];//verificar estado
+            var data = data[0];//verificar estado
             if(data.length > 0) {
                 callback({
                     status: true, 
@@ -26,7 +26,7 @@ exports.validateUser = function(data, callback){
             else {
                 callback({
                     status: false, 
-                    message: 'Usuario o contraseña no valida',
+                    message: 'Usuario o contraseña no válida',
                     data: {}
                 });
             }

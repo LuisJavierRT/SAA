@@ -5,7 +5,6 @@
  *Sistema de apoyo administrativo
  *Validador de datos de usuario
 */
-var validator = require('validator');
 
 exports.validSessionData = function(pData) {
 	var informationStatus = {};

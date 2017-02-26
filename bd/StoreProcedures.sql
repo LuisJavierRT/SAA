@@ -2,10 +2,9 @@ use `mydb`
 
 #SP para validar un usuario en el sistema
 delimiter $$
-create procedure sp_login
-(
-    pUsuario varchar(30),
-    pPassword varchar(30)
+create procedure sp_login (
+    in pUsuario varchar(30),
+    in pPassword varchar(30)
 )
 begin
     declare passwordMD5 varchar(32);
@@ -17,7 +16,8 @@ begin
         where (u.usuario = pUsuario) and (u.contraseña = passwordMD5);
     end if;
  
-end $
+end $$
+delimiter ; 
 
 delimiter $$
 create procedure sp_agregarUsuario (

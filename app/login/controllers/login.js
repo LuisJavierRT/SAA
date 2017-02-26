@@ -10,15 +10,15 @@
 	'use strict';
 	angular
 		.module('saaApp')
-	    .controller('LoginCtrl', ['$scope', '$state', 'userService', 'shareSessionService', 'messageHandlerService',
-	    function($scope, $state, userService, shareSessionService, messageHandlerService){
+	    .controller('LoginCtrl', ['$scope', '$state', 'LoginService', 'shareSessionService', 'messageHandlerService',
+	    function($scope, $state, loginService, shareSessionService, messageHandlerService){
 			$scope.userData = {
 				userName: '',
 				password: ''
 			};
 
 			var sendToHome = function() {
-				$state.go('asignar-plazas-profesores');
+				$state.go('saa');
 			};
 
 			var welcomeMessage = function() {
@@ -28,7 +28,7 @@
             };
 
 			$scope.login = function(pData) {
-				userService.logIn(pData).then(function(result) {
+				loginService.logIn(pData).then(function(result) {
 					if(result.success) {
 						shareSessionService.setSession(result.data);
 						welcomeMessage();

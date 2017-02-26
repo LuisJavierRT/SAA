@@ -18,58 +18,19 @@
             $scope.username = '';
 
             $scope.plazas = [
-                {
-                    name: "Asignar plazas a profesores",
-                    link: "asignar-plazas-profesores"
-                }, 
-                {
-                    name: "Asignar mis plazas a dependencias",
-                    link: "asignar-mis-plazas-dependencias"
-                }
+                
             ]; 
 
-            $scope.profesores = [
-                {
-                    name: "Agregar un nuevo profesor",
-                    link: "nuevo-profesor"
-                },
-                {
-                    name: "Gestionar todos los profesores",
-                    link: "gestionar-mis-profesores"
-                }
+            $scope.funcionarios = [
+                
             ];
 
-            $scope.portafolios = [
-                {
-                    name: "Gestionar mis portafolios",
-                    link: "mis-portafolios"
-                }
-            ];
-
-            $scope.portafolios = [
-                {
-                    name: "Gestionar mis portafolios",
-                    link: "mis-portafolios"
-                }
+            $scope.dependencias = [
+                
             ];
             
             $scope.administracion = [
-                {
-                    name: "Asignar plazas a dependencias",
-                    link: "asignar-plazas-dependencias"
-                },
-                {
-                    name: "Gestionar todas las plazas",
-                    link: "gestionar-plazas"
-                }, 
-                {
-                    name: "Gestionar todos los portafolios",
-                    link: "gestionar-portafolios"
-                }, 
-                {
-                    name: "Gestionar dependencias",
-                    link: "gestionar-dependencias"
-                }
+                
             ];
                     
             $scope.sesion = [

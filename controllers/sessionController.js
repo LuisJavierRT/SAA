@@ -6,12 +6,12 @@
  *Sistema de apoyo administrativo
  *Controlador de sesion
 */
-var sessionService   = require('../bussinessLogic/sessionService.js'),
-    sessionValidator = require('../bussinessLogic/dataValidator/sessionDataValidator.js');
+var sessionService   = require('../businessLogic/sessionService.js'),
+    sessionValidator = require('../businessLogic/dataValidator/sessionDataValidator.js');
 
 exports.login = function(pRequest, pResponse) {
-   
-
+    console.log("Hola");
+    console.log(pRequest.body);
 	var validInformation = sessionValidator.validSessionData(pRequest.body);
     var sessionResponse = {};
 

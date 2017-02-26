@@ -11,8 +11,8 @@ angular
   .module('saaApp', [
     'ui.router',
     'ui-notification',
-    'ui.bootstrap'
-    //'ui.navbar',
+    'ui.bootstrap',
+    'ui.navbar'
     //'ngDragDrop',
     //'angular.filter',
     //'toggle-switch',
