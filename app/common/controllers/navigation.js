@@ -26,7 +26,10 @@
             ];
 
             $scope.dependencias = [
-                
+                {
+                    name: "Gestión de Dependencias",
+                    link: "gestionar-dependencias"
+                }
             ];
             
             $scope.administracion = [

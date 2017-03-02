@@ -1,0 +1,38 @@
+<div class="row">
+  	<ol class="breadcrumb">
+	  <li class="active">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Administración</li>
+	  <li class="active">Gestionar dependencias</li>
+	</ol>
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-striped">
+                	<thead>
+						<tr>
+							<th>Código</th>
+							<th>Nombre</th>
+							<th>&nbsp;</th>
+				        </tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input class="form-control" ng-model="inputDependency.codigo" placeholder="Ingrese el código de la dependencia"></td>
+							<td><input class="form-control" ng-model="inputDependency.nombre" placeholder="Ingrese el nombre de la dependencia"></td>
+							<td style="white-space: nowrap">
+			                    <button class="btn btn-primary btn-xs"  uib-tooltip="agregar" ng-click="addDependency(inputDependency)"><span class="glyphicon glyphicon-plus"></span></button> 
+			                    <button class="btn btn-info btn-xs" uib-tooltip="actualizar" ng-click="updateDependency(inputDependency)"><span class="glyphicon glyphicon-refresh"></span></button>
+			                </td>
+						</tr>
+						<tr ng-repeat = " dependency in dependencyList">
+							<td>{{dependency.codigo}}</td> 
+							<td>{{dependency.nombre}}</td> 
+							<td style="white-space: nowrap">
+			                    <button class="btn btn-warning btn-xs"  uib-tooltip="editar" ng-click="editDependency(dependency)"><span class="glyphicon glyphicon-pencil"></span></button>  
+			                </td>
+						</tr>
+					</tbody>
+				</table>
+            </div>
+        </div>
+	</div>
+</div>
