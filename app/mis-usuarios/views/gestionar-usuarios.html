@@ -1,0 +1,54 @@
+<div class="row">
+  	<ol class="breadcrumb">
+	  <li class="active">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Administración</li>
+	  <li class="active">Gestionar Usuarios</li>
+	</ol>
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-striped">
+                	<thead>
+						<tr>
+							<th>Usuario</th>
+							<th>Contraseña</th>
+							<th>Nombre</th>
+							<th>Cédula</th>
+							<th>Correo</th>
+							<th>Tipo</th>
+							<th>Fecha Inicio Autorización</th>
+							<th>Fecha Final Autorización</th>
+							<th>&nbsp;</th>
+				        </tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input class="form-control" ng-model="inputUser.usuario" placeholder="Ingrese el usuario"></td>
+							<td><input class="form-control" ng-model="inputUser.contrasena" placeholder="Ingrese la contraseña del usuario"></td>
+							<td><input class="form-control" ng-model="inputUser.nombre" placeholder="Ingrese el nombre del usuario"></td>
+							<td><input class="form-control" ng-model="inputUser.correo" placeholder="Ingrese el correo del usuario"></td>
+							<td><input class="form-control" ng-model="inputUser.cedula" placeholder="Ingrese la cédula del usuario"></td>
+							<td><input class="form-control" ng-model="inputUser.tipo" placeholder="Ingrese el tipo de usuario (admi/coord)"></td>
+							<td style="white-space: nowrap">
+			                    <button class="btn btn-primary btn-xs"  uib-tooltip="agregar" ng-click="addUser(inputUser)"><span class="glyphicon glyphicon-plus"></span></button> 
+			                    <button class="btn btn-info btn-xs" uib-tooltip="actualizar" ng-click="updateUser(inputUser)"><span class="glyphicon glyphicon-refresh"></span></button>
+			                </td>
+						</tr>
+						<tr ng-repeat = " user in usersList">
+							<td>{{user.usuario}}</td> 
+							<td>{{user.contrasena}}</td>
+							<td>{{user.nombre}}</td>
+							<td>{{user.cedula}}</td> 
+							<td>{{user.correo}}</td> 
+							<td>{{user.tipo}}</td>
+							<td>{{user.fechaInicioAutorizacion}}</td> 
+							<td>{{user.fechaFinalAutorizacion}}</td>    
+							<td style="white-space: nowrap">
+			                    <button class="btn btn-warning btn-xs"  uib-tooltip="editar" ng-click="editUser(user)"><span class="glyphicon glyphicon-pencil"></span></button>  
+			                </td>
+						</tr>
+					</tbody>
+				</table>
+            </div>
+        </div>
+	</div>
+</div>

@@ -30,7 +30,10 @@
             ];
             
             $scope.administracion = [
-                
+                {
+                    name: "Gestión de Usuarios",
+                    link: "gestionar-mis-usuarios"
+                },
             ];
                     
             $scope.sesion = [

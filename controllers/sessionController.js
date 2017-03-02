@@ -10,8 +10,6 @@ var sessionService   = require('../businessLogic/sessionService.js'),
     sessionValidator = require('../businessLogic/dataValidator/sessionDataValidator.js');
 
 exports.login = function(pRequest, pResponse) {
-    console.log("Hola");
-    console.log(pRequest.body);
 	var validInformation = sessionValidator.validSessionData(pRequest.body);
     var sessionResponse = {};
 

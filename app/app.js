@@ -46,6 +46,12 @@ angular
         parent: 'base',
         templateUrl: 'common/views/saa.html'
       })
+      .state('gestionar-mis-usuarios', {
+          url: '/gestionar-mis-usuarios',
+          parent: 'saa',
+          templateUrl: 'mis-usuarios/views/gestionar-usuarios.html',
+          controller: 'GestionUsuariosCtrl'
+        })
   })
 
 .directive('stringToNumber', function() {
