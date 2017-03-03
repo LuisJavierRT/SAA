@@ -3,10 +3,10 @@
  *Proyecto de ingenieria de software
  *Jose Hidalgo Bonilla
  *Sistema de apoyo administrativo
- *Controlador de sesion
+ *Controlador de usuarios
 */
 var userService   = require('../businessLogic/userService.js'),
-    //sessionValidator = require('../businessLogic/dataValidator/sessionDataValidator.js');
+sessionValidator = require('../businessLogic/dataValidator/userValidator.js');
 
 exports.getAllUsers = function(dRequest, dResponse) {
     var data = userService.allUsers(function(data){

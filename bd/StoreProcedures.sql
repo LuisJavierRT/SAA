@@ -40,6 +40,53 @@ delimiter ;
 
 
 delimiter $$
+create procedure sp_getUsers ()
+    begin
+        select * from Usuario;
+    end $$
+delimiter ;
+
+-- recupera un usuario por username
+delimiter $$
+create procedure sp_getUserByUsername(
+        in _usuario varchar(30)
+    )
+begin
+    select * from Usuario where usuario = _usuario;
+end $$
+delimiter ;
+
+
+delimiter $$
+-- actualiza un usuario
+create procedure sp_actualizarUsuario(
+    IN _usuario varchar(30),
+    IN _contraseña varchar (32),
+    IN _nombre varchar(60),
+    IN _cedula varchar(11),
+    in _correo varchar(60),
+    in _tipo varchar(15),
+    in _activo bit,
+    in _fechaInicioAutorizacion datetime,
+    in _fechaFinalAutorizacion datetime
+)
+begin
+    update Usuario set     contraseña = _contraseña,
+                           nombre = _nombre,
+                           cedula = _cedula,
+                           correo = _correo,
+                           tipo = _tipo,
+                           activo = _activo,
+                           fechaInicioAutorizacion = _fechaInicioAutorizacion,
+                           fechaFinalAutorizacion = _fechaFinalAutorizacion
+    where usuario = _usuario;
+end $$
+delimiter ;
+
+
+--- -----------------------------------------------------------------///////////////////-----------________________--
+
+delimiter $$
 create procedure sp_agregarFuncionario (
 
 	in _id int,

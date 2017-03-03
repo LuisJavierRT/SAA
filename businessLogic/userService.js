@@ -5,11 +5,11 @@
  *Sistema de apoyo administrativo
 */
 var repository = require('../dataAccess/repository.js');
-var dependencyValidator = require('./dataValidator/dependencyValidator.js');
+var userValidator = require('./dataValidator/userValidator.js');
 
-exports.allDependencies = function(callback){
+exports.allUsers = function(callback){
     repository.executeQuery({
-        spName: 'sp_getDependencias',
+        spName: 'sp_getUsers',
         params: ''
     }, 
     function(success, data) {
@@ -20,7 +20,7 @@ exports.allDependencies = function(callback){
                 {
                     success: false,
                     data: null,
-                    message: "No hay registro de portafolios"
+                    message: "No hay registro de usuarios"
                 });
             }
             else{
@@ -43,9 +43,9 @@ exports.allDependencies = function(callback){
     });
 };
 
-exports.dependencyById = function(data, callback){
+exports.userByUsername = function(data, callback){
     repository.executeQuery({
-        spName: 'sp_getDependenciaById',
+        spName: 'sp_getUserByUsername',
         params: data.id
     }, 
     function(success, data) {
@@ -56,7 +56,7 @@ exports.dependencyById = function(data, callback){
                 {
                     success: false,
                     data: null,
-                    message: "No se encontró ningún registro de la dependencia solicitada"
+                    message: "No se encontró ningún registro del usuario solicitado"
                 });
             }
             else{
@@ -80,10 +80,20 @@ exports.dependencyById = function(data, callback){
     });
 };
 
-exports.addDependency = function(data, callback){
+exports.addUser = function(data, callback){
     var validationStatus;
     console.log(data);
-    validationStatus = dependencyValidator.validateDependencyCode(data.codigo);
+    validationStatus = userValidator.validateUsername(data.user);
+    if(!validationStatus.success){
+        callback(
+            {
+                success: false,
+                data: null,
+                message: validationStatus.message
+            });
+        return;
+    }/*
+    validationStatus = userValidator.validateDependencyName(data.nombre);
     if(!validationStatus.success){
         callback(
             {
@@ -93,22 +103,12 @@ exports.addDependency = function(data, callback){
             });
         return;
     }
-    validationStatus = dependencyValidator.validateDependencyName(data.nombre);
-    if(!validationStatus.success){
-        callback(
-            {
-                success: false,
-                data: null,
-                message: validationStatus.message
-            });
-        return;
-    }
-
+*/
     
 
     repository.executeQuery({
-        spName: 'sp_addDependencia',
-        params: "\"" + data.codigo + "\", \"" + data.nombre + "\""
+        spName: 'sp_agregarUsuario',
+        params: "\"" + data.usuario + "\", \"" + data.contraseña + "\", \"" + data.cedula + "\", \"" + data.nombre + "\", \"" + data.correo + "\", \"" + data.tipo + "\", \"" + data.activo + "\", \"" + data.fechaInicioAutorizacion + "\", \"" + data.fechaFinalAutorizacion + "\""
     }, 
     function(success, data) {
         if(success) {
@@ -116,7 +116,7 @@ exports.addDependency = function(data, callback){
                 {
                     success: true,
                     data: null,
-                    message: "La dependencia se agregó correctamente"
+                    message: "El usuario se agregó correctamente"
                 });
         } 
         else 
@@ -124,14 +124,14 @@ exports.addDependency = function(data, callback){
             {
                 success: false,
                 data: null,
-                message: "Por favor asegúrese de que el codigo o nombre ingresado no está en uso"
+                message: "Por favor asegúrese de que los datos ingresados estén correctos."
             });
         }
     }); 
 };
 
-exports.updateDependency = function(data, callback){
-    var nameStatus = dependencyValidator.validateDependencyName(data.nombre);
+exports.updateUser = function(data, callback){
+    var nameStatus = userValidator.validateUsername(data.user);
     if(!nameStatus.success){
         callback(
             {
@@ -142,8 +142,8 @@ exports.updateDependency = function(data, callback){
         return;
     }
     repository.executeQuery({
-        spName: 'sp_updateDependencia',
-        params: data.idDependencia + ", \"" + data.codigo + "\"" +", \"" + data.nombre + "\""
+        spName: 'sp_actualizarUsuario',
+        params: data.idUsuario + ", \""  + data.usuario + "\", \"" + data.contraseña + "\", \"" + data.cedula + "\", \"" + data.nombre + "\", \"" + data.correo + "\", \"" + data.tipo + "\", \"" + data.activo + "\", \"" + data.fechaInicioAutorizacion + "\", \"" + data.fechaFinalAutorizacion + "\""
     }, 
     function(success, data) {
         if(success) {
@@ -151,7 +151,7 @@ exports.updateDependency = function(data, callback){
                 {
                     success: true,
                     data: null,
-                    message: "La dependencia se actualizó correctamente"
+                    message: "El usuario se actualizó correctamente"
                 });
         } 
         else 
@@ -159,7 +159,7 @@ exports.updateDependency = function(data, callback){
             {
                 success: false,
                 data: null,
-                message: "Por favor asegúrese de selecionar una dependencia antes de actualizar o que el nombre de la dependencia no está en uso"
+                message: "Por favor asegúrese de selecionar un usuario antes de actualizar o que el nombre del usuario no está en uso"
             });
         }
     }); 
