@@ -27,7 +27,7 @@ angular
 
   	$scope.editUser = function(userToEdit){
       	$scope.inputUser.usuario = userToEdit.usuario;
-        $scope.inputUser.contraseña = userToEdit.contraseña;
+        $scope.inputUser.contrasena = userToEdit.contrasena;
       	$scope.inputUser.nombre = userToEdit.nombre;
         $scope.inputUser.correo = userToEdit.correo;
         $scope.inputUser.cedula = userToEdit.cedula;

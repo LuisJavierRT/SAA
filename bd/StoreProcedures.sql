@@ -13,7 +13,7 @@ begin
         set passwordMD5 = md5(pPassword);
         
         select u.usuario from Usuario u  
-        where (u.usuario = pUsuario) and (u.contraseña = passwordMD5);
+        where (u.usuario = pUsuario) and (u.contrasena = passwordMD5);
     end if;
  
 end $$
@@ -27,7 +27,7 @@ delimiter $$
 create procedure sp_agregarUsuario (
 
 	in _usuario varchar(30),
-    in _contraseña varchar(30), 
+    in _contrasena varchar(30), 
 	in _cedula varchar(11),
 	in _nombre varchar(60),
 	in _correo varchar(60),
@@ -37,8 +37,8 @@ create procedure sp_agregarUsuario (
 	in _fechaFinalAutorizacion datetime
 )
 begin
-	insert into Usuario (usuario, contraseña, cedula, nombre, correo, tipo, activo, fechaInicioAutorizacion, fechaFinalAutorizacion)
-    values (_usuario, _contraseña, _cedula, _nombre, _correo, _tipo, _activo, _fechaInicioAutorizacion, _fechaFinalAutorizacion);
+	insert into Usuario (usuario, contrasena, cedula, nombre, correo, tipo, activo, fechaInicioAutorizacion, fechaFinalAutorizacion)
+    values (_usuario, _contrasena, _cedula, _nombre, _correo, _tipo, _activo, _fechaInicioAutorizacion, _fechaFinalAutorizacion);
 end $$
 delimiter ;
 
@@ -66,7 +66,7 @@ delimiter $$
 -- Actualiza un usuario
 create procedure sp_actualizarUsuario(
     IN _usuario varchar(30),
-    IN _contraseña varchar (32),
+    IN _contrasena varchar (32),
     IN _nombre varchar(60),
     IN _cedula varchar(11),
     in _correo varchar(60),
@@ -76,7 +76,7 @@ create procedure sp_actualizarUsuario(
     in _fechaFinalAutorizacion datetime
 )
 begin
-    update Usuario set     contraseña = _contraseña,
+    update Usuario set     contrasena = _contrasena,
                            nombre = _nombre,
                            cedula = _cedula,
                            correo = _correo,
