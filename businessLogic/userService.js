@@ -82,8 +82,8 @@ exports.userByUsername = function(data, callback){
 
 exports.addUser = function(data, callback){
     var validationStatus;
-    console.log(data);
-    validationStatus = userValidator.validateUsername(data.user);
+    console.log(data)
+    validationStatus = userValidator.validateUsername(data.usuario);
     if(!validationStatus.success){
         callback(
             {
@@ -105,10 +105,20 @@ exports.addUser = function(data, callback){
     }
 */
     
+    var paramsString = '\"'+data.usuario+'\"'+','+
+                '\"'+data.contrasena+'\"'+','+
+                '\"'+data.cedula+'\"'+','+
+                '\"'+data.nombre+'\"'+','+
+                '\"'+data.correo+'\"'+','+
+                '\"'+data.tipo+'\"'+','+
+                 data.activo +','+
+                '\"'+data.fechaInicioAutorizacion+'\"'+','+
+                '\"'+data.fechaFinalAutorizacion+'\"';
 
+    console.log(paramsString);
     repository.executeQuery({
         spName: 'sp_agregarUsuario',
-        params: "\"" + data.usuario + "\", \"" + data.contraseña + "\", \"" + data.cedula + "\", \"" + data.nombre + "\", \"" + data.correo + "\", \"" + data.tipo + "\", \"" + data.activo + "\", \"" + data.fechaInicioAutorizacion + "\", \"" + data.fechaFinalAutorizacion + "\""
+        params: paramsString
     }, 
     function(success, data) {
         if(success) {
@@ -131,7 +141,7 @@ exports.addUser = function(data, callback){
 };
 
 exports.updateUser = function(data, callback){
-    var nameStatus = userValidator.validateUsername(data.user);
+    var nameStatus = userValidator.validateUsername(data.usuario);
     if(!nameStatus.success){
         callback(
             {
@@ -141,9 +151,20 @@ exports.updateUser = function(data, callback){
             });
         return;
     }
+
+    var paramsString = '\"'+data.usuario+'\"'+','+
+                        '\"'+data.contrasena+'\"'+','+
+                        '\"'+data.nombre+'\"'+','+
+                        '\"'+data.cedula+'\"'+','+
+                        '\"'+data.correo+'\"'+','+
+                        '\"'+data.tipo+'\"'+','+
+                        data.activo +','+
+                        '\"'+data.fechaInicioAutorizacion+'\"'+','+
+                        '\"'+data.fechaFinalAutorizacion+'\"';
+
     repository.executeQuery({
         spName: 'sp_actualizarUsuario',
-        params: data.idUsuario + ", \""  + data.usuario + "\", \"" + data.contraseña + "\", \"" + data.cedula + "\", \"" + data.nombre + "\", \"" + data.correo + "\", \"" + data.tipo + "\", \"" + data.activo + "\", \"" + data.fechaInicioAutorizacion + "\", \"" + data.fechaFinalAutorizacion + "\""
+        params: paramsString
     }, 
     function(success, data) {
         if(success) {

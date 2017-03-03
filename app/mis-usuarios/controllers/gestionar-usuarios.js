@@ -37,7 +37,7 @@ angular
   	};
 
   	$scope.updateUser = function (userToUpdate) {
-  		requestService.putRequest({params: userToUpdate.idDependencia, data: userToUpdate}, {url: "/users/"})
+  		requestService.putRequest({params: userToUpdate.usuario, data: userToUpdate}, {url: "/users/"})
   			.then(function(result){
 		        if (result.success == true){
 		          $scope.getUsers();
@@ -50,8 +50,9 @@ angular
 	      	});
 	};
   	
-	$scope.addUser = function (newDep) {
-		requestService.postRequest({params: "", data: newDep}, {url: "/users"})
+	$scope.addUser = function (newUser) {
+    newUser.activo = 1;
+		requestService.postRequest({params: "", data: newUser}, {url: "/users"})
 			.then(function(result){
 	        if (result.success == true){
 	          $scope.getUsers();

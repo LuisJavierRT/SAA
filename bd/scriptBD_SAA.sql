@@ -3,7 +3,7 @@ USE `mydb`;
 
 create table `mydb`.`Usuario` (
   `usuario` VARCHAR(30) NOT NULL,
-  `contraseña` VARCHAR(32) NOT NULL, 
+  `contrasena` VARCHAR(32) NOT NULL, 
   `cedula` VARCHAR(11) NOT NULL,
   `nombre` VARCHAR(60) NOT NULL,
   `correo` VARCHAR(60) NOT NULL,
@@ -305,6 +305,7 @@ create table `mydb`.`PlazaContratacion` (
 engine = innodb; 
 
 
-INSERT INTO Usuario(usuario, contraseña, cedula, nombre, correo, tipo, activo, fechaInicioAutorizacion, fechaFinalAutorizacion) 
+INSERT INTO Usuario(usuario, contrasena, cedula, nombre, correo, tipo, activo, fechaInicioAutorizacion, fechaFinalAutorizacion) 
     VALUES('jose', md5('123'), '207510507', 'Jose', 'correo', 'admi', 1, '20170102', '20170203');
 
+select * from Usuario
