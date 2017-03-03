@@ -19,6 +19,10 @@ begin
 end $$
 delimiter ; 
 
+---------------------------------------------------------------------///////////////////----------------------------------
+                                        --- PROCEDIMIENTOS PARA LOS USUARIOS -- 
+-- Agregar un nuevo usuario
+
 delimiter $$
 create procedure sp_agregarUsuario (
 
@@ -39,6 +43,7 @@ end $$
 delimiter ;
 
 
+-- Obtiene todos los usuarios
 delimiter $$
 create procedure sp_getUsers ()
     begin
@@ -46,7 +51,7 @@ create procedure sp_getUsers ()
     end $$
 delimiter ;
 
--- recupera un usuario por username
+-- Recupera un usuario por username
 delimiter $$
 create procedure sp_getUserByUsername(
         in _usuario varchar(30)
@@ -58,7 +63,7 @@ delimiter ;
 
 
 delimiter $$
--- actualiza un usuario
+-- Actualiza un usuario
 create procedure sp_actualizarUsuario(
     IN _usuario varchar(30),
     IN _contraseña varchar (32),
@@ -84,7 +89,7 @@ end $$
 delimiter ;
 
 
---- -----------------------------------------------------------------///////////////////-----------________________--
+---------------------------------------------------------------------///////////////////----------------------------------
 
 delimiter $$
 create procedure sp_agregarFuncionario (
@@ -386,3 +391,4 @@ begin
     values (_idPlaza, _idContrato, _idDependencia, _idFuncionario, _porcentajeContratacion);
 end $$
 delimiter ;
+
