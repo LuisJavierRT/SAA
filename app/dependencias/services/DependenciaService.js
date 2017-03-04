@@ -1,40 +1,40 @@
 (function(){
-	'use strict'
+	'use strict';
 	angular
 		.module("saaApp")
-		.factory("DependenciaService", ["RequestService", function(requestService) {
+		.factory("DependenciaService", ["requestService", function(requestService) {
 			var getDepen = function() {
 				var link = "/dependencies";
-				return requestService.getRequest({params: ""}, {url: '/dependencies'}).then(function(result){
+				return requestService.getRequest({params: ""}, {url: link}).then(function(result){
 	  				return result;
 	  			},
-	  			function(res){
+	  			function(result){
 	  				return result;
 	  			});
 			};
 
 			var addDepen = function(pData) {
 				var link = "/dependencies";
-				return requestService.postRequest({params: "", data: pData}, {url: '/dependencies'}).then(function(result){
+				return requestService.postRequest({params: "", data: pData}, {url: link}).then(function(result){
 	  				return result;
 	  			},
-	  			function(res){
+	  			function(result){
 	  				return result;
 	  			});
 			};
 
 			var editDepen = function(pData) {
 				var link = "/dependencies/";
-				return requestService.putRequest({params: pData.idDependencia, data: pData}, {url: '/dependencies/'}).then(function(result){
+				return requestService.putRequest({params: pData.idDependencia, data: pData}, {url: link}).then(function(result){
 	  				return result;
 	  			},
-	  			function(res){
+	  			function(result){
 	  				return result;
 	  			});
 			};
 
 			return {
-				getDependecies: function() {
+				getDependencies: function() {
 					return getDepen();
 				},
 				addDependency: function(pData) {

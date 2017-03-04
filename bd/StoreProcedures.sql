@@ -33,21 +33,23 @@ create procedure sp_agregarUsuario (
 	in _correo varchar(60),
 	in _tipo varchar(15),
     in _activo bit,
-	in _fechaInicioAutorizacion datetime ,
+	in _fechaInicioAutorizacion datetime,
 	in _fechaFinalAutorizacion datetime
 )
 begin
+	declare contrasenaMD5 varchar(32);
+    set contrasenaMD5 = md5(_contrasena);
 	insert into Usuario (usuario, contrasena, cedula, nombre, correo, tipo, activo, fechaInicioAutorizacion, fechaFinalAutorizacion)
-    values (_usuario, _contrasena, _cedula, _nombre, _correo, _tipo, _activo, _fechaInicioAutorizacion, _fechaFinalAutorizacion);
+    values (_usuario, contrasenaMD5, _cedula, _nombre, _correo, _tipo, _activo, _fechaInicioAutorizacion, _fechaFinalAutorizacion);
 end $$
 delimiter ;
 
 
 -- Obtiene todos los usuarios
 delimiter $$
-create procedure sp_getUsers ()
+create procedure sp_obtenerUsuarios()
     begin
-        select * from Usuario;
+        select * from Usuario where activo = 1;
     end $$
 delimiter ;
 
@@ -60,7 +62,6 @@ begin
     select * from Usuario where usuario = _usuario;
 end $$
 delimiter ;
-
 
 delimiter $$
 -- Actualiza un usuario
@@ -94,7 +95,6 @@ delimiter ;
 delimiter $$
 create procedure sp_agregarFuncionario (
 
-	in _id int,
 	in _cedula varchar(11), 
 	in _nombre varchar(60),
 	in _apellido1 VARCHAR(60),
@@ -104,22 +104,27 @@ create procedure sp_agregarFuncionario (
 	in _areaEspecialidad varchar(60)
 )
 begin
-	insert into Funcionario (id, cedula, nombre, apellido1, apellido2, activo, fechaNacimiento, areaEspecialidad)
-    values (_id, _cedula, _nombre, _apellido1, _apellido2, _activo, _fechaNacimiento, _areaEspecialidad);
+	insert into Funcionario (cedula, nombre, apellido1, apellido2, activo, fechaNacimiento, areaEspecialidad)
+    values (_cedula, _nombre, _apellido1, _apellido2, _activo, _fechaNacimiento, _areaEspecialidad);
 end $$
 delimiter ;
 
+delimiter $$ 
+create procedure sp_obtenerDependencias()
+	begin
+		select * from Dependencia;
+	end $$
+delimiter ;
 
 delimiter $$
 create procedure sp_agregarDependencia (
 
-	 in _id int,
 	 in _codigo varchar(10), 
 	 in _nombre varchar(60)
 )
 begin
-	insert into Dependencia (id, codigo, nombre)
-    values (_id, _codigo, _nombre);
+	insert into Dependencia (codigo, nombre)
+    values (_codigo, _nombre);
 end $$
 delimiter ;
 

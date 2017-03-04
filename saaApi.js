@@ -3,7 +3,8 @@ var express       = require('express'),
     server        = require('http').createServer(app),
     bodyParser    = require('body-parser'),
     sessionController     = require('./controllers/sessionController.js'),
-    userController = require('./controllers/userController.js');
+    userController = require('./controllers/userController.js'),
+    dependencyController = require('./controllers/dependencyController.js');
 
 
 app.use(bodyParser.urlencoded({
@@ -19,10 +20,16 @@ app.get('/saa', function(req, res) {
 });
 
 app.post('/login', sessionController.login);
+
 app.get('/users', userController.getAllUsers);
 app.get('/users/:id', userController.getUserById);
 app.post('/users', userController.addUser);
 app.put('/users/:id', userController.updateUser);
+
+app.get('/dependencies', dependencyController.getAllDependencies);
+app.get('/dependencies/:id', dependencyController.getDependencyById);
+app.post('/dependencies', dependencyController.addDependency);
+app.put('/dependencies/:id', dependencyController.updateDependency);
 
 server.listen(8080, function(){
 	console.log('Listening at port 8080...');

@@ -1,15 +1,9 @@
-/*
- *Tecnologico de Costa Rica
- *Proyecto de ingenieria de software
- *Luis Javier Ramírez Torres
- *Sistema de apoyo administrativo
-*/
 var repository = require('../dataAccess/repository.js');
-var userValidator = require('./dataValidator/userValidator.js');
+var dependencyValidator = require('./dataValidator/dependencyValidator.js');
 
-exports.allUsers = function(callback){
+exports.allDependencies = function(callback){
     repository.executeQuery({
-        spName: 'sp_obtenerUsuarios',
+        spName: 'sp_obtenerDependencias',
         params: ''
     }, 
     function(success, data) {
@@ -20,16 +14,16 @@ exports.allUsers = function(callback){
                 {
                     success: false,
                     data: null,
-                    message: "No hay registro de usuarios"
+                    message: "No hay registro de dependencias"
                 });
             }
             else{
                 callback(
-                    {
-                        success: true,
-                        message: "Operación exitosa",
-                        data: data
-                    });
+                {
+                    success: true,
+                    message: "Operación exitosa",
+                    data: data
+                });
             }
         } 
         else 
@@ -43,9 +37,9 @@ exports.allUsers = function(callback){
     });
 };
 
-exports.userByUsername = function(data, callback){
+exports.dependencyById = function(data, callback){
     repository.executeQuery({
-        spName: 'sp_getUserByUsername',
+        spName: 'sp_getDependenciaById',
         params: data.id
     }, 
     function(success, data) {
@@ -56,17 +50,17 @@ exports.userByUsername = function(data, callback){
                 {
                     success: false,
                     data: null,
-                    message: "No se encontró ningún registro del usuario solicitado"
+                    message: "No se encontró ningún registro de la dependencia solicitada"
                 });
             }
             else{
                 data = data[0];
                 callback(
-                    {
-                        success: true,
-                        data: data,
-                        message: ""
-                    });
+                {
+                    success: true,
+                    data: data,
+                    message: "Operación exitosa"
+                });
             }
         } 
         else 
@@ -80,19 +74,9 @@ exports.userByUsername = function(data, callback){
     });
 };
 
-exports.addUser = function(data, callback){
+exports.addDependency = function(data, callback){
     var validationStatus;
-    validationStatus = userValidator.validateUsername(data.usuario);
-    if(!validationStatus.success){
-        callback(
-            {
-                success: false,
-                data: null,
-                message: validationStatus.message
-            });
-        return;
-    }/*
-    validationStatus = userValidator.validateDependencyName(data.nombre);
+    validationStatus = dependencyValidator.validateDependencyCode(data.codigo);
     if(!validationStatus.success){
         callback(
             {
@@ -102,21 +86,21 @@ exports.addUser = function(data, callback){
             });
         return;
     }
-*/
-    
-    var paramsString = '\"'+data.usuario+'\"'+','+
-                '\"'+data.contrasena+'\"'+','+
-                '\"'+data.cedula+'\"'+','+
-                '\"'+data.nombre+'\"'+','+
-                '\"'+data.correo+'\"'+','+
-                '\"'+data.tipo+'\"'+','+
-                 data.activo +','+
-                '\"'+data.fechaInicioAutorizacion+'\"'+','+
-                '\"'+data.fechaFinalAutorizacion+'\"';
+    validationStatus = dependencyValidator.validateDependencyName(data.nombre);
+    if(!validationStatus.success){
+        callback(
+            {
+                success: false,
+                data: null,
+                message: validationStatus.message
+            });
+        return;
+    }
 
+    var paramsString = '\"' + data.codigo + '\"' + ',' + '\"' + data.nombre + '\"';
     console.log(paramsString);
     repository.executeQuery({
-        spName: 'sp_agregarUsuario',
+        spName: 'sp_agregarDependencia',
         params: paramsString
     }, 
     function(success, data) {
@@ -125,7 +109,7 @@ exports.addUser = function(data, callback){
                 {
                     success: true,
                     data: null,
-                    message: "El usuario se agregó correctamente"
+                    message: "La dependencia se agregó correctamente"
                 });
         } 
         else 
@@ -133,14 +117,14 @@ exports.addUser = function(data, callback){
             {
                 success: false,
                 data: null,
-                message: "Por favor asegúrese de que los datos ingresados estén correctos."
+                message: "Por favor asegúrese de que el codigo o nombre ingresado no está en uso"
             });
         }
     }); 
 };
 
-exports.updateUser = function(data, callback){
-    var nameStatus = userValidator.validateUsername(data.usuario);
+exports.updateDependency = function(data, callback){
+    var nameStatus = dependencyValidator.validateDependencyName(data.nombre);
     if(!nameStatus.success){
         callback(
             {
@@ -150,20 +134,9 @@ exports.updateUser = function(data, callback){
             });
         return;
     }
-
-    var paramsString = '\"'+data.usuario+'\"'+','+
-                        '\"'+data.contrasena+'\"'+','+
-                        '\"'+data.nombre+'\"'+','+
-                        '\"'+data.cedula+'\"'+','+
-                        '\"'+data.correo+'\"'+','+
-                        '\"'+data.tipo+'\"'+','+
-                        data.activo +','+
-                        '\"'+data.fechaInicioAutorizacion+'\"'+','+
-                        '\"'+data.fechaFinalAutorizacion+'\"';
-    console.log(paramsString)
     repository.executeQuery({
-        spName: 'sp_actualizarUsuario',
-        params: paramsString
+        spName: 'sp_updateDependencia',
+        params: data.id + ',' + '\"' + data.codigo + '\"' + ',' + '\"' + data.nombre + '\"'
     }, 
     function(success, data) {
         if(success) {
@@ -171,7 +144,7 @@ exports.updateUser = function(data, callback){
                 {
                     success: true,
                     data: null,
-                    message: "El usuario se actualizó correctamente"
+                    message: "La dependencia se actualizó correctamente"
                 });
         } 
         else 
@@ -179,7 +152,7 @@ exports.updateUser = function(data, callback){
             {
                 success: false,
                 data: null,
-                message: "Por favor asegúrese de selecionar un usuario antes de actualizar o que el nombre del usuario no está en uso"
+                message: "Por favor asegúrese de selecionar una dependencia antes de actualizar o que el nombre de la dependencia no está en uso"
             });
         }
     }); 

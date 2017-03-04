@@ -14,7 +14,6 @@ exports.login = function(pRequest, pResponse) {
     var sessionResponse = {};
 
     if(validInformation.success) {
-        //console.log(JSON.parse(pRequest));
         sessionService.validateUser(pRequest.body, function(result) {
             sessionResponse.success = result.status;
             sessionResponse.message = result.message;

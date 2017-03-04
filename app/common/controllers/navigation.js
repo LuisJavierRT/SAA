@@ -1,9 +1,7 @@
 
-'use strict';
-
 /**
  * @ngdoc Controller
- * @author Antony Duran Hernandez, Carlos Fernandez Jimenez
+ * @author Jose Alberto Hidalgo Bonilla
  * @name navigationCtrl
  * @description
  * # controller de navegacion
