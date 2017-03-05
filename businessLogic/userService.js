@@ -7,6 +7,10 @@
 var repository = require('../dataAccess/repository.js');
 var userValidator = require('./dataValidator/userValidator.js');
 
+var formatDateFromJSToMySQL = function(JSdate){
+    return new Date(JSdate).toISOString().substring(0, 10);
+};
+
 exports.allUsers = function(callback){
     repository.executeQuery({
         spName: 'sp_obtenerUsuarios',
@@ -91,8 +95,9 @@ exports.addUser = function(data, callback){
                 message: validationStatus.message
             });
         return;
-    }/*
-    validationStatus = userValidator.validateDependencyName(data.nombre);
+    }
+
+    validationStatus = userValidator.validateDates(data.fechaInicioAutorizacion, data.fechaFinalAutorizacion);
     if(!validationStatus.success){
         callback(
             {
@@ -102,8 +107,9 @@ exports.addUser = function(data, callback){
             });
         return;
     }
-*/
-    
+
+    data.fechaInicioAutorizacion = formatDateFromJSToMySQL(data.fechaInicioAutorizacion);
+    data.fechaFinalAutorizacion = formatDateFromJSToMySQL(data.fechaFinalAutorizacion);
     var paramsString = '\"'+data.usuario+'\"'+','+
                 '\"'+data.contrasena+'\"'+','+
                 '\"'+data.cedula+'\"'+','+
@@ -114,7 +120,6 @@ exports.addUser = function(data, callback){
                 '\"'+data.fechaInicioAutorizacion+'\"'+','+
                 '\"'+data.fechaFinalAutorizacion+'\"';
 
-    console.log(paramsString);
     repository.executeQuery({
         spName: 'sp_agregarUsuario',
         params: paramsString
@@ -160,7 +165,6 @@ exports.updateUser = function(data, callback){
                         data.activo +','+
                         '\"'+data.fechaInicioAutorizacion+'\"'+','+
                         '\"'+data.fechaFinalAutorizacion+'\"';
-    console.log(paramsString)
     repository.executeQuery({
         spName: 'sp_actualizarUsuario',
         params: paramsString

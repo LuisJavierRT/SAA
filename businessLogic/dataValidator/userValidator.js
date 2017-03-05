@@ -21,6 +21,17 @@ exports.validateUsername = function(user) {
 	return informationStatus;
 };
 
+exports.validateDates = function(startDate, endDate) {
+    var response = {};
+    if(startDate <= endDate){
+        response.success = true;
+    }else{
+        response.success = false;
+        response.message = "La fecha final no puede ser mayor a la fecha de registro";
+    }
+    return response;
+};
+
 /*
 exports.validateDependencyCode = function(code) {
 	var informationStatus = {};

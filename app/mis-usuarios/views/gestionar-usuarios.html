@@ -27,10 +27,28 @@
 							<td><input class="form-control" ng-model="inputUser.nombre" placeholder="Ingrese el nombre del usuario"></td>
 							<td><input class="form-control" ng-model="inputUser.cedula" placeholder="Ingrese la cédula del usuario"></td>
 							<td><input class="form-control" ng-model="inputUser.correo" placeholder="Ingrese el correo del usuario"></td>
-							<td><input class="form-control" ng-model="inputUser.tipo" placeholder="Ingrese el tipo de usuario (admi/coord)"></td>
-							<td><input class="form-control" ng-model="inputUser.fechaInicioAutorizacion" placeholder="Ingrese la fecha de inicio del usuario"></td>
-							<td><input class="form-control" ng-model="inputUser.fechaFinalAutorizacion" placeholder="Ingrese la fecha final del usuario"></td>
-							
+							<td>
+								<select class="form-control" ng-moodel="inputUser.tipo" placeholder="Ingrese el tipo de Usuario">
+									<option value="Administrador">Administrador</option>
+									<option value="Coordinador">Coordinador</option>
+								</select>
+							</td>
+							<td  class="col-xs-2">
+								<p class="input-group">
+					              <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}" ng-model="inputUser.fechaInicioAutorizacion" placeholder="Fecha Inicial" is-open="showRegDate"  date-disabled="false" current-text="Hoy" clear-text="Limpiar" close-text="Cerrar" ng-readonly="true"/>
+					              <span class="input-group-btn"> 
+					                <button type="button" class="btn btn-default" ng-click="openRegDatePickerPopUp()"><i class="glyphicon glyphicon-calendar"></i></button>
+					              </span>
+				              	</p>
+				            </td>
+				            <td  class="col-xs-2" >
+								<p class="input-group">
+					              <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}" ng-model="inputUser.fechaFinalAutorizacion" placeholder="Fecha Final" is-open="showEndDate"  date-disabled="false" current-text="Hoy" clear-text="Limpiar" close-text="Cerrar" ng-readonly="true"/>
+					              <span class="input-group-btn"> 
+					                <button type="button" class="btn btn-default" ng-click="openEndDatePickerPopUp()"><i class="glyphicon glyphicon-calendar"></i></button>
+					              </span>
+				              	</p>
+				            </td>
 							<td style="white-space: nowrap">
 			                    <button class="btn btn-primary btn-xs"  uib-tooltip="agregar" ng-click="addUser(inputUser)"><span class="glyphicon glyphicon-plus"></span></button> 
 			                    <button class="btn btn-info btn-xs" uib-tooltip="actualizar" ng-click="updateUser(inputUser)"><span class="glyphicon glyphicon-refresh"></span></button>
@@ -43,8 +61,8 @@
 							<td>{{user.cedula}}</td> 
 							<td>{{user.correo}}</td> 
 							<td>{{user.tipo}}</td>
-							<td>{{user.fechaInicioAutorizacion}}</td> 
-							<td>{{user.fechaFinalAutorizacion}}</td>    
+							<td>{{user.fechaInicioAutorizacion | date: 'dd-MM-yyyy'}}</td> 
+							<td>{{user.fechaFinalAutorizacion | date: 'dd-MM-yyyy'}}</td>    
 							<td style="white-space: nowrap">
 			                    <button class="btn btn-warning btn-xs"  uib-tooltip="editar" ng-click="editUser(user)"><span class="glyphicon glyphicon-pencil"></span></button>  
 			                </td>
