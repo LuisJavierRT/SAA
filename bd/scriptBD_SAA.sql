@@ -14,6 +14,16 @@ create table `mydb`.`Usuario` (
   PRIMARY KEY (`usuario`))
 ENGINE = InnoDB;
 
+create table `mydb`.`HistorialLogin` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+    `usuario` varchar(30) not null,
+    `fecha` varchar(20) not null,
+    primary key (`id`),
+    CONSTRAINT `fk_usuario_historial`
+		FOREIGN KEY (`usuario`)
+		REFERENCES `Usuario` (`usuario`))
+ENGINE = InnoDB;
+
 create table `mydb`.`Funcionario` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `cedula` VARCHAR(11) NOT NULL, 
@@ -31,6 +41,22 @@ create table `mydb`.`Dependencia` (
   `codigo` VARCHAR(10) NOT NULL, 
   `nombre` VARCHAR(60) NOT NULL,
   PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+create table `mydb`.`HistorialGestionDependencia` (
+	`id` int not null auto_increment,
+    `usuario` varchar(30) not null,
+    `idDependencia` int not null,
+    `fecha` varchar(20) not null,
+    `accion` char not null, /* 'i' = insertar / 'm' = modificar / 'd' = deshabilitar */
+    primary key (`id`),
+    constraint `fk_usuario_dependencia_historial`
+		foreign key (`usuario`)
+        references `Usuario` (`usuario`),
+        
+	constraint `fk_dependencia_historial`
+		foreign key (`idDependencia`)
+        references `Dependencia` (`id`))
 ENGINE = InnoDB;
 
 create table `mydb`.`Pertenece` (

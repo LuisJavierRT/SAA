@@ -17,10 +17,17 @@ exports.validateUser = function(data, callback){
         if(success) {
             var data = data[0];//verificar estado
             if(data.length > 0) {
-                callback({
-                    status: true, 
-                    message: 'Usuario válido',
-                    data: data[0]
+                var paramsString2 = '\"' + data[0].usuario + '\"';
+                repository.executeQuery({
+                    spName: 'sp_historialLogin',
+                    params: paramsString2
+                },
+                function(success2, data2) {
+                    callback({
+                        status: true, 
+                        message: 'Usuario válido',
+                        data: data[0]
+                    });
                 });
             }
             else {

@@ -2,7 +2,7 @@
 	'use strict';
 	angular
 		.module('saaApp')
-		.controller('GestionDependenciasCtrl', ['$scope', 'DependenciaService', 'messageHandlerService', function($scope, dependenciaService, messageHandlerService){
+		.controller('GestionDependenciasCtrl', ['$scope', 'DependenciaService', 'messageHandlerService', 'shareSessionService', function($scope, dependenciaService, messageHandlerService, shareSessionService){
 			$scope.dependencyList = {};
 		  	$scope.inputDependency = {};
 		  	$scope.getDependencies = function(){
@@ -37,6 +37,7 @@
 			};
 		  	
 			$scope.addDependency = function (newDep) {
+				newDep.usuario = $scope.getUser().usuario;
 				dependenciaService.addDependency(newDep).then(function(result) {
 					if(result.success) {
 						$scope.getDependencies();
@@ -47,6 +48,10 @@
 						messageHandlerService.notifyError(null, result.message);
 					}
 				});
+			};
+
+			$scope.getUser = function() {
+				return shareSessionService.getSession();
 			};
 
 

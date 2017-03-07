@@ -98,19 +98,26 @@ exports.addDependency = function(data, callback){
     }
 
     var paramsString = '\"' + data.codigo + '\"' + ',' + '\"' + data.nombre + '\"';
-    console.log(paramsString);
     repository.executeQuery({
         spName: 'sp_agregarDependencia',
         params: paramsString
     }, 
-    function(success, data) {
+    function(success, dataQuery) {
+        var paramsString2 = '\"' + data.usuario + '\"' + ',' + '\"' + dataQuery[0][0].id + '\"' + ',' + '\"' + 'i' + '\"';
         if(success) {
-            callback(
+            repository.executeQuery({
+                spName: 'sp_historialGestionDependencia',
+                params:  paramsString2
+            },
+            function(success2, data2) {
+                console.log(success2);
+                callback(
                 {
                     success: true,
                     data: null,
                     message: "La dependencia se agregó correctamente"
                 });
+            });
         } 
         else 
         {callback(

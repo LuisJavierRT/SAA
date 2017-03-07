@@ -19,6 +19,15 @@ begin
 end $$
 delimiter ; 
 
+delimiter $$
+create procedure sp_historialLogin (
+	in _usuario varchar(30)
+)
+begin
+	insert into HistorialLogin (usuario, fecha)
+    values (_usuario, NOW());
+end $$
+delimiter ;
 ---------------------------------------------------------------------///////////////////----------------------------------
                                         --- PROCEDIMIENTOS PARA LOS USUARIOS -- 
 -- Agregar un nuevo usuario
@@ -125,10 +134,22 @@ create procedure sp_agregarDependencia (
 begin
 	insert into Dependencia (codigo, nombre)
     values (_codigo, _nombre);
+    
+    select max(id) as id from Dependencia;
 end $$
 delimiter ;
 
-
+delimiter $$
+create procedure sp_historialGestionDependencia (
+	in _usuario varchar(30),
+    in _idDependencia int,
+    in _accion char
+)
+begin
+	insert into HistorialGestionDependencia (usuario, idDependencia, fecha, accion)
+    values (_usuario, _idDependencia, NOW(), _accion);
+end $$
+delimiter ;
 
 delimiter $$
 create procedure sp_agregarPerteneceFuncionarioDependencia (
