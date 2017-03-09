@@ -156,6 +156,19 @@ exports.updateUser = function(data, callback){
         return;
     }
 
+    validationStatus = userValidator.validateDates(data.fechaInicioAutorizacion, data.fechaFinalAutorizacion);
+    if(!validationStatus.success){
+        callback(
+            {
+                success: false,
+                data: null,
+                message: validationStatus.message
+            });
+        return;
+    }
+    
+    data.fechaInicioAutorizacion = formatDateFromJSToMySQL(data.fechaInicioAutorizacion);
+    data.fechaFinalAutorizacion = formatDateFromJSToMySQL(data.fechaFinalAutorizacion);
     var paramsString = '\"'+data.usuario+'\"'+','+
                         '\"'+data.contrasena+'\"'+','+
                         '\"'+data.nombre+'\"'+','+
@@ -165,6 +178,7 @@ exports.updateUser = function(data, callback){
                         data.activo +','+
                         '\"'+data.fechaInicioAutorizacion+'\"'+','+
                         '\"'+data.fechaFinalAutorizacion+'\"';
+    console.log(paramsString);
     repository.executeQuery({
         spName: 'sp_actualizarUsuario',
         params: paramsString

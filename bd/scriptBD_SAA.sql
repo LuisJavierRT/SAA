@@ -189,7 +189,6 @@ create table `mydb`.`DatosResolucionPlaza` (
 )
 engine = innodb;
 
-
 create table `mydb`.`PlazaResolucionRectoriaPlaza` (
 	`idPlaza` int not null,
     `idResolucionRectoriaPlaza` int not null,
@@ -332,3 +331,6 @@ engine = innodb;
 
 INSERT INTO Usuario(usuario, contrasena, cedula, nombre, correo, tipo, activo, fechaInicioAutorizacion, fechaFinalAutorizacion) 
     VALUES('jose', md5('123'), '207510507', 'Jose', 'correo', 'admi', 1, '2017-01-02', '2017-02-03');
+    
+INSERT INTO Usuario(usuario, contrasena, cedula, nombre, correo, tipo, activo, fechaInicioAutorizacion, fechaFinalAutorizacion) 
+    VALUES('jose4"gmail.com', md5('josealberto123'), '207510507', 'Jose Alberto Hidalgo Bonilla', 'jose-hidalgo"costarricense.cr', 'admi', 1, '2017-01-02', '2017-02-03');

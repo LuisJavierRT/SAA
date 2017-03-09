@@ -38,10 +38,10 @@
           parent: 'base',
           templateUrl: 'common/views/saa.html'
         })
-        .state('gestionar-mis-usuarios', {
-          url: '/gestionar-mis-usuarios',
+        .state('gestionar-usuarios', {
+          url: '/gestionar-usuarios',
           parent: 'saa',
-          templateUrl: 'mis-usuarios/views/gestionar-usuarios.html',
+          templateUrl: 'usuarios/views/gestionar-usuarios.html',
           controller: 'GestionUsuariosCtrl'
         })
         .state('gestionar-dependencias', {
@@ -49,6 +49,12 @@
           parent: 'saa',
           templateUrl: 'dependencias/views/gestionar-dependencias.html',
           controller: 'GestionDependenciasCtrl'
+        })
+        .state('cambiar-contrasena', {
+          url: '/cambiar-contrasena',
+          parent: 'saa',
+          templateUrl: 'usuarios/views/cambiar-contrasena.html',
+          controller: 'PasswordController'
         })
     })
 

@@ -33,11 +33,15 @@
             $scope.administracion = [
                 {
                     name: "Gestión de Usuarios",
-                    link: "gestionar-mis-usuarios"
+                    link: "gestionar-usuarios"
                 },
             ];
                     
             $scope.sesion = [
+                {
+                    name: "Cambiar Contraseña",
+                    link: "cambiar-contrasena"
+                },
                 {
                     name: "Cerrar Sesión",
                     link: "logout"

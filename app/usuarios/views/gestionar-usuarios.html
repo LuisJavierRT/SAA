@@ -6,11 +6,10 @@
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-body">
-                <table class="table table-striped">
+                <table class="table table-striped table-hover">
                 	<thead>
 						<tr>
 							<th>Usuario</th>
-							<th>Contraseña</th>
 							<th>Nombre</th>
 							<th>Cédula</th>
 							<th>Correo</th>
@@ -23,7 +22,6 @@
 					<tbody>
 						<tr>
 							<td><input class="form-control" ng-model="inputUser.usuario" placeholder="Ingrese el usuario"></td>
-							<td><input class="form-control" ng-model="inputUser.contrasena" placeholder="Ingrese la contraseña del usuario"></td>
 							<td><input class="form-control" ng-model="inputUser.nombre" placeholder="Ingrese el nombre del usuario"></td>
 							<td><input class="form-control" ng-model="inputUser.cedula" placeholder="Ingrese la cédula del usuario"></td>
 							<td><input class="form-control" ng-model="inputUser.correo" placeholder="Ingrese el correo del usuario"></td>
@@ -54,9 +52,8 @@
 			                    <button class="btn btn-info btn-xs" uib-tooltip="actualizar" ng-click="updateUser(inputUser)"><span class="glyphicon glyphicon-refresh"></span></button>
 			                </td>
 						</tr>
-						<tr ng-repeat = "user in usersList">
+						<tr ng-repeat="user in usersList" ng-click="editUser(user)" style="cursor:pointer">
 							<td>{{user.usuario}}</td> 
-							<td>{{user.contrasena}}</td>
 							<td>{{user.nombre}}</td>
 							<td>{{user.cedula}}</td> 
 							<td>{{user.correo}}</td> 
@@ -64,7 +61,7 @@
 							<td>{{user.fechaInicioAutorizacion | date: 'dd-MM-yyyy'}}</td> 
 							<td>{{user.fechaFinalAutorizacion | date: 'dd-MM-yyyy'}}</td>    
 							<td style="white-space: nowrap">
-			                    <button class="btn btn-warning btn-xs"  uib-tooltip="editar" ng-click="editUser(user)"><span class="glyphicon glyphicon-pencil"></span></button>  
+			               		<button class="btn btn-danger btn-xs"  uib-tooltip="deshabilitar" ng-click="updatePassword(user)"><span class="glyphicon glyphicon-trash"></span></button> 
 			                </td>
 						</tr>
 					</tbody>

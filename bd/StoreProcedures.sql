@@ -73,7 +73,6 @@ end $$
 delimiter ;
 
 delimiter $$
--- Actualiza un usuario
 create procedure sp_actualizarUsuario(
     IN _usuario varchar(30),
     IN _contrasena varchar (32),
@@ -86,8 +85,7 @@ create procedure sp_actualizarUsuario(
     in _fechaFinalAutorizacion datetime
 )
 begin
-    update Usuario set     contrasena = _contrasena,
-                           nombre = _nombre,
+    update Usuario set     nombre = _nombre,
                            cedula = _cedula,
                            correo = _correo,
                            tipo = _tipo,
@@ -97,7 +95,6 @@ begin
     where usuario = _usuario;
 end $$
 delimiter ;
-
 
 ---------------------------------------------------------------------///////////////////----------------------------------
 
