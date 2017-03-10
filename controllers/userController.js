@@ -5,8 +5,7 @@
  *Sistema de apoyo administrativo
  *Controlador de usuarios
 */
-var userService   = require('../businessLogic/userService.js'),
-sessionValidator = require('../businessLogic/dataValidator/userValidator.js');
+var userService   = require('../businessLogic/userService.js');
 
 exports.getAllUsers = function(dRequest, dResponse) {
     var data = userService.allUsers(function(data){
@@ -15,7 +14,6 @@ exports.getAllUsers = function(dRequest, dResponse) {
 };
 
 exports.getUserById = function(dRequest, dResponse) {
-    console.log(dRequest);
     var data = userService.userById(dRequest.params, function(data){
         dResponse.send(data);
     });
@@ -29,6 +27,12 @@ exports.addUser= function(dRequest, dResponse) {
 
 exports.updateUser= function(dRequest, dResponse) {
     var data = userService.updateUser(dRequest.body, function(data) {
+        dResponse.send(data);
+    });
+};
+
+exports.changePassword = function(dRequest, dResponse) {
+    var data = userService.changePassword(dRequest.body, function(data) {
         dResponse.send(data);
     });
 };

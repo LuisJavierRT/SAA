@@ -28,7 +28,7 @@
 				return requestService.putRequest({params: pData.usuario, data: pData}, {url: link}).then(function(result){
 	  				return result;
 	  			},
-	  			function(res){
+	  			function(result){
 	  				return result;
 	  			});
 			};
@@ -43,6 +43,6 @@
 				editUser: function(pData) {
 					return editU(pData);
 				}
-			}
+			};
 		}]);
 })();

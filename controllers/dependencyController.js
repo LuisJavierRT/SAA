@@ -8,7 +8,6 @@ exports.getAllDependencies = function(dRequest, dResponse) {
 };
 
 exports.getDependencyById = function(dRequest, dResponse) {
-    console.log(dRequest);
     var data = dependencyService.dependencyById(dRequest.params, function(data){
         dResponse.send(data);
     });

@@ -178,7 +178,6 @@ exports.updateUser = function(data, callback){
                         data.activo +','+
                         '\"'+data.fechaInicioAutorizacion+'\"'+','+
                         '\"'+data.fechaFinalAutorizacion+'\"';
-    console.log(paramsString);
     repository.executeQuery({
         spName: 'sp_actualizarUsuario',
         params: paramsString
@@ -198,6 +197,54 @@ exports.updateUser = function(data, callback){
                 success: false,
                 data: null,
                 message: "Por favor asegúrese de selecionar un usuario antes de actualizar o que el nombre del usuario no está en uso"
+            });
+        }
+    }); 
+};
+
+exports.changePassword = function(data, callback) {
+    var passwordsStatus = userValidator.validatePasswords(data.currentPassword, data.newPassword, data.newPassword2);
+    if(!passwordsStatus.success){
+        callback(
+            {
+                success: false,
+                data: null,
+                message: passwordsStatus.message
+            });
+        return;
+    }
+
+    var paramsString = '\"' + data.usuario + '\"' + ',' + '\"' + data.currentPassword + '\"' + ',' + '\"' + data.newPassword + '\"';
+    repository.executeQuery({
+        spName: 'sp_cambiarContrasena',
+        params: paramsString
+    }, 
+    function(success, data) {
+        if(success) {
+            data = data[0][0].valid;
+            if(data == 1) {
+                callback(
+                {
+                    success: true,
+                    data: null,
+                    message: "La contraseña se actualizó correctamente"
+                });
+            }
+            else{
+                callback(
+                {
+                    success: false,
+                    data: null,
+                    message: "La contraseña actual es incorrecta"
+                });
+            }
+        } 
+        else 
+        {callback(
+            {
+                success: false,
+                data: null,
+                message: "Error actualizando la contraseña"
             });
         }
     }); 

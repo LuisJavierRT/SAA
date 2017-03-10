@@ -53,7 +53,7 @@
 
       $scope.updateUser = function (userToUpdate) {
         usuarioService.editUser(userToUpdate).then(function(result) {
-          if (result.success == true){
+          if (result.success){
             $scope.getUsers();
             messageHandlerService.notifySuccess(null, result.message)
             $scope.inputUser = {};
@@ -66,7 +66,6 @@
       
       $scope.addUser = function (newUser) {
         newUser.activo = 1;
-        console.log(newUser);
         usuarioService.addUser(newUser).then(function(result) {
           if (result.success == true){
             $scope.getUsers();

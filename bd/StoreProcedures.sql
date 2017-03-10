@@ -1,6 +1,5 @@
 use `mydb`
 
-#SP para validar un usuario en el sistema
 delimiter $$
 create procedure sp_login (
     in pUsuario varchar(30),
@@ -28,9 +27,28 @@ begin
     values (_usuario, NOW());
 end $$
 delimiter ;
----------------------------------------------------------------------///////////////////----------------------------------
-                                        --- PROCEDIMIENTOS PARA LOS USUARIOS -- 
--- Agregar un nuevo usuario
+
+delimiter $$
+create procedure sp_cambiarContrasena (
+	in _usuario varchar(30),
+    in _contrasenaActual varchar(32),
+    in _contrasenaNueva varchar(32)
+)
+begin
+	declare valid int;
+	declare contrasenaNuevaMD5 varchar(32);
+    declare contrasenaActualMD5 varchar(32);
+    set contrasenaNuevaMD5 = md5(_contrasenaNueva);
+    set contrasenaActualMD5 = md5(_contrasenaActual);
+    if exists(select * from Usuario where usuario = _usuario and contrasena = contrasenaActualMD5) then
+		update Usuario set contrasena = contrasenaNuevaMD5 where usuario = _usuario;
+        set valid = 1;
+	else
+		set valid = 0;
+	end if;
+    select valid;
+end $$
+delimiter ;
 
 delimiter $$
 create procedure sp_agregarUsuario (

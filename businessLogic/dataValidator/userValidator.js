@@ -32,6 +32,30 @@ exports.validateDates = function(startDate, endDate) {
     return response;
 };
 
+exports.validatePasswords = function(currentPassword, password1, password2) {
+	var response = {};
+	if(currentPassword == undefined || currentPassword == "undefined" || currentPassword == "") {
+		response.success = false;
+		response.message = "El campo de la contraseña actual está en blanco";
+	}
+	else if(password1 == undefined || password1 == "undefined" || password1 == ""){
+		response.success = false;
+		response.message = "El campo de la nueva contraseña está en blanco";
+	}
+	else if(password2 == undefined || password2 == "undefined" || password2 == "") {
+		response.success = false;
+		response.message = "El campo de confirmar la nueva contraseña está en blanco";
+	}
+	else if (password1 != password2) {
+		response.success = false;
+		response.message = "Las nuevas contraseñas no coinciden";
+	}
+	else {
+		response.success = true;
+	}
+	return response;
+};
+
 /*
 exports.validateDependencyCode = function(code) {
 	var informationStatus = {};
