@@ -10,7 +10,7 @@
    */
   angular
     .module('saaApp')
-    .controller('GestionUsuariosCtrl', ["$scope", "UsuarioService", "messageHandlerService", function ($scope, usuarioService, messageHandlerService) {
+    .controller('GestionUsuariosCtrl', ["$scope", "UsuarioService", "messageHandlerService" , "shareSessionService", function ($scope, usuarioService, messageHandlerService, shareSessionService) {
       $scope.dateFormat = "dd-MM-yyyy";
       $scope.usersList = {};
       $scope.inputUser = {};
@@ -41,7 +41,6 @@
 
       $scope.editUser = function(userToEdit){
         $scope.inputUser.usuario = userToEdit.usuario;
-        $scope.inputUser.contrasena = userToEdit.contrasena;
         $scope.inputUser.nombre = userToEdit.nombre;
         $scope.inputUser.correo = userToEdit.correo;
         $scope.inputUser.cedula = userToEdit.cedula;
@@ -65,7 +64,9 @@
       };
       
       $scope.addUser = function (newUser) {
+        newUser.usuarioActual = $scope.getUser().usuario;
         newUser.activo = 1;
+        newUser.contrasena = newUser.usuario;
         usuarioService.addUser(newUser).then(function(result) {
           if (result.success == true){
             $scope.getUsers();
@@ -80,6 +81,10 @@
             messageHandlerService.notifyError(null, result.message);
           }
         });
+      };
+
+      $scope.getUser = function() {
+        return shareSessionService.getSession();
       };
 
       $scope.getUsers();

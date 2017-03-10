@@ -1,5 +1,6 @@
 use `mydb`
 
+
 delimiter $$
 create procedure sp_login (
     in pUsuario varchar(30),
@@ -27,6 +28,8 @@ begin
     values (_usuario, NOW());
 end $$
 delimiter ;
+
+
 
 delimiter $$
 create procedure sp_cambiarContrasena (
@@ -68,6 +71,9 @@ begin
     set contrasenaMD5 = md5(_contrasena);
 	insert into Usuario (usuario, contrasena, cedula, nombre, correo, tipo, activo, fechaInicioAutorizacion, fechaFinalAutorizacion)
     values (_usuario, contrasenaMD5, _cedula, _nombre, _correo, _tipo, _activo, _fechaInicioAutorizacion, _fechaFinalAutorizacion);
+    
+    select max(usuario) as usuario from Usuario;
+    
 end $$
 delimiter ;
 
@@ -111,6 +117,18 @@ begin
                            fechaInicioAutorizacion = _fechaInicioAutorizacion,
                            fechaFinalAutorizacion = _fechaFinalAutorizacion
     where usuario = _usuario;
+end $$
+delimiter ;
+
+delimiter $$
+create procedure sp_historialGestionUsuario (
+	in _usuarioEjecutador varchar(30),
+    in _usuarioGestionado varchar(30),
+    in _accion char
+)
+begin
+	insert into HistorialGestionUsuario (usuarioEjecutador, usuarioGestionado, fecha, accion)
+    values (_usuarioEjecutador, _usuarioGestionado, NOW(), _accion);
 end $$
 delimiter ;
 

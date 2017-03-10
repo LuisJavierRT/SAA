@@ -124,14 +124,23 @@ exports.addUser = function(data, callback){
         spName: 'sp_agregarUsuario',
         params: paramsString
     }, 
-    function(success, data) {
+    function(success, dataQuery) {
+        console.log(data);
+        var paramsString2 = '\"' + data.usuarioActual + '\"' + ',' + '\"' + data.usuario + '\"' + ',' + '\"' + 'i' + '\"';
         if(success) {
-            callback(
+            repository.executeQuery({
+                spName: 'sp_historialGestionUsuario',
+                params:  paramsString2
+            },
+            function(success2, data2) {
+                console.log(success2);
+                callback(
                 {
                     success: true,
                     data: null,
                     message: "El usuario se agregó correctamente"
                 });
+            });
         } 
         else 
         {callback(

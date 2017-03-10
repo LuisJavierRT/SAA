@@ -24,6 +24,22 @@ create table `mydb`.`HistorialLogin` (
 		REFERENCES `Usuario` (`usuario`))
 ENGINE = InnoDB;
 
+create table `mydb`.`HistorialGestionUsuario` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+    `usuarioEjecutador` varchar(30) not null,
+    `usuarioGestionado` varchar(30) not null,
+    `fecha` varchar(20) not null,
+    `accion` char not null, /* 'i' = insertar / 'm' = modificar / 'd' = deshabilitar */
+    primary key (`id`),
+    CONSTRAINT `fk_usuarioEjec_gestion_usuario_historial`
+		FOREIGN KEY (`usuarioEjecutador`)
+		REFERENCES `Usuario` (`usuario`),
+	
+    CONSTRAINT `fk_usuarioGest_gestion_usuario_historial`
+		FOREIGN KEY (`usuarioGestionado`)
+		REFERENCES `Usuario` (`usuario`))
+ENGINE = InnoDB;
+
 create table `mydb`.`Funcionario` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `cedula` VARCHAR(11) NOT NULL, 
