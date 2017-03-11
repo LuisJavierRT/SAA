@@ -86,7 +86,7 @@ exports.userByUsername = function(data, callback){
 
 exports.addUser = function(data, callback){
     var validationStatus;
-    validationStatus = userValidator.validateUsername(data.usuario);
+    validationStatus = userValidator.validateData(data);
     if(!validationStatus.success){
         callback(
             {
@@ -152,7 +152,7 @@ exports.addUser = function(data, callback){
 };
 
 exports.updateUser = function(data, callback){
-    var nameStatus = userValidator.validateUsername(data.usuario);
+    var nameStatus = userValidator.validateData(data);
     if(!nameStatus.success){
         callback(
             {

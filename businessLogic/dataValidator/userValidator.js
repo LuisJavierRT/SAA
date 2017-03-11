@@ -5,22 +5,6 @@
  *Sistema de apoyo administrativo
  *Validador de datos de usuarios
 */
-exports.validateUsername = function(user) {
-	var informationStatus = {};
-	if(user == undefined || user == "undefined") {
-		informationStatus.success = false;
-		informationStatus.message = 'Usuario inválido';
-	}
-	else if(user.replace(" ", "").length == 0 ) {
-		informationStatus.success = false;
-		informationStatus.message = 'Usuario inválido';
-	}
-	else {
-		informationStatus.success = true;
-	}
-	return informationStatus;
-};
-
 exports.validateDates = function(startDate, endDate) {
     var response = {};
     if(startDate <= endDate){
@@ -31,6 +15,34 @@ exports.validateDates = function(startDate, endDate) {
     }
     return response;
 };
+
+exports.validateData = function(user){
+	var informationStatus = {};
+	if(user.usuario == undefined || user.usuario == "undefined" || user.usuario.replace(" ", "").length == 0) {
+		informationStatus.success = false;
+		informationStatus.message = 'Usuario inválido';
+	}
+	else if (user.nombre == undefined || user.nombre == "undefined" || user.nombre.replace(" ", "").length == 0){
+		informationStatus.success = false;
+		informationStatus.message = 'Nombre inválido';
+	}
+	else if (user.cedula == undefined || user.cedula == "undefined" || user.cedula.replace(" ", "").length == 0){
+		informationStatus.success = false;
+		informationStatus.message = 'Cédula inválida';
+	}
+	else if (user.correo == undefined || user.nombre == "undefined" || user.correo.replace(" ", "").length == 0){
+		informationStatus.success = false;
+		informationStatus.message = 'Correo inválido';
+	}
+	else if (user.tipo == undefined || user.tipo == "undefined" || user.tipo.replace(" ", "").length == 0){
+		informationStatus.success = false;
+		informationStatus.message = 'Tipo inválido';
+	}
+	else {
+		informationStatus.success = true;
+	}
+	return informationStatus;
+}
 
 exports.validatePasswords = function(currentPassword, password1, password2) {
 	var response = {};

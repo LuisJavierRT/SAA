@@ -1,6 +1,5 @@
 use `mydb`
 
-
 delimiter $$
 create procedure sp_login (
     in pUsuario varchar(30),
