@@ -103,14 +103,13 @@ exports.addDependency = function(data, callback){
         params: paramsString
     }, 
     function(success, dataQuery) {
-        var paramsString2 = '\"' + data.usuario + '\"' + ',' + '\"' + dataQuery[0][0].id + '\"' + ',' + '\"' + 'i' + '\"';
         if(success) {
+            var paramsString2 = '\"' + data.usuario + '\"' + ',' + '\"' + dataQuery[0][0].id + '\"' + ',' + '\"' + 'i' + '\"';
             repository.executeQuery({
                 spName: 'sp_historialGestionDependencia',
                 params:  paramsString2
             },
             function(success2, data2) {
-                console.log(success2);
                 callback(
                 {
                     success: true,
@@ -131,28 +130,47 @@ exports.addDependency = function(data, callback){
 };
 
 exports.updateDependency = function(data, callback){
-    var nameStatus = dependencyValidator.validateDependencyName(data.nombre);
-    if(!nameStatus.success){
+    var validationStatus;
+    validationStatus = dependencyValidator.validateDependencyCode(data.codigo);
+    if(!validationStatus.success){
         callback(
             {
                 success: false,
                 data: null,
-                message: nameStatus.message
+                message: validationStatus.message
             });
         return;
     }
+    validationStatus = dependencyValidator.validateDependencyName(data.nombre);
+    if(!validationStatus.success){
+        callback(
+            {
+                success: false,
+                data: null,
+                message: validationStatus.message
+            });
+        return;
+    }
+    var paramsString = data.id + ',' + '\"' + data.codigo + '\"' + ',' + '\"' + data.nombre + '\"';
     repository.executeQuery({
-        spName: 'sp_updateDependencia',
-        params: data.id + ',' + '\"' + data.codigo + '\"' + ',' + '\"' + data.nombre + '\"'
+        spName: 'sp_actualizarDependencia',
+        params: paramsString
     }, 
-    function(success, data) {
+    function(success, dataQuery) {
         if(success) {
-            callback(
+            var paramsString2 = '\"' + data.usuario + '\"' + ',' + '\"' + data.id+ '\"' + ',' + '\"' + 'm' + '\"';
+            repository.executeQuery({
+                spName: 'sp_historialGestionDependencia',
+                params:  paramsString2
+            },
+            function(success2, data2) {
+                callback(
                 {
                     success: true,
                     data: null,
-                    message: "La dependencia se actualizó correctamente"
+                    message: "La dependencia se agregó correctamente"
                 });
+            });
         } 
         else 
         {callback(

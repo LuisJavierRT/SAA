@@ -6,7 +6,7 @@
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-body">
-                <table class="table table-striped">
+                <table class="table table-striped table-hover">
                 	<thead>
 						<tr>
 							<th>Código</th>
@@ -23,11 +23,11 @@
 			                    <button class="btn btn-info btn-xs" uib-tooltip="actualizar" ng-click="updateDependency(inputDependency)"><span class="glyphicon glyphicon-refresh"></span></button>
 			                </td>
 						</tr>
-						<tr ng-repeat = " dependency in dependencyList">
+						<tr ng-repeat = " dependency in dependencyList" ng-click="editDependency(dependency)" style="cursor:pointer">
 							<td>{{dependency.codigo}}</td> 
 							<td>{{dependency.nombre}}</td> 
 							<td style="white-space: nowrap">
-			                    <button class="btn btn-warning btn-xs"  uib-tooltip="editar" ng-click="editDependency(dependency)"><span class="glyphicon glyphicon-pencil"></span></button>  
+			                    <button class="btn btn-danger btn-xs"  uib-tooltip="deshabilitar" ng-click=""><span class="glyphicon glyphicon-trash"></span></button>  
 			                </td>
 						</tr>
 					</tbody>

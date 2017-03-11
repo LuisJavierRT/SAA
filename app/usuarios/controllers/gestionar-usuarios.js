@@ -16,6 +16,7 @@
       $scope.inputUser = {};
       $scope.showRegDate = false;
       $scope.showEndDate = false;
+      $scope.user = {};
 
       $scope.openRegDatePickerPopUp = function(){
         $scope.showRegDate = !$scope.showRegDate;
@@ -51,6 +52,7 @@
       };
 
       $scope.updateUser = function (userToUpdate) {
+        userToUpdate.usuarioActual = $scope.user.usuario;
         usuarioService.editUser(userToUpdate).then(function(result) {
           if (result.success){
             $scope.getUsers();
@@ -64,7 +66,7 @@
       };
       
       $scope.addUser = function (newUser) {
-        newUser.usuarioActual = $scope.getUser().usuario;
+        newUser.usuarioActual = $scope.user.usuario;
         newUser.activo = 1;
         newUser.contrasena = newUser.usuario;
         usuarioService.addUser(newUser).then(function(result) {
@@ -84,9 +86,10 @@
       };
 
       $scope.getUser = function() {
-        return shareSessionService.getSession();
+        $scope.user = shareSessionService.getSession();
       };
 
+      $scope.getUser();
       $scope.getUsers();
   }]);
 })();

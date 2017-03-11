@@ -5,6 +5,7 @@
 		.controller('GestionDependenciasCtrl', ['$scope', 'DependenciaService', 'messageHandlerService', 'shareSessionService', function($scope, dependenciaService, messageHandlerService, shareSessionService){
 			$scope.dependencyList = {};
 		  	$scope.inputDependency = {};
+		  	$scope.user = {};
 		  	$scope.getDependencies = function(){
 		  		dependenciaService.getDependencies().then(function(result){
 		  			if (result.success){
@@ -24,20 +25,21 @@
 		  	};
 
 		  	$scope.updateDependency = function (dependencyToUpdate) {
+		  		dependencyToUpdate.usuario = $scope.user.usuario;
 		  		dependenciaService.editDependency(dependencyToUpdate).then(function(result) {
 		  			if (result.success){
-			          $scope.getDependencies();
-			          messageHandlerService.notifySuccess(null, result.message)
-			          $scope.inputDependency = {};
+			        	$scope.getDependencies();
+			          	messageHandlerService.notifySuccess(null, result.message)
+			          	$scope.inputDependency = {};
 			        }
 			        else{
-			          messageHandlerService.notifyError(null, result.message);
+			          	messageHandlerService.notifyError(null, result.message);
 			        }
 		  		});
 			};
 		  	
 			$scope.addDependency = function (newDep) {
-				newDep.usuario = $scope.getUser().usuario;
+				newDep.usuario = $scope.user.usuario;
 				dependenciaService.addDependency(newDep).then(function(result) {
 					if(result.success) {
 						$scope.getDependencies();
@@ -51,10 +53,10 @@
 			};
 
 			$scope.getUser = function() {
-				return shareSessionService.getSession();
+				$scope.user = shareSessionService.getSession();
 			};
 
-
+			$scope.getUser();
 		  	$scope.getDependencies();
 		}]);
 })();

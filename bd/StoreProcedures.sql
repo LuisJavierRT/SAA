@@ -132,7 +132,6 @@ begin
 end $$
 delimiter ;
 
----------------------------------------------------------------------///////////////////----------------------------------
 
 delimiter $$
 create procedure sp_agregarFuncionario (
@@ -172,6 +171,17 @@ begin
 end $$
 delimiter ;
 
+delimiter $$
+create procedure sp_actualizarDependencia (	
+    in _id int,
+    in _codigo varchar(10),
+    in _nombre varchar(60)
+)
+begin
+	update Dependencia set codigo = _codigo, nombre = _nombre where id = _id;
+end $$
+delimiter ;
+select * from HistorialGestionDependencia
 delimiter $$
 create procedure sp_historialGestionDependencia (
 	in _usuario varchar(30),
@@ -450,4 +460,3 @@ begin
     values (_idPlaza, _idContrato, _idDependencia, _idFuncionario, _porcentajeContratacion);
 end $$
 delimiter ;
-

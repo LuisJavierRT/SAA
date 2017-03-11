@@ -125,15 +125,13 @@ exports.addUser = function(data, callback){
         params: paramsString
     }, 
     function(success, dataQuery) {
-        console.log(data);
-        var paramsString2 = '\"' + data.usuarioActual + '\"' + ',' + '\"' + data.usuario + '\"' + ',' + '\"' + 'i' + '\"';
         if(success) {
+            var paramsString2 = '\"' + data.usuarioActual + '\"' + ',' + '\"' + data.usuario + '\"' + ',' + '\"' + 'i' + '\"';
             repository.executeQuery({
                 spName: 'sp_historialGestionUsuario',
                 params:  paramsString2
             },
             function(success2, data2) {
-                console.log(success2);
                 callback(
                 {
                     success: true,
@@ -191,14 +189,22 @@ exports.updateUser = function(data, callback){
         spName: 'sp_actualizarUsuario',
         params: paramsString
     }, 
-    function(success, data) {
+    function(success, dataQuery) {
         if(success) {
-            callback(
+            var paramsString2 = '\"' + data.usuarioActual + '\"' + ',' + '\"' + data.usuario + '\"' + ',' + '\"' + 'm' + '\"';
+            repository.executeQuery({
+                spName: 'sp_historialGestionUsuario',
+                params:  paramsString2
+            },
+            function(success2, data2) {
+                console.log(success2);
+                callback(
                 {
                     success: true,
                     data: null,
                     message: "El usuario se actualizó correctamente"
                 });
+            });
         } 
         else 
         {callback(

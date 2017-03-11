@@ -55,20 +55,3 @@ exports.validatePasswords = function(currentPassword, password1, password2) {
 	}
 	return response;
 };
-
-/*
-exports.validateDependencyCode = function(code) {
-	var informationStatus = {};
-	if(code == undefined || code == "undefined") {
-		informationStatus.success = false;
-		informationStatus.message = 'Código inválido';
-	}
-	else if(code.replace(" ", "").length == 0 ) {
-		informationStatus.success = false;
-		informationStatus.message = 'Código inválido';
-	}
-	else {
-		informationStatus.success = true;
-	}
-	return informationStatus;
-};*/
