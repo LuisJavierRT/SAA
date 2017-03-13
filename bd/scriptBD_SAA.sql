@@ -52,6 +52,22 @@ create table `mydb`.`Funcionario` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
+create table `mydb`.`HistorialGestionFuncionario` (
+	`id` int not null auto_increment,
+    `usuario` varchar(30) not null,
+    `idFuncionario` int not null,
+    `fecha` varchar(20) not null,
+    `accion` char not null, /* 'i' = insertar / 'm' = modificar / 'd' = deshabilitar */
+    primary key (`id`),
+    CONSTRAINT `fk_usuario_gestion_funcionario_historial`
+		FOREIGN KEY (`usuario`)
+		REFERENCES `Usuario` (`usuario`),
+	
+    CONSTRAINT `fk_idFuncionario_gestion_funcionario_historial`
+		FOREIGN KEY (`idFuncionario`)
+		REFERENCES `Funcionario` (`id`))
+ENGINE = InnoDB;
+
 create table `mydb`.`Dependencia` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `codigo` VARCHAR(10) NOT NULL, 

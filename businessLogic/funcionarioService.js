@@ -15,7 +15,7 @@ exports.createFuncionario = function(data, callback){
                        '\"'+data.nombre+'\"'+','+
                        '\"'+data.primerApellido+'\"'+','+
                        '\"'+data.segundoApellido+'\"'+','+
-                       		data.activo+','+
+                            data.activo+','+
                        '\"'+formatDateFromJSToMySQL(data.fecha)+'\"'+','+
                        '\"'+data.especialidad+'\"';
 
@@ -23,12 +23,20 @@ exports.createFuncionario = function(data, callback){
         spName:  'sp_agregarFuncionario',
         params: paramsString
     },
-    function(success, data) {
+    function(success, dataQuery) {
         if(success) {
-            callback({
-                status: true, 
-                message: 'Se ha registrado el funcionario de manera exitosa',
-                data: data[0][0].id
+            var paramsString2 = '\"'+data.usuarioActual+'\"'+','+
+                                dataQuery[0][0].id+','+ '\"' + 'i' + '\"';
+            repository.executeQuery({
+                spName:  'sp_HistorialGestionFuncionario',
+                params: paramsString2
+            },
+            function(success2, data2) {
+                callback({
+                    status: true, 
+                    message: 'Se ha registrado la informacion del funcionario de manera exitosa',
+                    data: dataQuery[0][0].id
+                });
             });
         } 
         else {

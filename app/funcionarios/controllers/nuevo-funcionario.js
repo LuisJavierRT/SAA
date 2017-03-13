@@ -9,7 +9,7 @@
  	"use strict";
  	angular
  		.module("saaApp")
- 		.controller("NuevoFuncionarioCtrl", ["$scope", "messageHandlerService", "academicService", "recordService", "funcionarioService", function($scope, messageHandlerService, academicService, recordService, funcionarioService) {
+ 		.controller("NuevoFuncionarioCtrl", ["$scope", "messageHandlerService", "academicService", "recordService", "funcionarioService", "shareSessionService", function($scope, messageHandlerService, academicService, recordService, funcionarioService, shareSessionService) {
  			$scope.dateSettings = {
 	    		dateFormat:'dd-MM-yyyy',
                 showRegDate: false
@@ -44,6 +44,8 @@
 	    		},
 	    		antecedente: ''
 	    	};
+
+	    	$scope.user = {};
 
 	    	$scope.funcionario.infoPersonal.fecha = new Date();
 	    	$scope.inputFuncionario.infoAcademica.annoGraduacion = new Date();
@@ -95,6 +97,10 @@
 				}
 	    	};
 
+	    	$scope.getUser = function() {
+	    		$scope.user = shareSessionService.getSession();
+	    	};
+
 			var addAcademicInfo = function(pData) {
 	    		var newAcademicInfo = {
 	    			titulo: pData.titulo,
@@ -142,6 +148,7 @@
 
 	    	var addFuncionario = function(pData) {
 	    		pData.infoPersonal.activo = 1;
+	    		pData.infoPersonal.usuarioActual = $scope.user.usuario;
 	    		funcionarioService.newFuncionario(pData.infoPersonal).then(function(result) {
 					if(result.success) {
 						messageHandlerService.notifySuccess(null, result.message);
@@ -186,6 +193,8 @@
 				});
 
 	    	};
+
+	    	$scope.getUser();
 
  		}]);
  })();

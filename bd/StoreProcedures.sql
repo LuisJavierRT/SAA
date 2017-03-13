@@ -151,6 +151,18 @@ begin
 end $$
 delimiter ; 
 
+delimiter $$
+create procedure sp_HistorialGestionFuncionario (
+	in _usuario varchar(30),
+    in _idFuncionario int,
+    in _accion char
+) 
+begin 
+	insert into HistorialGestionFuncionario(usuario, idFuncionario, fecha, accion)
+    values (_usuario, _idFuncionario, NOW(), _accion);
+end $$
+delimiter ; 
+
 delimiter $$ 
 create procedure sp_obtenerDependencias()
 	begin
