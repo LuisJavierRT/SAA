@@ -146,8 +146,10 @@ create procedure sp_agregarFuncionario (
 begin
 	insert into Funcionario (cedula, nombre, apellido1, apellido2, activo, fechaNacimiento, areaEspecialidad)
     values (_cedula, _nombre, _apellido1, _apellido2, _activo, _fechaNacimiento, _areaEspecialidad);
+    
+    select max(id) as id from Funcionario;
 end $$
-delimiter ;
+delimiter ; 
 
 delimiter $$ 
 create procedure sp_obtenerDependencias()
@@ -206,48 +208,43 @@ begin
 end $$
 delimiter ;
 
-
 delimiter $$
 create procedure sp_agregarAntecedente (
 	
-     in _id int,
 	 in _idFuncionario int,
 	 in _descripcion varchar(60)
 )
 begin
-	insert into Antecedente (id, idFuncionario, descripcion)
-    values (_id, _idFuncionario, _descripcion);
+	insert into Antecedente (idFuncionario, descripcion)
+    values (_idFuncionario, _descripcion);
 end $$
 delimiter ;
 
 delimiter $$
 create procedure sp_agregarTitulo (
 	
-     in _id int,
 	 in _idFuncionario int,
      in _titulo varchar(30),
      in _universidad varchar(30),
      in _gradoAcademico varchar(30),
-	 in _añoObtencion varchar(4)
+	 in _annoObtencion varchar(4)
 )
 begin
-	insert into Titulo (id, idFuncionario, titulo, universidad, gradoAcademico, añoObtencion)
-    values (_id, _idFuncionario, _titulo, _universidad, _gradoAcademico, _añoObtencion);
+	insert into Titulo (idFuncionario, titulo, universidad, gradoAcademico, annoObtencion)
+    values (_idFuncionario, _titulo, _universidad, _gradoAcademico, _annoObtencion);
 end $$
 delimiter ;
-
 
 delimiter $$
 create procedure sp_agregarPlaza (
 	
-     in _id int,
      in _descripcion varchar(60),
      in _fechaRegistro datetime,
      in _activo bit
 )
 begin
-	insert into Plaza (id, descripcion, fechaRegistro, activo)
-    values (_id, _descripcion, _fechaRegistro, _activo);
+	insert into Plaza (descripcion, fechaRegistro, activo)
+    values (_descripcion, _fechaRegistro, _activo);
 end $$
 delimiter ;
 
@@ -255,7 +252,6 @@ delimiter ;
 delimiter $$
 create procedure sp_agregarCaracteristicaPlaza (
 	
-     in _id int,
 	 in _idPlaza int, 
 	 in _codigo varchar(8),
 	 in _periodo varchar(30),  -- ??
@@ -273,9 +269,9 @@ create procedure sp_agregarCaracteristicaPlaza (
 	 in _fechaAcuerdo datetime
 )
 begin
-	insert into CaracteristicaPlaza (id, idPlaza, codigo, periodo, programa, categoria, tce, activo, puesto, 
+	insert into CaracteristicaPlaza (idPlaza, codigo, periodo, programa, categoria, tce, activo, puesto, 
     porcentajeCreacion, asignacionDependencia,fechaAutorizacionInicio, fechaAutorizacionFinal, articulo, numeroAcuerdo, fechaAcuerdo)
-    values (_id, _idPlaza, _codigo, _periodo, _programa, _categoria, _tce, _activo, _puesto, 
+    values (_idPlaza, _codigo, _periodo, _programa, _categoria, _tce, _activo, _puesto, 
     _porcentajeCreacion, _asignacionDependencia, _fechaAutorizacionInicio, _fechaAutorizacionFinal, _articulo, _numeroAcuerdo, _fechaAcuerdo);
 end $$
 delimiter ;
@@ -284,7 +280,6 @@ delimiter ;
 delimiter $$
 create procedure sp_agregarPlazaDependencia (
 	
-     in _id int,
 	 in _idPlaza int, 
      in _idDependencia int,
      in _porcentajeAcordado int,
@@ -295,8 +290,8 @@ create procedure sp_agregarPlazaDependencia (
      in _descripcion varchar(60)
 )
 begin
-	insert into PlazaDependencia (id, idPlaza, idDependencia, porcentajeAcordado, activo, fechaInicio, fechaFinal, indefinida, descripcion)
-    values (_id, _idPlaza, _idDependencia, _porcentajeAcordado, _activo, _fechaInicio, _fechaFinal, _indefinida, _descripcion);
+	insert into PlazaDependencia (idPlaza, idDependencia, porcentajeAcordado, activo, fechaInicio, fechaFinal, indefinida, descripcion)
+    values (_idPlaza, _idDependencia, _porcentajeAcordado, _activo, _fechaInicio, _fechaFinal, _indefinida, _descripcion);
 end $$
 delimiter ;
 
@@ -304,14 +299,13 @@ delimiter ;
 delimiter $$
 create procedure sp_agregarResolucionRectoriaPlaza (
 
-	in _id int,
     in _numeroResolucion int,
     in _fechaResolucion datetime,
     in _nombreRector varchar(60)
 )
 begin
-	insert into ResolucionRectoriaPlaza (id, numeroResolucion, fechaResolucion, nombreRector)
-    values (_id, _numeroResolucion, _fechaResolucion, _nombreRector);
+	insert into ResolucionRectoriaPlaza (numeroResolucion, fechaResolucion, nombreRector)
+    values (_numeroResolucion, _fechaResolucion, _nombreRector);
 end $$
 delimiter ;
 
@@ -337,7 +331,7 @@ delimiter ;
 
 delimiter $$
 create procedure sp_agregarPlazaResolucionRectoriaPlaza (
-	in _id int,
+
     in _idContratoLiberado int,
     in _idDependencia int,
     in _idFuncionario int,
@@ -364,15 +358,15 @@ delimiter ;
 
 delimiter $$
 create procedure sp_agregarResolucionRectoriaPersona (
-	in _id int,
+
     in _idContrato int,
     in _numeroResolucion int,
     in _fechaResolucion datetime,
     in _nombreRector varchar(50)
 )
 begin
-	insert into ResolucionRectoriaPersona (id, idContrato, numeroResolucion, fechaResolucion, nombreRector)
-    values (_id, _idContrato, _numeroResolucion, _fechaResolucion, _nombreRector);
+	insert into ResolucionRectoriaPersona (idContrato, numeroResolucion, fechaResolucion, nombreRector)
+    values (_idContrato, _numeroResolucion, _fechaResolucion, _nombreRector);
 end $$
 delimiter ;
 
@@ -403,7 +397,7 @@ delimiter ;
 
 delimiter $$
 create procedure sp_agregarAmpliacion (
-	in _id int,
+
     in _idContrato int,
     in _tipo varchar(15),
     in _puestoQuienDioPermiso varchar(20),
@@ -413,15 +407,15 @@ create procedure sp_agregarAmpliacion (
     in _fechaFinal datetime
 )
 begin
-	insert into Ampliacion (id, idContrato, tipo, puestoQuienDioPermiso, quienDioPermiso, tienePermiso, fechaInicio, fechaFinal)
-    values (_id, _idContrato, _tipo, _puestoQuienDioPermiso, _quienDioPermiso, _tienePermiso, _fechaInicio, _fechaFinal);
+	insert into Ampliacion (idContrato, tipo, puestoQuienDioPermiso, quienDioPermiso, tienePermiso, fechaInicio, fechaFinal)
+    values (_idContrato, _tipo, _puestoQuienDioPermiso, _quienDioPermiso, _tienePermiso, _fechaInicio, _fechaFinal);
 end $$
 delimiter ;
 
 
 delimiter $$
 create procedure sp_agregarContrato (
-	in _id int,
+
     in _idContratoLiberado int,
     in _idDependencia int,
     in _idFuncionario int,
@@ -440,11 +434,10 @@ create procedure sp_agregarContrato (
     in _porcentajeLiberado int
 )
 begin
-	insert into Contrato (id, idContratoLiberado, idDependencia, idFuncionario, activo, actividad, descripcion, anno, fechaInicio, fechaFinal, numeroConcurso, suplencia, porqueContratacion, quienNombro, puestoQuienNombro, porcentajeTotalContratacion, porcentajeLiberado)
-    values (_id, _idContratoLiberado, _idDependencia, _idFuncionario, _activo, _actividad, _descripcion, _anno, _fechaInicio, _fechaFinal, _numeroConcurso, _suplencia, _porqueContratacion, _quienNombro, _puestoQuienNombro, _porcentajeTotalContratacion, _porcentajeLiberado);
+	insert into Contrato (idContratoLiberado, idDependencia, idFuncionario, activo, actividad, descripcion, anno, fechaInicio, fechaFinal, numeroConcurso, suplencia, porqueContratacion, quienNombro, puestoQuienNombro, porcentajeTotalContratacion, porcentajeLiberado)
+    values (_idContratoLiberado, _idDependencia, _idFuncionario, _activo, _actividad, _descripcion, _anno, _fechaInicio, _fechaFinal, _numeroConcurso, _suplencia, _porqueContratacion, _quienNombro, _puestoQuienNombro, _porcentajeTotalContratacion, _porcentajeLiberado);
 end $$
 delimiter ;
-
 
 delimiter $$
 create procedure sp_agregarPlazaContratacion (
@@ -454,7 +447,7 @@ create procedure sp_agregarPlazaContratacion (
     in _idFuncionario int,
     in _porcentajeContratacion int
 )
-begin 
+begin  
 	insert into PlazaContratacion (idPlaza, idContrato, idDependencia, idFuncionario, porcentajeContratacion)
     values (_idPlaza, _idContrato, _idDependencia, _idFuncionario, _porcentajeContratacion);
 end $$

@@ -54,7 +54,13 @@
           url: '/cambiar-contrasena',
           parent: 'saa',
           templateUrl: 'usuarios/views/cambiar-contrasena.html',
-          controller: 'PasswordController'
+          controller: 'PasswordCtrl'
+        })
+        .state('nuevo-funcionario', {
+          url: '/nuevo-funcionario',
+          parent: 'saa',
+          templateUrl: 'funcionarios/views/nuevo-funcionario.html',
+          controller: 'NuevoFuncionarioCtrl'
         })
     })
 

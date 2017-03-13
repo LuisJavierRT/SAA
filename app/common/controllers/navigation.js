@@ -20,7 +20,10 @@
             ]; 
 
             $scope.funcionarios = [
-                
+                {
+                    name: "Nuevo Funcionario",
+                    link: "nuevo-funcionario"
+                }
             ];
 
             $scope.dependencias = [

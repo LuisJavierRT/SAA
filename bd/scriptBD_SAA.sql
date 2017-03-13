@@ -109,7 +109,7 @@ create table `mydb`.`Titulo` (
   `titulo` VARCHAR(30) NOT NULL,
   `universidad` VARCHAR(30) NOT NULL,
   `gradoAcademico` VARCHAR(30) NOT NULL,
-  `añoObtencion` VARCHAR(4) NOT NULL,
+  `annoObtencion` VARCHAR(4) NOT NULL,
   
   PRIMARY KEY (`id`,`idFuncionario`),
   
@@ -117,7 +117,6 @@ create table `mydb`.`Titulo` (
 	FOREIGN KEY (`idFuncionario`)
     REFERENCES `Funcionario` (`id`))
 ENGINE = InnoDB;
-
 
 create table `mydb`.`Plaza` (
   `id` INT NOT NULL AUTO_INCREMENT,

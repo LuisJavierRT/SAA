@@ -16,7 +16,7 @@ angular.module('saaApp').factory('requestService', function ($http) {
             response.data.success = false;
             response.data.message = null;
             return response.data;
-      });
+        });
       },
 
       postRequest: function(data, configs) {
@@ -51,7 +51,7 @@ angular.module('saaApp').factory('requestService', function ($http) {
             response.data.success = false;
             response.data.message = null;
             return response.data;
-      });
+        });
       },
 
       deleteRequest: function (data, configs) {
@@ -69,9 +69,7 @@ angular.module('saaApp').factory('requestService', function ($http) {
             response.data.success = false;
             response.data.message = null;
             return response.data;
-      });
+        });
       }
-
-
     };
 });

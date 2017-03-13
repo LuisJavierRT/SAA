@@ -2,7 +2,7 @@
 	"use strict";
 	angular
 		.module("saaApp")
-		.controller("PasswordController", ["$scope", "PasswordService", "shareSessionService", "messageHandlerService", function($scope, passwordService, shareSessionService, messageHandlerService) {
+		.controller("PasswordCtrl", ["$scope", "PasswordService", "shareSessionService", "messageHandlerService", function($scope, passwordService, shareSessionService, messageHandlerService) {
 			$scope.inputUser = {};
 			$scope.updatePassword = function(inputUser) {
 				passwordService.changePassword(inputUser).then(function(result) {

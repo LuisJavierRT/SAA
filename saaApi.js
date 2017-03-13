@@ -4,7 +4,8 @@ var express       = require('express'),
     bodyParser    = require('body-parser'),
     sessionController     = require('./controllers/sessionController.js'),
     userController = require('./controllers/userController.js'),
-    dependencyController = require('./controllers/dependencyController.js');
+    dependencyController = require('./controllers/dependencyController.js'),
+    funcionarioController = require('./controllers/funcionarioController.js');
 
 
 app.use(bodyParser.urlencoded({
@@ -31,6 +32,10 @@ app.get('/dependencies', dependencyController.getAllDependencies);
 app.get('/dependencies/:id', dependencyController.getDependencyById);
 app.post('/dependencies', dependencyController.addDependency);
 app.put('/dependencies/:id', dependencyController.updateDependency);
+
+app.post('/funcionarios', funcionarioController.addFuncionario);
+app.post('/funcionarios/academics', funcionarioController.addAcademics);
+app.post('/funcionarios/records', funcionarioController.addRecords);
 
 server.listen(8080, function(){
 	console.log('Listening at port 8080...');
