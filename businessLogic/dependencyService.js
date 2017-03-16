@@ -104,22 +104,33 @@ exports.addDependency = function(data, callback){
     }, 
     function(success, dataQuery) {
         if(success) {
-            var paramsString2 = '\"' + data.usuario + '\"' + ',' + '\"' + dataQuery[0][0].id + '\"' + ',' + '\"' + 'i' + '\"';
-            repository.executeQuery({
-                spName: 'sp_historialGestionDependencia',
-                params:  paramsString2
-            },
-            function(success2, data2) {
+            if(dataQuery[0][0].id == -1){
                 callback(
                 {
-                    success: true,
+                    success: false,
                     data: null,
-                    message: "La dependencia se agregó correctamente"
+                    message: "El código de la dependencia está repetido"
                 });
-            });
+            }
+            else{
+                var paramsString2 = '\"' + data.usuario + '\"' + ',' + '\"' + dataQuery[0][0].id + '\"' + ',' + '\"' + 'i' + '\"';
+                repository.executeQuery({
+                    spName: 'sp_historialGestionDependencia',
+                    params:  paramsString2
+                },
+                function(success2, data2) {
+                    callback(
+                    {
+                        success: true,
+                        data: null,
+                        message: "La dependencia se agregó correctamente"
+                    });
+                });
+            }
         } 
         else 
-        {callback(
+        {
+            callback(
             {
                 success: false,
                 data: null,
@@ -158,22 +169,33 @@ exports.updateDependency = function(data, callback){
     }, 
     function(success, dataQuery) {
         if(success) {
-            var paramsString2 = '\"' + data.usuario + '\"' + ',' + '\"' + data.id+ '\"' + ',' + '\"' + 'm' + '\"';
-            repository.executeQuery({
-                spName: 'sp_historialGestionDependencia',
-                params:  paramsString2
-            },
-            function(success2, data2) {
+            if(dataQuery[0][0].valid == 0) {
                 callback(
                 {
-                    success: true,
+                    success: false,
                     data: null,
-                    message: "La dependencia se agregó correctamente"
+                    message: "El código de la dependencia está repetido"
                 });
-            });
+            }
+            else{
+                var paramsString2 = '\"' + data.usuario + '\"' + ',' + '\"' + data.id+ '\"' + ',' + '\"' + 'm' + '\"';
+                repository.executeQuery({
+                    spName: 'sp_historialGestionDependencia',
+                    params:  paramsString2
+                },
+                function(success2, data2) {
+                    callback(
+                    {
+                        success: true,
+                        data: null,
+                        message: "La dependencia se actualizó correctamente"
+                    });
+                });
+            }
         } 
         else 
-        {callback(
+        {
+            callback(
             {
                 success: false,
                 data: null,

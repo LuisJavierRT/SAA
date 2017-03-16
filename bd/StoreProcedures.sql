@@ -176,13 +176,18 @@ create procedure sp_agregarDependencia (
 	 in _codigo varchar(10), 
 	 in _nombre varchar(60)
 )
-begin
-	insert into Dependencia (codigo, nombre)
-    values (_codigo, _nombre);
-    
-    select max(id) as id from Dependencia;
+begin 
+	declare id int;
+    if exists(select * from Dependencia where codigo = _codigo) then
+		set id = -1;
+        select id;
+	else
+		insert into Dependencia (codigo, nombre)
+		values (_codigo, _nombre);
+		select max(id) as id from Dependencia;
+	end if;
 end $$
-delimiter ;
+delimiter ;  
 
 delimiter $$
 create procedure sp_actualizarDependencia (	
@@ -191,10 +196,19 @@ create procedure sp_actualizarDependencia (
     in _nombre varchar(60)
 )
 begin
-	update Dependencia set codigo = _codigo, nombre = _nombre where id = _id;
+	declare valid int;
+    if exists(select * from Dependencia where codigo = _codigo) then
+		set valid = 0;
+        select valid;
+	else
+		update Dependencia set codigo = _codigo, nombre = _nombre where id = _id;
+        set valid = 1;
+        select valid;
+	end if; 
 end $$
 delimiter ;
-select * from HistorialGestionDependencia
+
+
 delimiter $$
 create procedure sp_historialGestionDependencia (
 	in _usuario varchar(30),
