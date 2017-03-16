@@ -197,7 +197,7 @@ create procedure sp_actualizarDependencia (
 )
 begin
 	declare valid int;
-    if exists(select * from Dependencia where codigo = _codigo) then
+    if exists(select * from Dependencia where id != _id and codigo = _codigo) then
 		set valid = 0;
         select valid;
 	else
