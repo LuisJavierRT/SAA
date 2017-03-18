@@ -21,11 +21,25 @@
                                 return pResp;
                             });
                 };
+
+                var getAcademicFuncionarioInfoById = function(pId) {
+                    var link = '/funcionarios/academics/';
+                    
+                    return  requestService.getRequest({params: pId}, {url: link}).then(function(pResp) {//corregir como se envian los datos
+                        return pResp; 
+                    },  
+                    function(pResp){
+                        return pResp;   
+                    });
+                };
            
                 return {
                     newAcademicFuncionarioInfo: function(pData) {
                         return createAcademicDegree(pData);
                     },
+                    getAcademicFuncionarioInfo: function(pId) {
+                        return getAcademicFuncionarioInfoById(pId);
+                    }
                 };
         }]);
 })();

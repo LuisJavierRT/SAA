@@ -152,6 +152,41 @@ end $$
 delimiter ; 
 
 delimiter $$
+create procedure sp_obtenerFuncionarios()
+begin
+	select id, nombre, apellido1, apellido2 from Funcionario where activo = 1;
+end $$
+delimiter ; 
+
+delimiter $$
+create procedure sp_obtenerFuncionario (
+	in _id int
+)
+begin
+	select cedula, nombre, apellido1, apellido2, fechaNacimiento, areaEspecialidad
+    from Funcionario where id = _id;
+end $$
+delimiter ;
+
+delimiter $$
+create procedure sp_obtenerTitulosPorFuncionario (
+	in _idFuncionario int
+)
+begin
+	select id, titulo, universidad, gradoAcademico, annoObtencion from Titulo where idFuncionario = _idFuncionario;
+end $$
+delimiter ;
+
+delimiter $$
+create procedure sp_obtenerAntecedentesPorFuncionario (
+	in _idFuncionario int
+)
+begin
+	select id, descripcion from Antecedente where idFuncionario = _idFuncionario;
+end $$
+delimiter ;
+
+delimiter $$
 create procedure sp_HistorialGestionFuncionario (
 	in _usuario varchar(30),
     in _idFuncionario int,

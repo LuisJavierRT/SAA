@@ -36,6 +36,12 @@ app.put('/dependencies/:id', dependencyController.updateDependency);
 app.post('/funcionarios', funcionarioController.addFuncionario);
 app.post('/funcionarios/academics', funcionarioController.addAcademics);
 app.post('/funcionarios/records', funcionarioController.addRecords);
+app.get('/funcionarios', funcionarioController.getAllFuncionarios);
+app.get('/funcionarios/:id', funcionarioController.getFuncionario);
+app.get('/funcionarios/academics/:id', funcionarioController.getAcademicFuncionarioInfo);
+app.get('/funcionarios/records/:id', funcionarioController.getAntecedentesFuncionario);
+
+
 
 server.listen(8080, function(){
 	console.log('Listening at port 8080...');

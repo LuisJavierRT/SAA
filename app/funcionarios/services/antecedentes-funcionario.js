@@ -21,10 +21,24 @@
                         return pResp;
                     });
                 };
+
+                var getRecordsById = function(pId) {
+                    var link = '/funcionarios/records/';
+                    
+                    return  requestService.getRequest({params: pId}, {url: link}).then(function(pResp) {//corregir como se envian los datos
+                        return pResp; 
+                    },  
+                    function(pResp){
+                        return pResp;   
+                    });
+                };
            
                 return {
                     newRecordInfoFuncionario: function(pData) {
                         return createRecordInfo(pData);
+                    },
+                    getRecordFuncionarioList: function(pId) {
+                        return getRecordsById(pId);
                     }
                 };
         }]);

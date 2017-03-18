@@ -100,3 +100,139 @@ exports.createAntecedentesFuncionario = function(data, callback){
         }
     });    
 };
+
+exports.getAllFuncionarios = function(callback){
+
+    repository.executeQuery({
+        spName: 'sp_obtenerFuncionarios',
+        params: ''
+    }, 
+    function(success, data) {
+        if(success) {
+            data = data[0];
+            if(data.length > 0) {
+                callback({
+                    status: true, 
+                    message: 'Se ha obtenido la lista de funcionarios de manera exitosa',
+                    data: data
+                });
+            }
+            else {
+                callback({
+                    status: false, 
+                    message: 'No se han encontrado funcionarios registrados activos',
+                    data: {}
+                });
+            }
+        } 
+        else {
+            callback({
+                status: false, 
+                message: 'Ha ocurrido un error, no se ha obtenido la lista de funcionarios',
+                data: {}
+            });
+        }
+    });    
+};
+
+exports.getFuncionario = function(data, callback){
+
+    repository.executeQuery({
+        spName: 'sp_obtenerFuncionario',
+        params:  data.id
+    }, 
+    function(success, data) {
+        if(success) {
+            data = data[0];
+            if(data.length > 0) {
+                callback({
+                    status: true, 
+                    message: 'Se ha obtenido el funcionario de manera exitosa',
+                    data: data[0]
+                });
+            }
+            else {
+                callback({
+                    status: false, 
+                    message: 'El funcionario no se encuantra registrado',
+                    data: {}
+                });
+            } 
+        } 
+        else {
+            callback({
+                status: false, 
+                message: 'Ha ocurrido un error, no se ha obtenido el funcionario',
+                data: {}
+            });
+        }
+    });    
+};
+
+exports.getAcademicFuncionarioInfo = function(data, callback){
+
+    repository.executeQuery({
+        spName: 'sp_obtenerTitulosPorFuncionario',
+        params:  data.id
+    }, 
+    function(success, data) {
+        if(success) {
+            data = data[0];
+            if(data.length > 0) {
+                callback({
+                    status: true, 
+                    message: 'Se ha obtenido la informacion academica del funcionario de manera exitosa',
+                    data: data
+                });
+            }
+            else {
+                callback({
+                    status: false, 
+                    message: 'El funcionario no tiene informacion academica registrada',
+                    data: {}
+                });
+            } 
+        } 
+        else {
+            callback({
+                status: false, 
+                message: 'Ha ocurrido un error, no se ha obtenido la informacion academica del funcionario',
+                data: {}
+            });
+        }
+    });    
+};
+
+exports.getAntecedentesFuncionario = function(data, callback){
+
+    repository.executeQuery({
+        spName: 'sp_obtenerAntecedentesPorFuncionario',
+        params:  data.id
+    }, 
+    function(success, data) {
+        if(success) {
+            data = data[0];
+            if(data.length > 0) {
+                callback({
+                    status: true, 
+                    message: 'Se ha obtenido la informacion del funcionario de manera exitosa',
+                    data: data
+                });
+            }
+            else {
+                callback({
+                    status: false, 
+                    message: 'El funcionario no posee antecedentes',
+                    data: {}
+                });
+            } 
+        } 
+        else {
+            callback({
+                status: false, 
+                message: 'Ha ocurrido un error, no se ha obtenido la informacion de antecedentes del funcionario',
+                data: {}
+            });
+        }
+    });    
+};

@@ -9,7 +9,7 @@
  	"use strict";
  	angular
  		.module("saaApp")
- 		.controller("NuevoFuncionarioCtrl", ["$scope", "messageHandlerService", "academicService", "recordService", "funcionarioService", "shareSessionService", function($scope, messageHandlerService, academicService, recordService, funcionarioService, shareSessionService) {
+ 		.controller("NuevoFuncionarioCtrl", ["$scope", "$state", "messageHandlerService", "academicService", "recordService", "funcionarioService", "shareSessionService", function($scope, $state, messageHandlerService, academicService, recordService, funcionarioService, shareSessionService) {
  			$scope.dateSettings = {
 	    		dateFormat:'dd-MM-yyyy',
                 showRegDate: false
@@ -167,7 +167,7 @@
 							};
 							addRecordInfoFuncionario(data);
         				}
-        				//$state.go('gestionar-mis-profesores');
+        				$state.go('gestionar-funcionarios');
 					}
 					else {
 						messageHandlerService.notifyWarning(null, result.message);

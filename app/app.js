@@ -62,6 +62,18 @@
           templateUrl: 'funcionarios/views/nuevo-funcionario.html',
           controller: 'NuevoFuncionarioCtrl'
         })
+        .state('gestionar-funcionarios', {
+          url: '/gestionar-funcionarios',
+          parent: 'saa',
+          templateUrl: 'funcionarios/views/gestion-funcionario.html',
+          controller: 'GestionFuncionariosCtrl'
+        })
+        .state('ver-funcionario', {
+          url: '/ver-funcionario',
+          parent: 'saa',
+          templateUrl: 'funcionarios/views/ver-funcionario.html',
+          controller: 'VerFuncionarioCtrl'
+        })
     })
 
   .directive('stringToNumber', function() {

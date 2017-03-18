@@ -52,3 +52,52 @@ exports.addRecords = function(pRequest, pResponse) {
         pResponse.send(funcionarioResponse);
     });
 };
+
+exports.getAllFuncionarios = function(pRequest, pResponse) {
+    var funcionarioResponse = {};
+
+    funcionarioService.getAllFuncionarios(function(result) {
+        funcionarioResponse.success = result.status;
+        funcionarioResponse.message = result.message;
+        funcionarioResponse.data = result.data;
+        pResponse.status(200);
+        pResponse.send(funcionarioResponse);
+    });
+};
+
+exports.getFuncionario = function(pRequest, pResponse) {
+    var funcionarioResponse = {};
+
+    funcionarioService.getFuncionario(pRequest.params, function(result) {
+        funcionarioResponse.success = result.status;
+        funcionarioResponse.message = result.message;
+        funcionarioResponse.data = result.data;
+        pResponse.status(200);
+        pResponse.send(funcionarioResponse);
+    });
+
+};
+
+exports.getAcademicFuncionarioInfo = function(pRequest, pResponse) {
+    var funcionarioResponse = {};
+
+    funcionarioService.getAcademicFuncionarioInfo(pRequest.params, function(result) {
+        funcionarioResponse.success = result.status;
+        funcionarioResponse.message = result.message;
+        funcionarioResponse.data = result.data;
+        pResponse.status(200);
+        pResponse.send(funcionarioResponse);
+    });
+};
+
+exports.getAntecedentesFuncionario = function(pRequest, pResponse) {
+    var funcionarioResponse = {};
+
+    funcionarioService.getAntecedentesFuncionario(pRequest.params, function(result) {
+        funcionarioResponse.success = result.status;
+        funcionarioResponse.message = result.message;
+        funcionarioResponse.data = result.data;
+        pResponse.status(200);
+        pResponse.send(funcionarioResponse);
+    });
+};

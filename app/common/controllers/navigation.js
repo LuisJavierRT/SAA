@@ -23,6 +23,10 @@
                 {
                     name: "Nuevo Funcionario",
                     link: "nuevo-funcionario"
+                },
+                {
+                    name: "Gestión de Funcionarios",
+                    link: "gestionar-funcionarios"
                 }
             ];
 
