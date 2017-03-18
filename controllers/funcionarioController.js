@@ -53,6 +53,51 @@ exports.addRecords = function(pRequest, pResponse) {
     });
 };
 
+///////////////////////////// Actualizar Funcionario /////////////////////////////////////////////////////////
+exports.updateFuncionario = function(pRequest, pResponse) {
+    //var validInformation = funcionarioValidator.validNewFuncionario(pRequest.body);
+    var funcionarioResponse = {};
+
+    //if(validInformation.success) {
+        funcionarioService.updateFuncionario(pRequest.body, function(result) {
+            funcionarioResponse.success = result.status;
+            funcionarioResponse.message = result.message;
+            funcionarioResponse.data = result.data;
+            pResponse.status(200);
+            pResponse.send(funcionarioResponse);
+        });
+    //}
+    /*else {
+        funcionarioResponse.success = false;
+        funcionarioResponse.message = validInformation.message;
+        pResponse.status(200);
+        pResponse.send(funcionarioResponse);
+    }*/
+};
+
+exports.updateAcademics = function(pRequest, pResponse) {
+   var academicResponse = {};
+   funcionarioService.updateAcademicInfo(pRequest.body, function(result) {
+        academicResponse.success = result.status;
+        academicResponse.message = result.message;
+        academicResponse.data = result.data;
+        pResponse.status(200);
+        pResponse.send(academicResponse);
+    }); 
+};
+
+exports.updateRecords = function(pRequest, pResponse) {
+    var funcionarioResponse = {};
+
+    funcionarioService.updateAntecedentesFuncionario(pRequest.body, function(result) {
+        funcionarioResponse.success = result.status;
+        funcionarioResponse.message = result.message;
+        funcionarioResponse.data = result.data;
+        pResponse.status(200);
+        pResponse.send(funcionarioResponse);
+    });
+};
+
 exports.getAllFuncionarios = function(pRequest, pResponse) {
     var funcionarioResponse = {};
 

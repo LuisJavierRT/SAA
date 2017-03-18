@@ -22,6 +22,16 @@
                     });
                 };
 
+                var updateRecordInfo = function(pData) {
+                    var link = '/funcionarios/records';             
+                    return  requestService.putRequest({data: pData, params: pData.id}, {url: link}).then(function(pResp) {
+                        return pResp;
+                    },
+                    function(pResp){
+                        return pResp;
+                    });
+                };
+
                 var getRecordsById = function(pId) {
                     var link = '/funcionarios/records/';
                     

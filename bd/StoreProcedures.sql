@@ -151,6 +151,65 @@ begin
 end $$
 delimiter ; 
 
+
+delimiter $$
+create procedure sp_actualizarFuncionario(
+    in _id int,
+    in _cedula varchar(11), 
+	in _nombre varchar(60),
+	in _apellido1 VARCHAR(60),
+	in _apellido2 VARCHAR(60),
+	in _activo bit,
+	in _fechaNacimiento datetime,
+	in _areaEspecialidad varchar(60)
+)
+begin
+    update Funcionario set cedula = _cedula,
+                           nombre = _nombre,
+                           apellido1 = _apellido1,
+                           apellido2 = _apellido2,
+                           activo = _activo,
+                           fechaNacimiento = _fechaNacimiento,
+                           areaEspecialidad = _areaEspecialidad
+    where id = _id;
+end $$
+delimiter ;
+
+
+delimiter $$
+create procedure sp_actualizarTituloFuncionario(
+	in _id int,
+	in _idFuncionario int,
+    in _titulo varchar(30),
+    in _universidad varchar(30),
+    in _gradoAcademico varchar(30),
+    in _annoObtencion varchar(4)
+)
+begin 
+	update Titulo set titulo = _titulo,
+					  universidad = _universidad,
+					  gradoAcademico = _gradoAcademico,
+                      annoObtencion = _annoObtencion
+	where id = _id and idFuncionario = _idFuncionario;
+
+end $$
+delimiter ;
+
+delimiter $$
+create procedure sp_actualizarAntecedenteFuncionario(
+	in _id int,
+    in _idFuncionario int,
+    in _descripcion varchar(60)
+)
+begin
+	update Antecedente set descripcion = _descripcion
+    
+    where id = _id and idFuncionario = idFuncionario; 
+
+end $$
+delimiter ;
+
+
 delimiter $$
 create procedure sp_obtenerFuncionarios()
 begin

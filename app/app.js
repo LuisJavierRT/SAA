@@ -74,6 +74,12 @@
           templateUrl: 'funcionarios/views/ver-funcionario.html',
           controller: 'VerFuncionarioCtrl'
         })
+        .state('actualizar-funcionario', {
+          url: '/actualizar-funcionario',
+          parent: 'saa',
+          templateUrl: 'funcionarios/views/actualizar-funcionario.html',
+          controller: 'ActualizarFuncionarioCtrl'
+        })
     })
 
   .directive('stringToNumber', function() {

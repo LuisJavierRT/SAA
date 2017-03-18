@@ -40,7 +40,9 @@ app.get('/funcionarios', funcionarioController.getAllFuncionarios);
 app.get('/funcionarios/:id', funcionarioController.getFuncionario);
 app.get('/funcionarios/academics/:id', funcionarioController.getAcademicFuncionarioInfo);
 app.get('/funcionarios/records/:id', funcionarioController.getAntecedentesFuncionario);
-
+app.put('/funcionarios/:id', funcionarioController.updateFuncionario);
+app.put('/funcionarios/academics/:id', funcionarioController.updateAcademics);
+app.put('/funcionarios/records/:id', funcionarioController.updateRecords);
 
 
 server.listen(8080, function(){

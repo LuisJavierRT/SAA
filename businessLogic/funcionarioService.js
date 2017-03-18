@@ -101,6 +101,107 @@ exports.createAntecedentesFuncionario = function(data, callback){
     });    
 };
 
+/////////////////////// Actualizar Funcionario /////////////////////////////////////////////////
+
+exports.updateFuncionario = function(data, callback){
+    var paramsString =  '\"'+data.id+'\"'+','+
+                        '\"'+data.cedula+'\"'+','+
+                       '\"'+data.nombre+'\"'+','+
+                       '\"'+data.primerApellido+'\"'+','+
+                       '\"'+data.segundoApellido+'\"'+','+
+                            data.activo+','+
+                       '\"'+formatDateFromJSToMySQL(data.fecha)+'\"'+','+
+                       '\"'+data.especialidad+'\"';
+
+    repository.executeQuery({
+        spName:  'sp_actualizarFuncionario',
+        params: paramsString
+    },
+    function(success, dataQuery) {
+        if(success) {
+            var paramsString2 = '\"'+data.usuarioActual+'\"'+','+
+                                dataQuery[0][0].id+','+ '\"' + 'm' + '\"';
+            repository.executeQuery({
+                spName:  'sp_HistorialGestionFuncionario',
+                params: paramsString2
+            },
+            function(success2, data2) {
+                callback({
+                    status: true, 
+                    message: 'Se ha registrado la informacion del funcionario de manera exitosa',
+                    data: dataQuery[0][0].id
+                });
+            });
+        } 
+        else {
+            callback({
+                status: false, 
+                message: 'Ha ocurrido un error, no se ha registrado el funcionario',
+                data: {}
+            });
+        }
+    });    
+};
+
+exports.updateAcademicInfo = function(data, callback){
+    var paramsString =      data.params.id+','+
+                        '\"'+data.id+'\"'+','+
+                       '\"'+data.params.titulo+'\"'+','+
+                       '\"'+data.params.universidad+'\"'+','+
+                       '\"'+data.params.grado+'\"'+','+
+                       '\"'+formatDateFromJSToMySQL(data.params.annoGraduacion).substring(0,4)+'\"';
+    repository.executeQuery({
+        spName:  'sp_actualizarTituloFuncionario',
+        params: paramsString
+    },
+    function(success, data) {
+        if(success) {
+            callback({
+                status: true, 
+                message: 'Se ha registrado la informacion academica del funcionario de manera exitosa',
+                data: {}
+            });
+        } 
+        else {
+            callback({
+                status: false, 
+                message: 'Ha ocurrido un error, no se ha registrado la informacion academica del funcionario',
+                data: {}
+            });
+        }
+    });    
+};
+
+exports.updateAntecedentesFuncionario = function(data, callback){
+    var paramsString = data.params.id + ',' +  
+                    '\"'+data.id+'\"' + ',' +  
+                    '\"'+data.params.descripcion+'\"';
+                    
+    repository.executeQuery({
+        spName:  'sp_actualizarAntecedenteFuncionario',
+        params: paramsString
+    },
+    function(success, data) {
+        if(success) {
+            callback({
+                status: true, 
+                message: 'Se ha registrado la descripcion de antecedentes del funcionario de manera exitosa',
+                data: {}
+            });
+        } 
+        else {
+            callback({
+                status: false, 
+                message: 'Ha ocurrido un error, no se ha registrado los antecedentes del funcionario',
+                data: {}
+            });
+        }
+    });    
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 exports.getAllFuncionarios = function(callback){
 
     repository.executeQuery({
