@@ -98,7 +98,8 @@
                                             </span>
                                         </p>
                                     </td>                                   
-                                    <td style="white-space: nowrap"><button class="btn btn-primary btn-xs" uib-tooltip="agregar" ng-click="validAcademicInfo(academicForm.$valid, funcionario.id, funcionario.infoAcademica)"><span class="glyphicon glyphicon-plus"></span></button> <button class="btn btn-info btn-xs" uib-tooltip="actualizar" ng-click="updateFuncionarioTitulos(funcionario.infoAcademica)"><span class="glyphicon glyphicon-refresh"></span></button></td>
+                                    <td style="white-space: nowrap"><button class="btn btn-primary btn-xs" uib-tooltip="agregar" ng-click="validAcademicInfo(academicForm.$valid, funcionario.id, funcionario.infoAcademica)"><span class="glyphicon glyphicon-plus"></span></button> 
+                                    <button class="btn btn-info btn-xs" uib-tooltip="actualizar" ng-click="updateFuncionarioTitulos(inputFuncionario.infoAcademica)"><span class="glyphicon glyphicon-refresh"></span></button></td>
                                 </tr> 
                                 <tr ng-repeat = "academico in funcionario.infoAcademica" ng-click="editFuncionarioTitulos(academico)" style="cursor:pointer">
                                     <td>{{academico.titulo}}</td>

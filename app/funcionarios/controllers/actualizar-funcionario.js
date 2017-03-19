@@ -105,8 +105,6 @@
 				academicService.getAcademicFuncionarioInfo(pId).then(function(result) {
 					if(result.success) {
 						$scope.funcionario.infoAcademica = result.data;
-						console.log(result.data);
-						
 					}
 					else {
 						$scope.funcionario.infoAcademica = [];
@@ -131,7 +129,7 @@
 				recordService.getRecordFuncionarioList(pId).then(function(result) {
 					if(result.success) {
 						$scope.funcionario.antecedentes = result.data;
-						console.log(result.data);
+						
 					}
 					else {
 						$scope.funcionario.antecedentes = [];
@@ -221,8 +219,8 @@
 			};
 
 			$scope.updateFuncionarioTitulos = function (tituloToUpdate) {
-		  		tituloToUpdate.usuario = $scope.user.usuario;
 		  		tituloToUpdate.idFuncionario = $scope.funcionario.id;
+		  		tituloToUpdate.usuario = $scope.user.usuario;
 		  		academicService.editAcademicDegree(tituloToUpdate).then(function(result) {
 		  			if (result.success){
 			        	//$scope.getFuncionariosList();

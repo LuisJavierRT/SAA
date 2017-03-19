@@ -146,12 +146,13 @@ exports.updateFuncionario = function(data, callback){
 };
 
 exports.updateAcademicInfo = function(data, callback){
+    console.log(data);
     var paramsString =      data.id+','+
                         '\"'+data.idFuncionario+'\"'+','+
-                       '\"'+data.params.titulo+'\"'+','+
-                       '\"'+data.params.universidad+'\"'+','+
-                       '\"'+data.params.grado+'\"'+','+
-                       '\"'+formatDateFromJSToMySQL(data.params.annoGraduacion).substring(0,4)+'\"';
+                       '\"'+data.titulo+'\"'+','+
+                       '\"'+data.universidad+'\"'+','+
+                       '\"'+data.grado+'\"'+','+
+                       '\"'+formatDateFromJSToMySQL(data.annoObtencion).substring(0,4)+'\"';
     repository.executeQuery({
         spName:  'sp_actualizarTituloFuncionario',
         params: paramsString
