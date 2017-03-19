@@ -23,7 +23,7 @@
                 };
 
                 var updateRecordInfo = function(pData) {
-                    var link = '/funcionarios/records';             
+                    var link = '/funcionarios/records/';             
                     return  requestService.putRequest({data: pData, params: pData.id}, {url: link}).then(function(pResp) {
                         return pResp;
                     },
@@ -49,6 +49,9 @@
                     },
                     getRecordFuncionarioList: function(pId) {
                         return getRecordsById(pId);
+                    },
+                    editRecordInfo: function(pData){
+                        return updateRecordInfo(pData);
                     }
                 };
         }]);

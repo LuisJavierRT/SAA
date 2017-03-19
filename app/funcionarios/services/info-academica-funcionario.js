@@ -23,7 +23,7 @@
                 };
 
                 var updateAcademicDegree = function(pData) {
-                    var link = '/funcionarios/academics';                 
+                    var link = '/funcionarios/academics/';                 
                     return  requestService.putRequest({data: pData, params: pData.id}, {url: link}).then(function(pResp) {
                                 return pResp;
                             },
@@ -31,6 +31,7 @@
                                 return pResp;
                             });
                 };
+
 
 
                 var getAcademicFuncionarioInfoById = function(pId) {
@@ -50,6 +51,9 @@
                     },
                     getAcademicFuncionarioInfo: function(pId) {
                         return getAcademicFuncionarioInfoById(pId);
+                    },
+                    editAcademicDegree: function(pData){
+                        return updateAcademicDegree(pData);
                     }
                 };
         }]);

@@ -13,8 +13,9 @@
 	    .controller('ActualizarFuncionarioCtrl', ['$scope', '$location', '$state', 'funcionarioService', 'academicService', 'recordService', 'shareSessionService', 'shareFuncionarioService', 'messageHandlerService', 
 	    function($scope, $location, $state, funcionarioService, academicService,recordService, shareSessionService, shareFuncionarioService, messageHandlerService){
 
-	    	
-	    	
+	    	$scope.funcionarioList = [];
+	    	$scope.user = {};
+
 	    	$scope.dateSettings = {
 	    		dateFormat:'dd-MM-yyyy',
                 showRegDate: false
@@ -45,15 +46,15 @@
 	    			titulo: '',
 	    			universidad: '',
 	    			grado: '',
-	    			annoGraduacion:'' 
+	    			annoObtencion:'' 
 	    		},
 	    		antecedente: ''
 	    		
 	    	};
 
 			$scope.funcionario.infoPersonal.fecha = new Date();
-	    	$scope.inputFuncionario.infoAcademica.annoGraduacion = new Date();
-
+	    	$scope.inputFuncionario.infoAcademica.annoObtencion = new Date();
+	    	$scope.degreeList = ["Bachillerato", "Licenciatura", "Maestría", "Doctorado"];
 
 	    	$scope.openDatePickerPopUp = function() {
 		    	$scope.dateSettings.showRegDate = !$scope.dateSettings.showRegDate;
@@ -74,15 +75,20 @@
 		    	$scope.inputFuncionario.infoAcademica.titulo = '';
 	    		$scope.inputFuncionario.infoAcademica.universidad = ''; 
 	    		$scope.inputFuncionario.infoAcademica.grado = '';
-	    		$scope.inputFuncionario.infoAcademica.annoGraduacion = new Date(); 
+	    		$scope.inputFuncionario.infoAcademica.annoObtencion = new Date(); 
 		    };
-/*
-		    var cleanEngagementInfo = function() {
-	    		
-	    		$scope.inputFuncionario.contratacion.numero = '';
-	    		$scope.inputFuncionario.contratacion.actividad = '';
-	    		$scope.inputFuncionario.contratacion.descripcion = '';
-		    };*/
+
+		    var getFuncionariosList = function() {
+				funcionarioService.getFuncionarioList().then(function(result) {
+					if(result.success) {
+						$scope.funcionarioList = result.data;
+					}
+					else {
+						messageHandlerService.notifyWarning(null, result.message);
+					}
+				});
+			};
+
 
 	    	var getFuncionario = function(pId) {
 				funcionarioService.getFuncionario(pId).then(function(result) {
@@ -99,6 +105,8 @@
 				academicService.getAcademicFuncionarioInfo(pId).then(function(result) {
 					if(result.success) {
 						$scope.funcionario.infoAcademica = result.data;
+						console.log(result.data);
+						
 					}
 					else {
 						$scope.funcionario.infoAcademica = [];
@@ -123,6 +131,7 @@
 				recordService.getRecordFuncionarioList(pId).then(function(result) {
 					if(result.success) {
 						$scope.funcionario.antecedentes = result.data;
+						console.log(result.data);
 					}
 					else {
 						$scope.funcionario.antecedentes = [];
@@ -145,8 +154,6 @@
 
 	    	};
 
-			
-
 	    	$scope.validRecordInfo = function(pIsValid, pId, pData) {
 	    	console.log(pId+"##"+pData);
 	    		if(pIsValid){
@@ -165,31 +172,7 @@
 					messageHandlerService.notifyError(null, message);
 	    		}
 	    	};
-/*
-	    	$scope.validEngagementInfo = function(pIsValid, pId, pData) {
-	    		var periodIndex = document.getElementById("opPeriod");
-	    		var periodTitle = periodIndex.options[periodIndex.selectedIndex].text;
-	    		
-	    		
-	    		if(pIsValid) {
-	    			var data = {
-	    				id: pId,
-	    				params: {
-			    			numero: pData.numero,
-			    			annio: pData.annio,
-			    			periodo: periodTitle,
-			    			actividad: pData.actividad,
-			    			descripcion: pData.descripcion
-			    		}
-		    		};
-		    		console.log(data);
-	    			addEngagementInfoProfessor(data); 
-	    		}
-	    		else {
-					var message = 'Debe completar la información de contrataciones de manera completa';
-					messageHandlerService.notifyError(null, message);
-	    		}
-	    	}; 	*/
+
 
 	    	$scope.validAcademicInfo = function(pIsValid, pId, pData) {
 	    		if(pIsValid) {
@@ -210,6 +193,64 @@
 	    		}
 	    	};
 
+	    	$scope.editFuncionarioTitulos = function(tituloToEdit){
+		      	$scope.inputFuncionario.infoAcademica.titulo = tituloToEdit.titulo;
+		      	$scope.inputFuncionario.infoAcademica.universidad = tituloToEdit.universidad;
+		      	$scope.inputFuncionario.infoAcademica.grado = tituloToEdit.gradoAcademico;
+		        $scope.inputFuncionario.infoAcademica.annoObtencion = tituloToEdit.annoObtencion;
+		  	};
+
+		  	$scope.editFuncionarioAntecedentes = function(antecedenteToEdit){
+		  		$scope.inputFuncionario.antecedente = antecedenteToEdit.descripcion;
+		  	}
+
+
+		  	$scope.updateFuncionario = function (funcionarioToUpdate) {
+		  		funcionarioToUpdate.activo = 1;
+		  		funcionarioToUpdate.usuario = $scope.user.usuario;
+		  		funcionarioService.editFuncionario(funcionarioToUpdate).then(function(result) {
+		  			if (result.success){
+			        	//$scope.getFuncionariosList();
+			          	messageHandlerService.notifySuccess(null, result.message)
+			          	//$scope.inputFuncionario = {};
+			        }
+			        else{
+			          	messageHandlerService.notifyError(null, result.message);
+			        }
+		  		});
+			};
+
+			$scope.updateFuncionarioTitulos = function (tituloToUpdate) {
+		  		tituloToUpdate.usuario = $scope.user.usuario;
+		  		tituloToUpdate.idFuncionario = $scope.funcionario.id;
+		  		academicService.editAcademicDegree(tituloToUpdate).then(function(result) {
+		  			if (result.success){
+			        	//$scope.getFuncionariosList();
+			          	messageHandlerService.notifySuccess(null, result.message)
+			          	//$scope.inputFuncionario.infoAcademica = {};
+			        }
+			        else{
+			          	messageHandlerService.notifyError(null, result.message);
+			        }
+		  		});
+			};
+
+			$scope.updateFuncionarioAntecedentes = function (antecedenteToUpdate) {
+		  		antecedenteToUpdate.usuario = $scope.user.usuario;
+		  		antecedenteToUpdate.idFuncionario = $scope.funcionario.id;
+		  		recordService.editRecordInfo(antecedenteToUpdate).then(function(result) {
+		  			if (result.success){
+			        	//$scope.getFuncionariosList();
+			          	messageHandlerService.notifySuccess(null, result.message)
+			          	//$scope.inputFuncionario.infoAcademica = {};
+			        }
+			        else{
+			          	messageHandlerService.notifyError(null, result.message);
+			        }
+		  		});
+			};
+
+
 	    	$scope.sendToFuncionarioView = function() {
 	    		$state.go('gestionar-funcionario');
 			};
@@ -217,64 +258,22 @@
 			var getFuncionarioId = function() {
                 $scope.funcionario.id = shareFuncionarioService.getFuncionarioId();
             };
-/*
-			var getProfessorId = function() {
-                $scope.funcionario.id = funcionarioService.getProfessorId();
-            };
 
-            var getAllDegrees = function() {
-	    		academicService.getAcademicDegreeList().then(function(result) {
-					if(result.success) {
-						$scope.degreeList = result.data;
-					}
-					else {
-						messageHandlerService.notifyWarning(null, result.message);
-					}
-				});
+            $scope.getUser = function() {
+	    		$scope.user = shareSessionService.getSession();
 	    	};
-
-	    	var getAllCodes = function() {
-	    		careerService.getCareerCodeList().then(function(result) {
-					if(result.success) {
-						$scope.codeList = result.data;
-					}
-					else {
-						messageHandlerService.notifyWarning(null, result.message);
-					}
-				});
-	    	};
-
-	    	var getAllAreas = function() {
-	    		careerService.getAreaExpertiseList().then(function(result) {
-					if(result.success) {
-						$scope.areaList = result.data;
-					}
-					else {
-						messageHandlerService.notifyWarning(null, result.message);
-					}
-				});
-	    	};
-
-	    	var getAllPeriods = function() {
-	    		periodService.getPeriodList().then(function(result) {
-					if(result.success) {
-						$scope.periodList = result.data;
-					}
-					else {
-						messageHandlerService.notifyWarning(null, result.message);
-					}
-				});
-	    	};
-	    	*/
 
             //getProfessorId();
 	    	//getAllDegrees();
 	    	//getAllCodes();
 	    	//getAllAreas();
 	    	//getAllPeriods();
+	    	$scope.getUser();
 	    	getFuncionarioId();
+	    	getFuncionariosList();
 			getFuncionario($scope.funcionario.id);
 			getAcademicInfo($scope.funcionario.id); 
-			getRecords($scope.funcionario.id); 
+			getRecords($scope.funcionario.id);
+			
 		}]);	
 })();

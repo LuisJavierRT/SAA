@@ -23,15 +23,14 @@
                 };
 
                 var updateFuncionario = function(pData) {
-                    var link = '/funcionarios';                  
-                    return  requestService.putRequest({data: pData, params: pData.idFuncionario}, {url: link}).then(function(pResp) {
+                    var link = '/funcionarios/';                  
+                    return  requestService.putRequest({data: pData, params: pData.id}, {url: link}).then(function(pResp) {
                         return pResp;
                     },
                     function(pResp){
                         return pResp;
                     });
                 };
-
 
                 var getAllFuncionarios = function(pData) {
                     var link = '/funcionarios';           
@@ -64,6 +63,9 @@
                     },
                     getFuncionario: function(pId) {
                         return getFuncionarioById(pId);
+                    },
+                    editFuncionario: function(pData){
+                        return updateFuncionario(pData);
                     }
                 };
         }]);
