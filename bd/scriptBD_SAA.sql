@@ -125,7 +125,7 @@ create table `mydb`.`Titulo` (
   `titulo` VARCHAR(30) NOT NULL,
   `universidad` VARCHAR(30) NOT NULL,
   `gradoAcademico` VARCHAR(30) NOT NULL,
-  `annoObtencion` VARCHAR(4) NOT NULL,
+  `annoGraduacion` VARCHAR(4) NOT NULL,
   
   PRIMARY KEY (`id`,`idFuncionario`),
   

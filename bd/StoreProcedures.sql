@@ -183,13 +183,13 @@ create procedure sp_actualizarTituloFuncionario(
     in _titulo varchar(30),
     in _universidad varchar(30),
     in _gradoAcademico varchar(30),
-    in _annoObtencion varchar(4)
+    in _annoGraduacion varchar(4)
 )
 begin 
 	update Titulo set titulo = _titulo,
 					  universidad = _universidad,
 					  gradoAcademico = _gradoAcademico,
-                      annoObtencion = _annoObtencion
+                      annoGraduacion = _annoGraduacion
 	where id = _id and idFuncionario = _idFuncionario;
 
 end $$
@@ -232,7 +232,7 @@ create procedure sp_obtenerTitulosPorFuncionario (
 	in _idFuncionario int
 )
 begin
-	select id, titulo, universidad, gradoAcademico, annoObtencion from Titulo where idFuncionario = _idFuncionario;
+	select id, titulo, universidad, gradoAcademico, annoGraduacion from Titulo where idFuncionario = _idFuncionario;
 end $$
 delimiter ;
 
@@ -347,11 +347,11 @@ create procedure sp_agregarTitulo (
      in _titulo varchar(30),
      in _universidad varchar(30),
      in _gradoAcademico varchar(30),
-	 in _annoObtencion varchar(4)
+	 in _annoGraduacion varchar(4)
 )
 begin
-	insert into Titulo (idFuncionario, titulo, universidad, gradoAcademico, annoObtencion)
-    values (_idFuncionario, _titulo, _universidad, _gradoAcademico, _annoObtencion);
+	insert into Titulo (idFuncionario, titulo, universidad, gradoAcademico, annoGraduacion)
+    values (_idFuncionario, _titulo, _universidad, _gradoAcademico, _annoGraduacion);
 end $$
 delimiter ;
 

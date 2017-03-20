@@ -46,14 +46,16 @@
 	    			titulo: '',
 	    			universidad: '',
 	    			grado: '',
-	    			annoObtencion:'' 
+	    			annoGraduacion:'' 
 	    		},
-	    		antecedente: ''
+	    		antecedente: {
+	    			descripcion: ''
+	    		}
 	    		
 	    	};
 
 			$scope.funcionario.infoPersonal.fecha = new Date();
-	    	$scope.inputFuncionario.infoAcademica.annoObtencion = new Date();
+	    	$scope.inputFuncionario.infoAcademica.annoGraduacion = new Date();
 	    	$scope.degreeList = ["Bachillerato", "Licenciatura", "Maestría", "Doctorado"];
 
 	    	$scope.openDatePickerPopUp = function() {
@@ -75,7 +77,7 @@
 		    	$scope.inputFuncionario.infoAcademica.titulo = '';
 	    		$scope.inputFuncionario.infoAcademica.universidad = ''; 
 	    		$scope.inputFuncionario.infoAcademica.grado = '';
-	    		$scope.inputFuncionario.infoAcademica.annoObtencion = new Date(); 
+	    		$scope.inputFuncionario.infoAcademica.annoGraduacion = new Date(); 
 		    };
 
 		    var getFuncionariosList = function() {
@@ -140,7 +142,7 @@
 			var addRecordInfoFuncionario = function(pData) {
 	    		recordService.newRecordInfoFuncionario(pData).then(function(result) {
 					if(result.success) {
-						$scope.inputFuncionario.antecedente = '';
+						$scope.inputFuncionario.antecedente = {};
 						getRecords($scope.funcionario.id);
 						messageHandlerService.notifySuccess(null, result.message);						
 					}
@@ -152,100 +154,132 @@
 
 	    	};
 
-	    	$scope.validRecordInfo = function(pIsValid, pId, pData) {
-	    	console.log(pId+"##"+pData);
-	    		if(pIsValid){
-	    			var data = {
-						id: pId,	
-						params: {
-							descripcion: pData 
-						}
-					};
-					console.log("#########");
-					console.log(data);
-					addRecordInfoProfessor(data); 
-	    		}
-	    		else {
-	    			var message = 'Debe completar la información de antecedentes de manera completa';
-					messageHandlerService.notifyError(null, message);
-	    		}
-	    	};
-
-
-	    	$scope.validAcademicInfo = function(pIsValid, pId, pData) {
-	    		if(pIsValid) {
-	    			var degreeIndex = document.getElementById("opDegree");
-	    		    var degreeTitle = degreeIndex.options[degreeIndex.selectedIndex].text;
-	    		    pData.grado = degreeTitle;
-	    		    
-	    		    var data = {
-						id: pId,	
+	    	$scope.validRecordForm = function(pIsValid, pData) {
+				if(pIsValid) { 
+					var data = {
+						id: $scope.funcionario.id,
 						params: pData
-					};
-	    			
-	    			addAcademicInfoFuncionario(data);
-	    		}
-	    		else {
-	    			var message = 'Debe completar la información académica de manera completa';
+					}
+					addRecordInfoFuncionario(data);
+				}
+				else {
+					var message = 'Debe completar la información de antecedentes de manera correcta';
 					messageHandlerService.notifyError(null, message);
-	    		}
-	    	};
+				}
+			};
+
+
+	    	$scope.validAcademicForm = function(pIsValid, pData) {
+				if(pIsValid) { 
+					var data = {
+						id: $scope.funcionario.id,
+						params: pData
+					}
+					addAcademicInfoFuncionario(data);
+				}
+				else {
+					var message = 'Debe completar todos los campos de la información académica de manera correcta';
+					messageHandlerService.notifyError(null, message);
+				}
+			};
 
 	    	$scope.editFuncionarioTitulos = function(tituloToEdit){
+	    		$scope.inputFuncionario.infoAcademica.id = tituloToEdit.id;
 		      	$scope.inputFuncionario.infoAcademica.titulo = tituloToEdit.titulo;
 		      	$scope.inputFuncionario.infoAcademica.universidad = tituloToEdit.universidad;
 		      	$scope.inputFuncionario.infoAcademica.grado = tituloToEdit.gradoAcademico;
-		        $scope.inputFuncionario.infoAcademica.annoObtencion = tituloToEdit.annoObtencion;
+		        $scope.inputFuncionario.infoAcademica.annoGraduacion = tituloToEdit.annoGraduacion;
 		  	};
 
+		  	$scope.refrescarVistaTitulo = function(){
+		  		$scope.funcionario.infoAcademica.forEach(function(titulo) {
+    				if (titulo.id == $scope.inputFuncionario.infoAcademica.id) {
+    					titulo.titulo = $scope.inputFuncionario.infoAcademica.titulo;
+    					titulo.universidad = $scope.inputFuncionario.infoAcademica.universidad;
+    					titulo.grado = $scope.inputFuncionario.infoAcademica.grado;
+    					titulo.annoGraduacion = $scope.inputFuncionario.infoAcademica.annoGraduacion;
+    					return;
+    				}
+				});
+		  	}
+
+		  	$scope.refrescarVistaAntecedente = function(){
+		  		$scope.funcionario.antecedentes.forEach(function(antecedente){
+		  			if (antecedente.id == $scope.inputFuncionario.antecedente.id) {
+		  				antecedente.descripcion = $scope.inputFuncionario.antecedente.descripcion;
+		  				return;
+		  			}
+		  		});
+		  	}
+
 		  	$scope.editFuncionarioAntecedentes = function(antecedenteToEdit){
-		  		$scope.inputFuncionario.antecedente = antecedenteToEdit.descripcion;
+		  		$scope.inputFuncionario.antecedente.id = antecedenteToEdit.id;
+		  		$scope.inputFuncionario.antecedente.descripcion = antecedenteToEdit.descripcion;
 		  	}
 
 
-		  	$scope.updateFuncionario = function (funcionarioToUpdate) {
-		  		funcionarioToUpdate.activo = 1;
-		  		funcionarioToUpdate.usuario = $scope.user.usuario;
-		  		funcionarioService.editFuncionario(funcionarioToUpdate).then(function(result) {
-		  			if (result.success){
-			        	//$scope.getFuncionariosList();
-			          	messageHandlerService.notifySuccess(null, result.message)
-			          	//$scope.inputFuncionario = {};
-			        }
-			        else{
-			          	messageHandlerService.notifyError(null, result.message);
-			        }
-		  		});
+		  	$scope.updateFuncionario = function (pIsValid,funcionarioToUpdate) {
+		  		if (pIsValid) {
+			  		funcionarioToUpdate.activo = 1;
+			  		funcionarioToUpdate.usuario = $scope.user.usuario;
+			  		funcionarioService.editFuncionario(funcionarioToUpdate).then(function(result) {
+			  			if (result.success){
+				        	//$scope.getFuncionariosList();
+				          	messageHandlerService.notifySuccess(null, result.message)
+				          	//$scope.inputFuncionario = {};
+				        }
+				        else{
+				          	messageHandlerService.notifyError(null, result.message);
+				        }
+			  		});
+		  		}else{
+		  			var message = 'Debe completar la información personal de manera correcta';
+					messageHandlerService.notifyError(null, message);
+		  		}
 			};
 
-			$scope.updateFuncionarioTitulos = function (tituloToUpdate) {
-		  		tituloToUpdate.idFuncionario = $scope.funcionario.id;
-		  		tituloToUpdate.usuario = $scope.user.usuario;
-		  		academicService.editAcademicDegree(tituloToUpdate).then(function(result) {
-		  			if (result.success){
-			        	//$scope.getFuncionariosList();
-			          	messageHandlerService.notifySuccess(null, result.message)
-			          	//$scope.inputFuncionario.infoAcademica = {};
-			        }
-			        else{
-			          	messageHandlerService.notifyError(null, result.message);
-			        }
-		  		});
+			$scope.updateFuncionarioTitulos = function (pIsValid,tituloToUpdate) {
+				if (pIsValid) {
+			  		tituloToUpdate.idFuncionario = $scope.funcionario.id;
+			  		tituloToUpdate.usuario = $scope.user.usuario;
+			  		academicService.editAcademicDegree(tituloToUpdate).then(function(result) {
+			  			if (result.success){
+				        	//$scope.getFuncionariosList();
+				          	messageHandlerService.notifySuccess(null, result.message)
+				          	//$scope.inputFuncionario.infoAcademica = {};
+							$scope.refrescarVistaTitulo();
+				        }
+				        else{
+				          	messageHandlerService.notifyError(null, result.message);
+				        }
+			  		});
+		  		}else{
+		  			var message = 'Debe completar todos los campos de la información académica de manera correcta';
+					messageHandlerService.notifyError(null, message);
+		  		}
 			};
 
-			$scope.updateFuncionarioAntecedentes = function (antecedenteToUpdate) {
-		  		antecedenteToUpdate.usuario = $scope.user.usuario;
-		  		antecedenteToUpdate.idFuncionario = $scope.funcionario.id;
-		  		recordService.editRecordInfo(antecedenteToUpdate).then(function(result) {
-		  			if (result.success){
-			        	//$scope.getFuncionariosList();
-			          	messageHandlerService.notifySuccess(null, result.message)
-			          	//$scope.inputFuncionario.infoAcademica = {};
-			        }
-			        else{
-			          	messageHandlerService.notifyError(null, result.message);
-			        }
-		  		});
+			$scope.updateFuncionarioAntecedentes = function (pIsValid,antecedenteToUpdate) {
+		  		
+				if (pIsValid) {
+			  		antecedenteToUpdate.usuario = $scope.user.usuario;
+			  		antecedenteToUpdate.idFuncionario = $scope.funcionario.id;
+			  		recordService.editRecordInfo(antecedenteToUpdate).then(function(result) {
+			  			if (result.success){
+				        	//$scope.getFuncionariosList();
+				          	messageHandlerService.notifySuccess(null, result.message)
+				          	//$scope.inputFuncionario.infoAcademica = {};
+				          	$scope.refrescarVistaAntecedente();
+				        }
+				        else{
+				          	messageHandlerService.notifyError(null, result.message);
+				        }
+			  		});
+		  		}
+		  		else{
+		  			var message = 'Debe completar la información de antecedentes de manera correcta';
+					messageHandlerService.notifyError(null, message);
+		  		}
 			};
 
 

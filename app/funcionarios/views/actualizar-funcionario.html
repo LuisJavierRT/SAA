@@ -51,7 +51,7 @@
                                         <input class="form-control" type="text" placeholder="Area de Especialidad" required ng-model="funcionario.infoPersonal.areaEspecialidad"> 
                                     </td>
                                     <td>
-                                        <button class="btn btn-info btn-xs" uib-tooltip="actualizar" ng-click="updateFuncionario(funcionario)"><span class="glyphicon glyphicon-refresh"></span></button>
+                                        <button class="btn btn-info btn-xs" uib-tooltip="actualizar" ng-click="updateFuncionario(funcionarioForm.$valid,funcionario)"><span class="glyphicon glyphicon-refresh"></span></button>
                                     </td>
                                 </tr>           
                             </tbody>
@@ -92,20 +92,20 @@
                                     </td>
                                     <td  class="col-xs-2" >
                                         <p class="input-group">
-                                            <input type="text" class="form-control" uib-datepicker-popup="{{yearDegreeSettings.yearFormat}}" ng-model="inputFuncionario.infoAcademica.annoObtencion" is-open="yearDegreeSettings.showRegYear" datepicker-options="yearDegreeSettings" date-disabled="disabled(date, mode)" close-text="Cerrar" ng-readonly="true" required/>
+                                            <input type="text" class="form-control" uib-datepicker-popup="{{yearDegreeSettings.yearFormat}}" ng-model="inputFuncionario.infoAcademica.annoGraduacion" is-open="yearDegreeSettings.showRegYear" datepicker-options="yearDegreeSettings" date-disabled="disabled(date, mode)" close-text="Cerrar" ng-readonly="true" required/>
                                             <span class="input-group-btn"> 
                                                 <button type="button" class="btn btn-default" ng-click="openYearDegreePopUp($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                             </span>
                                         </p>
                                     </td>                                   
-                                    <td style="white-space: nowrap"><button class="btn btn-primary btn-xs" uib-tooltip="agregar" ng-click="validAcademicInfo(academicForm.$valid, funcionario.id, funcionario.infoAcademica)"><span class="glyphicon glyphicon-plus"></span></button> 
-                                    <button class="btn btn-info btn-xs" uib-tooltip="actualizar" ng-click="updateFuncionarioTitulos(inputFuncionario.infoAcademica)"><span class="glyphicon glyphicon-refresh"></span></button></td>
+                                    <td style="white-space: nowrap"><button class="btn btn-primary btn-xs" uib-tooltip="agregar" ng-click="validAcademicForm(academicForm.$valid, inputFuncionario.infoAcademica)"><span class="glyphicon glyphicon-plus"></span></button> 
+                                    <button class="btn btn-info btn-xs" uib-tooltip="actualizar" ng-click="updateFuncionarioTitulos(academicForm.$valid, inputFuncionario.infoAcademica)"><span class="glyphicon glyphicon-refresh"></span></button></td>
                                 </tr> 
                                 <tr ng-repeat = "academico in funcionario.infoAcademica" ng-click="editFuncionarioTitulos(academico)" style="cursor:pointer">
                                     <td>{{academico.titulo}}</td>
                                     <td>{{academico.universidad}}</td> 
                                     <td>{{academico.gradoAcademico}}</td> 
-                                    <td>{{academico.annoObtencion}}</td>  
+                                    <td>{{academico.annoGraduacion}}</td>  
                                 </tr>           
                             </tbody>
                         </table>
@@ -130,9 +130,9 @@
                             <tbody>
                                 <tr >
                                     <td>
-                                        <textarea class="form-control" type="text" align="justify" placeholder="Descripción" required ng-model="inputFuncionario.antecedente"></textarea>
+                                        <textarea class="form-control" type="text" align="justify" placeholder="Descripción" required ng-model="inputFuncionario.antecedente.descripcion"></textarea>
                                     </td>
-                                    <td style="white-space: nowrap"><button class="btn btn-primary btn-xs" uib-tooltip="agregar" ng-click="validRecordInfo(recordForm.$valid, funcionario.id, inputFuncionario.antecedente)"><span class="glyphicon glyphicon-plus"></span></button> <button class="btn btn-info btn-xs" uib-tooltip="actualizar" ng-click="updateFuncionarioAntecedentes(funcionario.antecedentes)"><span class="glyphicon glyphicon-refresh"></span></button></td>
+                                    <td style="white-space: nowrap"><button class="btn btn-primary btn-xs" uib-tooltip="agregar" ng-click="validRecordForm(recordForm.$valid, inputFuncionario.antecedente)"><span class="glyphicon glyphicon-plus"></span></button> <button class="btn btn-info btn-xs" uib-tooltip="actualizar" ng-click="updateFuncionarioAntecedentes(recordForm.$valid, inputFuncionario.antecedente)"><span class="glyphicon glyphicon-refresh"></span></button></td>
                                 </tr> 
                                 <tr ng-repeat = "ante in funcionario.antecedentes" ng-click="editFuncionarioAntecedentes(ante)" style="cursor:pointer">
                                     <td>{{ante.descripcion}}</td> 
