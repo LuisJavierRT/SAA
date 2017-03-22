@@ -25,19 +25,28 @@ exports.createFuncionario = function(data, callback){
     },
     function(success, dataQuery) {
         if(success) {
-            var paramsString2 = '\"'+data.usuarioActual+'\"'+','+
-                                dataQuery[0][0].id+','+ '\"' + 'i' + '\"';
-            repository.executeQuery({
-                spName:  'sp_HistorialGestionFuncionario',
-                params: paramsString2
-            },
-            function(success2, data2) {
+            if(dataQuery[0][0].idF == -1) {
                 callback({
-                    status: true, 
-                    message: 'Se ha registrado la informacion del funcionario de manera exitosa',
-                    data: dataQuery[0][0].id
+                    status: false, 
+                    message: 'Ya existe un funcionario con esa cédula',
+                    data: {}
                 });
-            });
+            }
+            else{
+                var paramsString2 = '\"'+data.usuarioActual+'\"'+','+
+                                        dataQuery[0][0].idF+','+ '\"' + 'i' + '\"';
+                repository.executeQuery({
+                    spName:  'sp_HistorialGestionFuncionario',
+                    params: paramsString2
+                },
+                function(success2, data2) {
+                    callback({
+                        status: true, 
+                        message: 'Se ha registrado la informacion del funcionario de manera exitosa',
+                        data: dataQuery[0][0].idF
+                    });
+                });
+            }
         } 
         else {
             callback({
@@ -50,7 +59,6 @@ exports.createFuncionario = function(data, callback){
 };
 
 exports.createAcademicInfo = function(data, callback){
-    console.log(data);
     var paramsString = 		data.id+','+
     				   '\"'+data.params.titulo+'\"'+','+
                        '\"'+data.params.universidad+'\"'+','+
@@ -102,11 +110,8 @@ exports.createAntecedentesFuncionario = function(data, callback){
     });    
 };
 
-/////////////////////// Actualizar Funcionario /////////////////////////////////////////////////
 
 exports.updateFuncionario = function(data, callback){
-    console.log(data);
-    console.log(data.infoPersonal.cedula);
     var paramsString =  '\"'+data.id+'\"'+','+
                         '\"'+data.infoPersonal.cedula+'\"'+','+
                        '\"'+data.infoPersonal.nombre+'\"'+','+
@@ -122,19 +127,28 @@ exports.updateFuncionario = function(data, callback){
     },
     function(success, dataQuery) {
         if(success) {
-            var paramsString2 = '\"'+data.usuarioActual+'\"'+','+
-                                data.idFuncionario+','+ '\"' + 'm' + '\"';
-            repository.executeQuery({
-                spName:  'sp_HistorialGestionFuncionario',
-                params: paramsString2
-            },
-            function(success2, data2) {
+            if(dataQuery[0][0].valid == 0) {
                 callback({
-                    status: true, 
-                    message: 'Se ha modificado la informacion del funcionario de manera exitosa',
+                    status: false, 
+                    message: 'Ya existe un funcionario con esa cédula',
                     data: {}
                 });
-            });
+            }
+            else {
+                var paramsString2 = '\"'+data.usuarioActual+'\"'+','+
+                                data.idFuncionario+','+ '\"' + 'm' + '\"';
+                repository.executeQuery({
+                    spName:  'sp_HistorialGestionFuncionario',
+                    params: paramsString2
+                },
+                function(success2, data2) {
+                    callback({
+                        status: true, 
+                        message: 'Se ha modificado la informacion del funcionario de manera exitosa',
+                        data: {}
+                    });
+                });
+            }
         } 
         else {
             callback({
@@ -186,7 +200,6 @@ exports.updateAcademicInfo = function(data, callback){
 
 
 exports.updateAntecedentesFuncionario = function(data, callback){
-    console.log(data);
     var paramsString = data.id + ',' +  
                     '\"'+data.idFuncionario+'\"' + ',' +  
                     '\"'+data.descripcion+'\"';

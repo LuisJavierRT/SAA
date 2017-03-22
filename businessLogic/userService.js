@@ -126,19 +126,29 @@ exports.addUser = function(data, callback){
     }, 
     function(success, dataQuery) {
         if(success) {
-            var paramsString2 = '\"' + data.usuarioActual + '\"' + ',' + '\"' + data.usuario + '\"' + ',' + '\"' + 'i' + '\"';
-            repository.executeQuery({
-                spName: 'sp_historialGestionUsuario',
-                params:  paramsString2
-            },
-            function(success2, data2) {
+            if(dataQuery[0][0].valid == 1) {
+                var paramsString2 = '\"' + data.usuarioActual + '\"' + ',' + '\"' + data.usuario + '\"' + ',' + '\"' + 'i' + '\"';
+                repository.executeQuery({
+                    spName: 'sp_historialGestionUsuario',
+                    params:  paramsString2
+                },
+                function(success2, data2) {
+                    callback(
+                    {
+                        success: true,
+                        data: null,
+                        message: "El usuario se agregó correctamente"
+                    });
+                });
+            }
+            else{
                 callback(
                 {
-                    success: true,
+                    success: false,
                     data: null,
-                    message: "El usuario se agregó correctamente"
+                    message: "El usuario ya existe"
                 });
-            });
+            }
         } 
         else 
         {callback(

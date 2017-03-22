@@ -3,7 +3,7 @@ use `mydb`
 delimiter $$
 create procedure sp_login (
     in pUsuario varchar(30),
-    in pPassword varchar(30)
+    in pPassword varchar(30) 
 )
 begin
     declare passwordMD5 varchar(32);
@@ -66,16 +66,19 @@ create procedure sp_agregarUsuario (
 	in _fechaFinalAutorizacion datetime
 )
 begin
-	declare contrasenaMD5 varchar(32);
-    set contrasenaMD5 = md5(_contrasena);
-	insert into Usuario (usuario, contrasena, cedula, nombre, correo, tipo, activo, fechaInicioAutorizacion, fechaFinalAutorizacion)
-    values (_usuario, contrasenaMD5, _cedula, _nombre, _correo, _tipo, _activo, _fechaInicioAutorizacion, _fechaFinalAutorizacion);
-    
-    select max(usuario) as usuario from Usuario;
-    
+	declare valid int;
+    declare contrasenaMD5 varchar(32);
+	set contrasenaMD5 = md5(_contrasena);
+	if exists(select * from Usuario where usuario = _usuario) then
+		set valid = 0;
+    else
+		insert into Usuario (usuario, contrasena, cedula, nombre, correo, tipo, activo, fechaInicioAutorizacion, fechaFinalAutorizacion)
+		values (_usuario, contrasenaMD5, _cedula, _nombre, _correo, _tipo, _activo, _fechaInicioAutorizacion, _fechaFinalAutorizacion);
+        set valid = 1;
+    end if;
+    select valid;
 end $$
 delimiter ;
-
 
 -- Obtiene todos los usuarios
 delimiter $$
@@ -144,10 +147,15 @@ create procedure sp_agregarFuncionario (
 	in _areaEspecialidad varchar(60)
 )
 begin
-	insert into Funcionario (cedula, nombre, apellido1, apellido2, activo, fechaNacimiento, areaEspecialidad)
-    values (_cedula, _nombre, _apellido1, _apellido2, _activo, _fechaNacimiento, _areaEspecialidad);
-    
-    select max(id) as id from Funcionario;
+	declare idF int;
+    if exists(select * from Funcionario where cedula = _cedula) then
+		set idF = -1;
+	else
+		insert into Funcionario (cedula, nombre, apellido1, apellido2, activo, fechaNacimiento, areaEspecialidad)
+		values (_cedula, _nombre, _apellido1, _apellido2, _activo, _fechaNacimiento, _areaEspecialidad);
+		set idF = (select max(id) from Funcionario);
+    end if;
+    select idF; 
 end $$
 delimiter ; 
 
@@ -164,16 +172,19 @@ create procedure sp_actualizarFuncionario(
 	in _areaEspecialidad varchar(60)
 )
 begin
-    update Funcionario set cedula = _cedula,
-                           nombre = _nombre,
-                           apellido1 = _apellido1,
-                           apellido2 = _apellido2,
-                           activo = _activo,
-                           fechaNacimiento = _fechaNacimiento,
-                           areaEspecialidad = _areaEspecialidad
-    where id = _id;
+	declare valid int;
+    if exists(select * from Funcionario where id != _id and cedula = _cedula) then
+		set valid = 0;
+	else
+		update Funcionario set cedula = _cedula, nombre = _nombre, apellido1 = _apellido1, 
+							apellido2 = _apellido2, activo = _activo, 
+							fechaNacimiento = _fechaNacimiento, areaEspecialidad = _areaEspecialidad
+		where id = _id;
+        set valid = 1;
+	end if;
+    select valid;
 end $$
-delimiter ;
+delimiter ; 
 
 
 delimiter $$
@@ -268,18 +279,18 @@ delimiter $$
 create procedure sp_agregarDependencia (
 
 	 in _codigo varchar(10), 
-	 in _nombre varchar(60)
+	 in _nombre varchar(60) 
 )
 begin 
-	declare id int;
+	declare idD int;
     if exists(select * from Dependencia where codigo = _codigo) then
-		set id = -1;
-        select id;
+		set idD = -1;
 	else
 		insert into Dependencia (codigo, nombre)
 		values (_codigo, _nombre);
-		select max(id) as id from Dependencia;
+		set idD = (select max(id) from Dependencia);
 	end if;
+    select idD;
 end $$
 delimiter ;  
 

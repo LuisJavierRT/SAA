@@ -104,7 +104,7 @@ exports.addDependency = function(data, callback){
     }, 
     function(success, dataQuery) {
         if(success) {
-            if(dataQuery[0][0].id == -1){
+            if(dataQuery[0][0].idD == -1){
                 callback(
                 {
                     success: false,
@@ -113,7 +113,7 @@ exports.addDependency = function(data, callback){
                 });
             }
             else{
-                var paramsString2 = '\"' + data.usuario + '\"' + ',' + '\"' + dataQuery[0][0].id + '\"' + ',' + '\"' + 'i' + '\"';
+                var paramsString2 = '\"' + data.usuario + '\"' + ',' + '\"' + dataQuery[0][0].idD + '\"' + ',' + '\"' + 'i' + '\"';
                 repository.executeQuery({
                     spName: 'sp_historialGestionDependencia',
                     params:  paramsString2
@@ -169,6 +169,7 @@ exports.updateDependency = function(data, callback){
     }, 
     function(success, dataQuery) {
         if(success) {
+
             if(dataQuery[0][0].valid == 0) {
                 callback(
                 {

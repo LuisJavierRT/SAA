@@ -87,6 +87,7 @@
                                     </td>
                                     <td>
                                         <select class="form-control" ng-model="inputFuncionario.infoAcademica.grado">
+                                            <option value="" disabled selected>Grado</option>
                                             <option ng-repeat="degree in degreeList">{{degree}}</option>
                                         </select>   
                                     </td>
@@ -147,7 +148,7 @@
     </div>
     <div class="row">
             <div class="container">
-                <button class="btn btn-primary" ng-click="sendToProfessorsView()">Regresar</button> 
+                <button class="btn btn-primary" ng-click="sendToFuncionariosView()">Regresar</button> 
                 <br></br>
            </div>
         </div>

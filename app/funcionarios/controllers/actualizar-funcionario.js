@@ -170,7 +170,7 @@
 
 
 	    	$scope.validAcademicForm = function(pIsValid, pData) {
-				if(pIsValid) { 
+				if(pIsValid && pData.grado != "") { 
 					var data = {
 						id: $scope.funcionario.id,
 						params: pData
@@ -219,6 +219,7 @@
 
 
 		  	$scope.updateFuncionario = function (pIsValid,funcionarioToUpdate) {
+		  		console.log(funcionarioToUpdate);
 		  		if (pIsValid) {
 			  		funcionarioToUpdate.activo = 1;
 			  		funcionarioToUpdate.usuario = $scope.user.usuario;
@@ -232,14 +233,16 @@
 				          	messageHandlerService.notifyError(null, result.message);
 				        }
 			  		});
-		  		}else{
+		  		}
+		  		else{
 		  			var message = 'Debe completar la información personal de manera correcta';
 					messageHandlerService.notifyError(null, message);
 		  		}
 			};
 
 			$scope.updateFuncionarioTitulos = function (pIsValid,tituloToUpdate) {
-				if (pIsValid) {
+				console.log(tituloToUpdate);
+				if (pIsValid && tituloToUpdate.grado != "") {
 			  		tituloToUpdate.idFuncionario = $scope.funcionario.id;
 			  		tituloToUpdate.usuario = $scope.user.usuario;
 			  		academicService.editAcademicDegree(tituloToUpdate).then(function(result) {
@@ -283,8 +286,8 @@
 			};
 
 
-	    	$scope.sendToFuncionarioView = function() {
-	    		$state.go('gestionar-funcionario');
+	    	$scope.sendToFuncionariosView = function() {
+	    		$state.go('gestionar-funcionarios');
 			};
 
 			var getFuncionarioId = function() {

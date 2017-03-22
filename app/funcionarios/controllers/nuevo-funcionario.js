@@ -62,7 +62,7 @@
 		    };
 
 		    $scope.validAcademicForm = function(pIsValid, pData) {
-				if(pIsValid) { 
+				if(pIsValid && pData.grado != "") { 
 					addAcademicInfo(pData);
 				}
 				else {
