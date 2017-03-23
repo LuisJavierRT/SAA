@@ -2095,7 +2095,7 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
   closeText: 'Done',
   closeOnDateSelection: true,
   appendToBody: false,
-  showButtonBar: true,
+  showButtonBar: false,
   onOpenFocus: true
 })
 
