@@ -161,7 +161,6 @@ exports.updateFuncionario = function(data, callback){
 };
 
 exports.updateAcademicInfo = function(data, callback){
-    //console.log(data);
     var paramsString =      data.id+','+
                         '\"'+data.idFuncionario+'\"'+','+
                        '\"'+data.titulo+'\"'+','+

@@ -150,15 +150,15 @@ create table `mydb`.`CaracteristicaPlaza` (
   `codigo` VARCHAR(8) NOT NULL,
   `periodo` VARCHAR(30) NOT NULL,  -- ??
   `programa` INT NOT NULL,
-  `categoria` INT NOT NULL,   	   -- ??
-  `tce` INT NOT NULL,
+  `categoria` VARCHAR(6) NOT NULL,   	   -- ??
+  `tce` VARCHAR(10) NOT NULL,
   `activo` BIT NOT NULL DEFAULT 1,
-  `puesto` VARCHAR(30) NOT NULL,
+  `puesto` VARCHAR(30) NOT NULL, 
   `porcentajeCreacion` INT NOT NULL,
   `asignacionDependencia` BIT NOT NULL DEFAULT 0,
   `fechaAutorizacionInicio` DATETIME NOT NULL,
-  `fechaAutorizacionFinal` DATETIME NOT NULL,
-  `articulo` VARCHAR(10) NOT NULL,
+  `fechaAutorizacionFinal` DATETIME,
+  `articulo` VARCHAR(10) NOT NULL, 
   `numeroAcuerdo` INT NOT NULL,
   `fechaAcuerdo` DATETIME NOT NULL,
   

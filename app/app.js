@@ -84,7 +84,7 @@
           url: '/nueva-plaza',
           parent: 'saa',
           templateUrl: 'plazas/views/nueva-plaza.html',
-          controller: 'NuevoFuncionarioCtrl'
+          controller: 'NuevaPlazaCtrl'
         })
     })
 

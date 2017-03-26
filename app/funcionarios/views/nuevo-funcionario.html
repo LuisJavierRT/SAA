@@ -1,9 +1,9 @@
-<div class="row">
+<div>
 	<ol class="breadcrumb">
         <li class="active">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Funcionarios</li>
         <li class="active">Nuevo funcionario</li>
     </ol>
-    <div class="row">
+    <div>
     	<div class="container"> 
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -40,7 +40,7 @@
                                     </td> 
                                     <td class="col-xs-2" >
                                         <p class="input-group">
-                                            <input type="text" class="form-control" uib-datepicker-popup="{{dateSettings.dateFormat}}" ng-model="funcionario.infoPersonal.fecha" is-open="dateSettings.showRegDate"  date-disabled="false" close-text="Cerrar" ng-readonly="true" requiered/>
+                                            <input type="text" class="form-control" uib-datepicker-popup="{{dateSettings.dateFormat}}" ng-model="funcionario.infoPersonal.fecha" is-open="dateSettings.showRegDate"  date-disabled="false" close-text="Cerrar" current-text="Hoy" ng-readonly="true" requiered/>
                                             <span class="input-group-btn"> 
                                                 <button type="button" class="btn btn-default" ng-click="openDatePickerPopUp()">
                                                     <i class="glyphicon glyphicon-calendar"></i>
@@ -59,7 +59,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div>
         <div class="container">
             <h4>Información Académica</h4>
             <div class="panel panel-default">
@@ -92,7 +92,7 @@
                                     </td>
                                     <td  class="col-xs-2" >
                                         <p class="input-group">
-                                            <input type="text" class="form-control" uib-datepicker-popup="{{yearDegreeSettings.yearFormat}}" ng-model="inputFuncionario.infoAcademica.annoGraduacion" is-open="yearDegreeSettings.showRegYear" datepicker-options="yearDegreeSettings" date-disabled="disabled(date, mode)" close-text="Cerrar" ng-readonly="true" required/>
+                                            <input type="text" class="form-control" uib-datepicker-popup="{{yearDegreeSettings.yearFormat}}" ng-model="inputFuncionario.infoAcademica.annoGraduacion" is-open="yearDegreeSettings.showRegYear" datepicker-options="yearDegreeSettings" date-disabled="disabled(date, mode)" close-text="Cerrar" current-text="Hoy" ng-readonly="true" required/>
                                             <span class="input-group-btn"> 
                                                 <button type="button" class="btn btn-default" ng-click="openYearDegreePopUp($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                             </span>
@@ -116,7 +116,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div>
         <div class="container">
             <h4>Experiencia Laboral</h4>
             <div class="panel panel-default">
@@ -150,7 +150,7 @@
             </div>
        </div>
     </div>
-    <div class="row">
+    <div>
         <div class="container">
             <button class="btn btn-primary center-block" ng-click="validatedFuncionario(funcionarioForm.$valid, funcionario)">Agregar Funcionario</button> 
             <br></br>

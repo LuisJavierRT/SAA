@@ -1,4 +1,4 @@
-<div class="row">
+<div>
   	<ol class="breadcrumb">
 	  <li class="active">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Administración</li>
 	  <li class="active">Gestionar Usuarios</li>
@@ -34,7 +34,7 @@
 							</td>
 							<td  class="col-xs-2">
 								<p class="input-group">
-					              <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}" ng-model="inputUser.fechaInicioAutorizacion" placeholder="Fecha Inicial" is-open="showRegDate"  date-disabled="false" current-text="Hoy" clear-text="Limpiar" close-text="Cerrar" ng-readonly="true"/>
+					              <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}" ng-model="inputUser.fechaInicioAutorizacion" placeholder="Fecha Inicial" is-open="showRegDate"  date-disabled="false" close-text="Cerrar" current-text="Hoy" ng-readonly="true"/>
 					              <span class="input-group-btn"> 
 					                <button type="button" class="btn btn-default" ng-click="openRegDatePickerPopUp()"><i class="glyphicon glyphicon-calendar"></i></button>
 					              </span>
@@ -42,7 +42,7 @@
 				            </td>
 				            <td  class="col-xs-2" >
 								<p class="input-group">
-					              <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}" ng-model="inputUser.fechaFinalAutorizacion" placeholder="Fecha Final" is-open="showEndDate"  date-disabled="false" current-text="Hoy" clear-text="Limpiar" close-text="Cerrar" ng-readonly="true"/>
+					              <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}" ng-model="inputUser.fechaFinalAutorizacion" placeholder="Fecha Final" is-open="showEndDate"  date-disabled="false" close-text="Cerrar" current-text="Hoy" ng-readonly="true"/>
 					              <span class="input-group-btn"> 
 					                <button type="button" class="btn btn-default" ng-click="openEndDatePickerPopUp()"><i class="glyphicon glyphicon-calendar"></i></button>
 					              </span>

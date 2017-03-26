@@ -5,7 +5,8 @@ var express       = require('express'),
     sessionController     = require('./controllers/sessionController.js'),
     userController = require('./controllers/userController.js'),
     dependencyController = require('./controllers/dependencyController.js'),
-    funcionarioController = require('./controllers/funcionarioController.js');
+    funcionarioController = require('./controllers/funcionarioController.js'),
+    plazaController = require('./controllers/plazaController.js');
 
 
 app.use(bodyParser.urlencoded({
@@ -43,6 +44,9 @@ app.get('/funcionarios/records/:id', funcionarioController.getAntecedentesFuncio
 app.put('/funcionarios/:id', funcionarioController.updateFuncionario);
 app.put('/funcionarios/academics/:id', funcionarioController.updateAcademics);
 app.put('/funcionarios/records/:id', funcionarioController.updateRecords);
+
+app.post('/plazas', plazaController.addPlaza);
+app.post('/plazasInfo', plazaController.addPlazaInfo);
 
 
 server.listen(8080, function(){

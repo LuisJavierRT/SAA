@@ -370,29 +370,33 @@ delimiter $$
 create procedure sp_agregarPlaza (
 	
      in _descripcion varchar(60),
-     in _fechaRegistro datetime,
-     in _activo bit
+     in _codigo varchar(8)
 )
 begin
-	insert into Plaza (descripcion, fechaRegistro, activo)
-    values (_descripcion, _fechaRegistro, _activo);
+	declare valid int;
+	if exists(select * from CaracteristicaPlaza where codigo = _codigo) then
+		set valid = 0;
+	else
+		insert into Plaza (descripcion, fechaRegistro)
+		values (_descripcion, NOW());
+        set valid = (select max(id) from Plaza);
+	end if;
+    select valid;
 end $$
 delimiter ;
 
 
 delimiter $$
-create procedure sp_agregarCaracteristicaPlaza (
+create procedure sp_agregarCaracteristicaPlaza ( 
 	
 	 in _idPlaza int, 
 	 in _codigo varchar(8),
 	 in _periodo varchar(30),  -- ??
 	 in _programa int,
-	 in _categoria int,   	   -- ??
-	 in _tce int,
-	 in _activo bit,
+	 in _categoria varchar(6),   	   -- ??
+	 in _tce varchar(10),
 	 in _puesto varchar(30),
 	 in _porcentajeCreacion int,
-	 in _asignacionDependencia bit,
 	 in _fechaAutorizacionInicio datetime,
 	 in _fechaAutorizacionFinal datetime,
 	 in _articulo varchar(10),
@@ -400,10 +404,10 @@ create procedure sp_agregarCaracteristicaPlaza (
 	 in _fechaAcuerdo datetime
 )
 begin
-	insert into CaracteristicaPlaza (idPlaza, codigo, periodo, programa, categoria, tce, activo, puesto, 
-    porcentajeCreacion, asignacionDependencia,fechaAutorizacionInicio, fechaAutorizacionFinal, articulo, numeroAcuerdo, fechaAcuerdo)
-    values (_idPlaza, _codigo, _periodo, _programa, _categoria, _tce, _activo, _puesto, 
-    _porcentajeCreacion, _asignacionDependencia, _fechaAutorizacionInicio, _fechaAutorizacionFinal, _articulo, _numeroAcuerdo, _fechaAcuerdo);
+	insert into CaracteristicaPlaza (idPlaza, codigo, periodo, programa, categoria, tce, puesto, 
+    porcentajeCreacion, fechaAutorizacionInicio, fechaAutorizacionFinal, articulo, numeroAcuerdo, fechaAcuerdo)
+    values (_idPlaza, _codigo, _periodo, _programa, _categoria, _tce, _puesto, 
+    _porcentajeCreacion, _fechaAutorizacionInicio, _fechaAutorizacionFinal, _articulo, _numeroAcuerdo, _fechaAcuerdo);
 end $$
 delimiter ;
 

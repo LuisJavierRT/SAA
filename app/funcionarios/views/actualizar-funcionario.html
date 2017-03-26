@@ -3,65 +3,64 @@
         <li class="active">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Funcionarios</li>
         <li class="active">Actualizar Funcionario</li>
     </ol>
-        <div class="container">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <form name="funcionarioForm" novalidate>
-                        <table id ="funcionariosTable" class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Cédula</th>
-                                    <th>Nombre</th>
-                                    <th>Primer Apellido</th>
-                                    <th>Segundo Apellido</th>
-                                    <th>Fecha Nacimiento</th>
-                                    <th>Area de Especialidad</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody> 
-                                <tr>
-                                    <td>
-                                        <input class="form-control" type="text" placeholder="Cédula" required ng-model="funcionario.infoPersonal.cedula"></input>
-                                    </td>
-                                    <td>
-                                        <input class="form-control" type="text" placeholder="Nombre" required ng-model="funcionario.infoPersonal.nombre"></input>
-                                    </td>
-                                    <td>
-                                        <input class="form-control" type="text" placeholder="Primer Apellido" required ng-model="funcionario.infoPersonal.apellido1"></input>
-                                    </td>
-                                    <td>
-                                        <input class="form-control" type="text" placeholder="Segundo Apellido" required ng-model="funcionario.infoPersonal.apellido2"></input>
-                                    </td>  <!-- 
-                                    <td>
-                                        <input id="date" class="form-control" type="text" placeholder="Fecha" required ng-model="profesor.infoPersonal.fecha"></input>
-                                    </td> -->
-                                   
-                                     <td class="col-xs-2" >
-                                        <p class="input-group">
-                                            <input type="text" class="form-control" uib-datepicker-popup="{{dateSettings.dateFormat}}" ng-model="funcionario.infoPersonal.fechaNacimiento" is-open="dateSettings.showRegDate"  date-disabled="false" close-text="Cerrar" ng-readonly="true" requiered/>
-                                            <span class="input-group-btn"> 
-                                                <button type="button" class="btn btn-default" ng-click="openDatePickerPopUp()">
-                                                    <i class="glyphicon glyphicon-calendar"></i>
-                                                </button>
-                                            </span>
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <input class="form-control" type="text" placeholder="Area de Especialidad" required ng-model="funcionario.infoPersonal.areaEspecialidad"> 
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-info btn-xs" uib-tooltip="actualizar" ng-click="updateFuncionario(funcionarioForm.$valid,funcionario)"><span class="glyphicon glyphicon-refresh"></span></button>
-                                    </td>
-                                </tr>           
-                            </tbody>
-                        </table>
-                    </form>
-                </div>
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form name="funcionarioForm" novalidate>
+                    <table id ="funcionariosTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Cédula</th>
+                                <th>Nombre</th>
+                                <th>Primer Apellido</th>
+                                <th>Segundo Apellido</th>
+                                <th>Fecha Nacimiento</th>
+                                <th>Area de Especialidad</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody> 
+                            <tr>
+                                <td>
+                                    <input class="form-control" type="text" placeholder="Cédula" required ng-model="funcionario.infoPersonal.cedula"></input>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text" placeholder="Nombre" required ng-model="funcionario.infoPersonal.nombre"></input>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text" placeholder="Primer Apellido" required ng-model="funcionario.infoPersonal.apellido1"></input>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text" placeholder="Segundo Apellido" required ng-model="funcionario.infoPersonal.apellido2"></input>
+                                </td>  <!-- 
+                                <td>
+                                    <input id="date" class="form-control" type="text" placeholder="Fecha" required ng-model="profesor.infoPersonal.fecha"></input>
+                                </td> -->
+                               
+                                 <td class="col-xs-2" >
+                                    <p class="input-group">
+                                        <input type="text" class="form-control" uib-datepicker-popup="{{dateSettings.dateFormat}}" ng-model="funcionario.infoPersonal.fechaNacimiento" is-open="dateSettings.showRegDate"  date-disabled="false" close-text="Cerrar" current-text="Hoy" ng-readonly="true" requiered/>
+                                        <span class="input-group-btn"> 
+                                            <button type="button" class="btn btn-default" ng-click="openDatePickerPopUp()">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </p>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text" placeholder="Area de Especialidad" required ng-model="funcionario.infoPersonal.areaEspecialidad"> 
+                                </td>
+                                <td>
+                                    <button class="btn btn-info btn-xs" uib-tooltip="actualizar" ng-click="updateFuncionario(funcionarioForm.$valid,funcionario)"><span class="glyphicon glyphicon-refresh"></span></button>
+                                </td>
+                            </tr>           
+                        </tbody>
+                    </table>
+                </form>
             </div>
         </div>
     </div>
-    <div class="row">
+    <div>
         <div class="container">
             <h4>Información Académica</h4>
             <div class="panel panel-default">
@@ -93,7 +92,7 @@
                                     </td>
                                     <td  class="col-xs-2" >
                                         <p class="input-group">
-                                            <input type="text" class="form-control" uib-datepicker-popup="{{yearDegreeSettings.yearFormat}}" ng-model="inputFuncionario.infoAcademica.annoGraduacion" is-open="yearDegreeSettings.showRegYear" datepicker-options="yearDegreeSettings" ng-readonly="true" required/>
+                                            <input type="text" class="form-control" uib-datepicker-popup="{{yearDegreeSettings.yearFormat}}" ng-model="inputFuncionario.infoAcademica.annoGraduacion" is-open="yearDegreeSettings.showRegYear" datepicker-options="yearDegreeSettings" ng-readonly="true" close-text="Cerrar" current-text="Hoy" required/>
                                             <span class="input-group-btn"> 
                                                 <button type="button" class="btn btn-default" ng-click="openYearDegreePopUp($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                             </span>
@@ -115,7 +114,7 @@
             </div>
        </div>
     </div>
-    <div class="row">
+    <div>
         <div class="container">
             <h4>Información Laboral</h4>
             <div class="panel panel-default">
@@ -146,11 +145,11 @@
             </div>
        </div>
     </div>
-    <div class="row">
-            <div class="container">
-                <button class="btn btn-primary" ng-click="sendToFuncionariosView()">Regresar</button> 
-                <br></br>
-           </div>
+    <div>
+        <div class="container">
+            <button class="btn btn-primary" ng-click="sendToFuncionariosView()">Regresar</button> 
+            <br></br>
         </div>
+    </div>
     <br></br>
 </div>
