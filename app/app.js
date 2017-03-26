@@ -80,6 +80,12 @@
           templateUrl: 'funcionarios/views/actualizar-funcionario.html',
           controller: 'ActualizarFuncionarioCtrl'
         })
+        .state('nueva-plaza', {
+          url: '/nueva-plaza',
+          parent: 'saa',
+          templateUrl: 'plazas/views/nueva-plaza.html',
+          controller: 'NuevoFuncionarioCtrl'
+        })
     })
 
   .directive('stringToNumber', function() {

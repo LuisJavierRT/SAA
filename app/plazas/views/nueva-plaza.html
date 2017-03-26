@@ -1,0 +1,151 @@
+<div class="row">
+	<ol class="breadcrumb">
+        <li class="active">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Plazas</li>
+        <li class="active">Nueva Plaza</li>
+    </ol>
+    <div class="row">
+    	<div class="container"> 
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p>Ingrese los datos de la plaza</p>
+                    <form name="plazaForm" novalidate>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Periodo</th>
+                                    <th>Programa</th>
+                                    <th>Categoria</th>
+                                    <th>TCE</th>
+                                    <th>Puesto</th>
+                                    <th>Descripción<th>
+                                </tr>
+                            </thead>
+                            <tbody> 
+                                <tr>
+                                    <td>
+                                        <input class="form-control" type="text" placeholder="Código" required ng-model="plaza.codigo" required>
+                                        </input>
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="text" placeholder="Periodo" required ng-model="plaza.periodo" required>
+                                        </input>
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="text" placeholder="Programa" required ng-model="plaza.programa" requiered>
+                                        </input>
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="text" placeholder="Categoria" required ng-model="plaza.categoria" requiered>
+                                        </input>
+                                    </td> 
+                                    <td>
+                                        <input class="form-control" type="text" placeholder="TCE" required ng-model="plaza.tce" requiered>
+                                        </input>
+                                    </td> 
+                                    <td>
+                                        <input class="form-control" type="text" placeholder="Puesto" required ng-model="plaza.puesto" requiered>
+                                        </input>
+                                    </td> 
+                                    <td>
+                                        <input class="form-control" type="text" placeholder="Descripción" required ng-model="plaza.descripcion" requiered>
+                                        </input>
+                                    </td> 
+                                    <td class="col-xs-2" >
+                                        <p class="input-group">
+                                            <input type="text" class="form-control" uib-datepicker-popup="{{dateSettings.dateFormat}}" ng-model="funcionario.infoPersonal.fecha" is-open="dateSettings.showRegDate"  date-disabled="false" close-text="Cerrar" ng-readonly="true" requiered/>
+                                            <span class="input-group-btn"> 
+                                                <button type="button" class="btn btn-default" ng-click="openDatePickerPopUp()">
+                                                    <i class="glyphicon glyphicon-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </p>
+                                    </td>
+                                </tr>             
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
+            <h4>Información de la plaza</h4>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form name="plazaForm" novalidate>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Porcentaje Creación</th>
+                                    <th>Fecha Autorización Inicial</th>
+                                    <th>Fecha Autorización Final</th>
+                                    <th>Articulo</th>
+                                    <th>Número de Acuerdo</th>
+                                    <th>Fecha de Acuerdo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr >
+                                    <td>
+                                        <input class="form-control" type="text" placeholder="Porcentaje Creación" ng-model="plaza.porcentajeCreacion" required></input>
+                                    </td>
+                                    <td  class="col-xs-2" >
+                                        <p class="input-group">
+                                            <input type="text" class="form-control" uib-datepicker-popup="{{yearDegreeSettings.yearFormat}}" ng-model="plaza.fechaAutorizacionInicial" is-open="yearDegreeSettings.showRegYear" datepicker-options="yearDegreeSettings" date-disabled="disabled(date, mode)" close-text="Cerrar" ng-readonly="true" required/>
+                                            <span class="input-group-btn"> 
+                                                <button type="button" class="btn btn-default" ng-click="openYearDegreePopUp($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                            </span>
+                                        </p>
+                                    </td>
+                                    <td  class="col-xs-2" >
+                                        <p class="input-group">
+                                            <input type="text" class="form-control" uib-datepicker-popup="{{yearDegreeSettings.yearFormat}}" ng-model="plaza.fechaAutorizacionFinal" is-open="yearDegreeSettings.showRegYear" datepicker-options="yearDegreeSettings" date-disabled="disabled(date, mode)" close-text="Cerrar" ng-readonly="true" required/>
+                                            <span class="input-group-btn"> 
+                                                <button type="button" class="btn btn-default" ng-click="openYearDegreePopUp($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                            </span>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="text" placeholder="Artículo" ng-model="plaza.articulo" required ></input>
+                                    </td>
+
+                                    <td>
+                                        <input class="form-control" type="text" placeholder="Número de Acuerdo" ng-model="plaza.numeroAcuerdo" required ></input>
+                                    </td>
+                                    <td  class="col-xs-2" >
+                                        <p class="input-group">
+                                            <input type="text" class="form-control" uib-datepicker-popup="{{yearDegreeSettings.yearFormat}}" ng-model="plaza.fechaAcuerdo" is-open="yearDegreeSettings.showRegYear" datepicker-options="yearDegreeSettings" date-disabled="disabled(date, mode)" close-text="Cerrar" ng-readonly="true" required/>
+                                            <span class="input-group-btn"> 
+                                                <button type="button" class="btn btn-default" ng-click="openYearDegreePopUp($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                            </span>
+                                        </p>
+                                    </td>
+
+                                    <td>
+                                        <button class="btn btn-primary btn-xs"  uib-tooltip="agregar" ng-click="validAcademicForm(academicForm.$valid, inputFuncionario.infoAcademica)"><span class="glyphicon glyphicon-plus"></span></button>
+                                    <td>
+                                </tr>  
+                                <tr ng-repeat = "pl in plaza">
+                                    <td>{{pl.porcentajeCreacion}}</td>
+                                    <td>{{pl.fechaAutorizacionInicial}}</td> 
+                                    <td>{{pl.fechaAutorizacionFinal}}</td> 
+                                    <td>{{pl.articulo}}</td>  
+                                    <td>{{pl.numeroAcuerdo}}</td> 
+                                    <td>{{pl.fechaAcuerdo}}</td> 
+                                </tr>         
+                            </tbody>
+                        </table>
+                    </form>   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
+            <button class="btn btn-primary center-block" ng-click="validatedFuncionario(funcionarioForm.$valid, funcionario)">Agregar Plaza</button> 
+            <br></br>
+       </div>
+    </div>
+</div>

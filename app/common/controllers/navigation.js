@@ -17,6 +17,10 @@
 
             $scope.plazas = [
                 
+                {
+                    name: "Nueva Plaza",
+                    link: "nueva-plaza"
+                }
             ]; 
 
             $scope.funcionarios = [
