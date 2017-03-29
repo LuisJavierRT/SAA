@@ -169,6 +169,23 @@ create table `mydb`.`CaracteristicaPlaza` (
     REFERENCES `Plaza` (`id`))
 ENGINE = InnoDB;
 
+create table `mydb`.`HistorialGestionPlaza` (
+	`id` int not null auto_increment,
+    `usuario` varchar(30) not null,
+    `idPlaza` int not null,
+    `fecha` varchar(20) not null,
+    `accion` char not null, /* 'i' = insertar / 'm' = modificar / 'd' = deshabilitar */
+    primary key (`id`),
+    CONSTRAINT `fk_usuario_gestion_plaza_historial`
+		FOREIGN KEY (`usuario`)
+		REFERENCES `Usuario` (`usuario`),
+	
+    CONSTRAINT `fk_idPlaza_gestion_plaza_historial`
+		FOREIGN KEY (`idPlaza`)
+		REFERENCES `Plaza` (`id`))
+ENGINE = InnoDB;
+
+
 create table `mydb`.`PlazaDependencia` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `idPlaza` INT NOT NULL, 

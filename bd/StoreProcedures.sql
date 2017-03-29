@@ -413,6 +413,19 @@ delimiter ;
 
 
 delimiter $$
+create procedure sp_HistorialGestionPlaza (
+	in _usuario varchar(30),
+    in _idPlaza int,
+    in _accion char
+) 
+begin 
+	insert into HistorialGestionPlaza(usuario, idPlaza, fecha, accion)
+    values (_usuario, _idPlaza, NOW(), _accion);
+end $$
+delimiter ; 
+
+
+delimiter $$
 create procedure sp_agregarPlazaDependencia (
 	
 	 in _idPlaza int, 

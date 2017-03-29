@@ -31,14 +31,22 @@ exports.addPlaza = function(data, callback){
 	                data: null
 	            });
         	}
-        	else{
-        		callback(
-	            {
-	                success: true,
-	                message: "La plaza se agregó correctamente",
-	                data: dataQuery[0][0].valid
-	            });
-        	}
+
+            else{
+                var paramsString2 = '\"'+data.usuarioActual+'\"'+','+
+                                        dataQuery[0][0].idP+','+ '\"' + 'i' + '\"';
+                repository.executeQuery({
+                    spName:  'sp_HistorialGestionPlaza',
+                    params: paramsString2
+                },
+                function(success2, data2) {
+                    callback({
+                        status: true, 
+                        message: "La plaza se agregó correctamente",
+                        data: dataQuery[0][0].idP
+                    });
+                });
+            }
         } 
         else 
         {

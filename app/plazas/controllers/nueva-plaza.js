@@ -2,8 +2,10 @@
 	"use strict";
 	angular
 		.module("saaApp")
-		.controller("NuevaPlazaCtrl", ["$scope", "PlazaService", "messageHandlerService", function($scope, plazaService, messageHandlerService) {
+		.controller("NuevaPlazaCtrl", ["$scope", "PlazaService", "messageHandlerService","shareSessionService", function($scope, plazaService, messageHandlerService,shareSessionService) {
 			$scope.plaza = {};
+			$scope.user = {};
+			
 			$scope.dateSettings = {
 	    		dateFormat:'dd-MM-yyyy',
                 showRegDate: false,
@@ -31,6 +33,11 @@
 		      	return $scope.dateSettings.showAgreDate;
 		    };
 
+		    $scope.getUser = function() {
+	    		$scope.user = shareSessionService.getSession();
+	    	};
+
+
 		    $scope.validatedPlaza = function(pIsValid, pIsValid2, pData) {
 		    	if(pIsValid && pIsValid2) {
 		    		var plazaInfo = {
@@ -48,7 +55,7 @@
 			    		numeroAcuerdo: pData.numeroAcuerdo,
 			    		fechaAcuerdo: pData.fechaAcuerdo
 			    	};
-
+			    	plazaInfo.usuarioActual = $scope.user.usuario;
 			    	plazaService.addPlaza(plazaInfo).then(function(result) {
 			    		if(result.success) {
 			    			plazaInfo.idPlaza = result.data;
@@ -74,5 +81,8 @@
 			    	messageHandlerService.notifyWarning(null, "Debe completar todo los campos correctamente");
 		    	}
 		    };
+
+		    $scope.getUser();
+
 		}]);
 })();
