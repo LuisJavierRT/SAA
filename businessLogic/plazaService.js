@@ -34,18 +34,20 @@ exports.addPlaza = function(data, callback){
 
             else{
                 var paramsString2 = '\"'+data.usuarioActual+'\"'+','+
-                                        dataQuery[0][0].idP+','+ '\"' + 'i' + '\"';
+                                        dataQuery[0][0].valid+','+ '\"' + 'i' + '\"';
                 repository.executeQuery({
                     spName:  'sp_HistorialGestionPlaza',
                     params: paramsString2
-                },
+                }, 
                 function(success2, data2) {
                     callback({
-                        status: true, 
+                        success: true, 
                         message: "La plaza se agregó correctamente",
-                        data: dataQuery[0][0].idP
+                        data: dataQuery[0][0].valid
                     });
                 });
+                
+
             }
         } 
         else 
@@ -64,11 +66,13 @@ exports.addPlazaInfo = function(data, callback) {
 	data.fechaAutorizacionInicio = formatDateFromJSToMySQL(data.fechaAutorizacionInicio);
 	data.fechaAutorizacionFinal = formatDateFromJSToMySQL(data.fechaAutorizacionFinal);
 	data.fechaAcuerdo = formatDateFromJSToMySQL(data.fechaAcuerdo);
+
 	var sp_params = data.idPlaza + "," + "\"" + data.codigo + "\"" + "," + "\"" + data.periodo + "\"" + "," +
 					data.programa + "," + "\"" + data.categoria + "\"" + "," + "\"" + data.tce + "\"" + "," +
 					"\"" + data.puesto + "\"" + "," +  data.porcentajeCreacion + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
 					"\"" + data.fechaAutorizacionFinal + "\"" + "," + "\"" + data.articulo + "\"" + "," + data.numeroAcuerdo + "," +
 					"\"" + data.fechaAcuerdo + "\"";
+
     repository.executeQuery({
         spName: 'sp_agregarCaracteristicaPlaza',
         params: sp_params

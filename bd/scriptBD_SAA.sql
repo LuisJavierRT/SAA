@@ -377,5 +377,7 @@ create table `mydb`.`PlazaContratacion` (
 )
 engine = innodb; 
 
+
+
 INSERT INTO Usuario(usuario, contrasena, cedula, nombre, correo, tipo, activo, fechaInicioAutorizacion, fechaFinalAutorizacion) 
     VALUES('jose', md5('123'), '207510507', 'Jose', 'correo', 'Administrador', 1, '2017-01-02', '2017-02-03');

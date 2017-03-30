@@ -600,3 +600,4 @@ begin
     values (_idPlaza, _idContrato, _idDependencia, _idFuncionario, _porcentajeContratacion);
 end $$
 delimiter ;
+

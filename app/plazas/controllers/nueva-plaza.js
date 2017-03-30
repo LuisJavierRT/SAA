@@ -41,6 +41,7 @@
 		    $scope.validatedPlaza = function(pIsValid, pIsValid2, pData) {
 		    	if(pIsValid && pIsValid2) {
 		    		var plazaInfo = {
+		    			usuarioActual: $scope.user.usuario,
 			    		descripcion: pData.descripcion,
 			    		codigo: pData.codigo,
 			    		periodo: pData.periodo,
@@ -55,7 +56,6 @@
 			    		numeroAcuerdo: pData.numeroAcuerdo,
 			    		fechaAcuerdo: pData.fechaAcuerdo
 			    	};
-			    	plazaInfo.usuarioActual = $scope.user.usuario;
 			    	plazaService.addPlaza(plazaInfo).then(function(result) {
 			    		if(result.success) {
 			    			plazaInfo.idPlaza = result.data;
