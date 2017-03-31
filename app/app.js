@@ -86,6 +86,18 @@
           templateUrl: 'plazas/views/nueva-plaza.html',
           controller: 'NuevaPlazaCtrl'
         })
+        .state('gestionar-plazas', {
+          url: '/gestionar-plazas',
+          parent: 'saa',
+          templateUrl: 'plazas/views/gestion-plaza.html',
+          controller: 'GestionPlazasCtrl'
+        })
+        .state('ver-plaza', {
+          url: '/ver-plaza',
+          parent: 'saa',
+          templateUrl: 'plazas/views/ver-plaza.html',
+          controller: 'VerPlazaCtrl'
+        })
     })
 
   .directive('stringToNumber', function() {

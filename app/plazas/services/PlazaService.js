@@ -23,12 +23,38 @@
 	  			});
 			};
 
+			var getAllPlazas = function(pData) {
+                var link = '/plazas';           
+                return requestService.getRequest({params: ""}, {url: link}).then(function(pResp) {
+                    return pResp;
+                },
+                function(pResp){
+                    return pResp;
+                });
+            };
+
+            var getPlazaById = function(pId) {
+                var link = '/plazas/';
+                return  requestService.getRequest({params: pId}, {url: link}).then(function(pResp) {
+                    return pResp; 
+                },  
+                function(pResp){
+                    return pResp;   
+                });
+            };
+
 			return {
 				addPlaza: function(pData) {
 					return addP(pData);
 				},
 				addPlazaInfo: function(pData) {
 					return addPI(pData);
+				},
+				getPlazaList: function() {
+					return getAllPlazas();
+				},
+				getPlaza: function(pData) {
+					return getPlazaById(pData);
 				}
 			};
 		}]);

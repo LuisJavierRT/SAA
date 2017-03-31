@@ -1,30 +1,29 @@
 <!doctype html>
 <html class="no-js">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Sistema de apoyo adminsitrativo</title>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Sistema de apoyo adminsitrativo</title>
 
-    <link rel="stylesheet" href="libs/css/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="libs/css/style/font-awesome.min.css">
-    <link rel="stylesheet" href="libs/css/angular-ui-notification/angular-ui-notification.min.css">
-    <link rel="stylesheet" href="libs/css/angular-ui-navbar/ui-navbar.css">
-    <link rel="stylesheet" href="libs/css/style/sticky-footer-navbar.css">
-    <link rel="stylesheet" href="libs/css/style/header-custom.css"> 
-    <link rel="stylesheet" href="libs/css/style/navbar-custom.css">  
-    <link rel="stylesheet" href="libs/css/style/accordion-custom.css"> 
-    <link rel="stylesheet" href="libs/css/angular-toggle-switch/angular-toggle-switch-bootstrap-3.css"> 
-    <link rel="icon" href="data:;base64,=">
-    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.css" type="text/css" />-->
+        <link rel="stylesheet" href="libs/css/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="libs/css/style/font-awesome.min.css">
+        <link rel="stylesheet" href="libs/css/angular-ui-notification/angular-ui-notification.min.css">
+        <link rel="stylesheet" href="libs/css/angular-ui-navbar/ui-navbar.css">
+        <link rel="stylesheet" href="libs/css/style/sticky-footer-navbar.css">
+        <link rel="stylesheet" href="libs/css/style/header-custom.css"> 
+        <link rel="stylesheet" href="libs/css/style/navbar-custom.css">  
+        <link rel="stylesheet" href="libs/css/style/accordion-custom.css"> 
+        <link rel="stylesheet" href="libs/css/angular-toggle-switch/angular-toggle-switch-bootstrap-3.css"> 
+        <link rel="icon" href="data:;base64,=">
+        <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.css" type="text/css" />-->
 
-  </head>
-  <body ng-app="saaApp">
+    </head>
+    <body ng-app="saaApp">
     <!-- Aquí se carga el contenido de la  página -->
-    <div>
-      <div ui-view></div>
-    </div>
-
-
+        <div>
+            <div ui-view></div>
+        </div>
+    </body>
     <!-- carga de librerias -->
     <script src="libs/angular/angular.js"></script>
     <script src="libs/ui-router/angular-ui-router.js"></script>
@@ -57,7 +56,9 @@
     <script src="funcionarios/controllers/ver-funcionario.js"></script>
     <script src="funcionarios/controllers/actualizar-funcionario.js"></script>
     <script src="plazas/controllers/nueva-plaza.js"></script>
-    
+    <script src="plazas/controllers/gestion-plaza.js"></script>
+    <script src="plazas/controllers/ver-plaza.js"></script>
+
 
     <!--Caga de servicios-->
     <script src="common/services/request-service.js"></script>
@@ -65,6 +66,7 @@
     <script src="common/services/message-handler-service.js"></script>
     <script src="common/services/share-session-service.js"></script>
     <script src="common/services/share-funcionario-service.js"></script>
+    <script src="common/services/share-plaza-service.js"></script>
     <script src="common/services/confirmation-modal-service.js"></script>
     <script src="common/services/user-service.js"></script>
     <script src="login/services/LoginService.js"></script>
@@ -75,5 +77,4 @@
     <script src="funcionarios/services/info-academica-funcionario.js"></script>
     <script src="funcionarios/services/funcionario.js"></script>
     <script src="plazas/services/PlazaService.js"></script>
-  </body>
 </html>

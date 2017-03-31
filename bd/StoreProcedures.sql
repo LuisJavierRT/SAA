@@ -415,6 +415,26 @@ delimiter ;
 
 
 delimiter $$
+create procedure sp_obtenerPlazas () 
+begin 
+	select p.id, cp.codigo from CaracteristicaPlaza as cp join Plaza as p on p.id = cp.idPlaza where cp.activo = 1;
+end $$ 
+delimiter ; 
+
+
+delimiter $$
+create procedure sp_obtenerPlaza ( 
+	in _id int
+)
+begin
+	select p.id, p.descripcion, cp.codigo, cp.categoria, cp.porcentajeCreacion, cp.fechaAutorizacionInicio,
+			fechaAutorizacionFinal, cp.periodo, cp.articulo, cp.numeroAcuerdo, cp.fechaAcuerdo, cp.puesto, 
+            cp.programa, cp.categoria from Plaza as p join CaracteristicaPlaza as cp on p.id = cp.idPlaza where p.id = _id;
+end $$
+delimiter ;
+
+
+delimiter $$
 create procedure sp_HistorialGestionPlaza (
 	in _usuario varchar(30),
     in _idPlaza int,

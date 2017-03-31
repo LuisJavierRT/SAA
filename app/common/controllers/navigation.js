@@ -16,10 +16,13 @@
             $scope.username = '';
 
             $scope.plazas = [
-                
                 {
                     name: "Nueva Plaza",
                     link: "nueva-plaza"
+                },
+                {
+                    name: "Gestión de Plazas",
+                    link: "gestionar-plazas"
                 }
             ]; 
 

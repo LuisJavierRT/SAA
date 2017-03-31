@@ -97,3 +97,71 @@ exports.addPlazaInfo = function(data, callback) {
         }
     });
 };
+
+exports.getAllPlazas = function(callback){
+
+    repository.executeQuery({
+        spName: 'sp_obtenerPlazas',
+        params: ''
+    }, 
+    function(success, data) {
+        if(success) {
+            data = data[0];
+            if(data.length > 0) {
+                callback({
+                    success: true, 
+                    message: 'Se ha obtenido la lista de plazas de manera exitosa',
+                    data: data
+                });
+            }
+            else {
+                callback({
+                    success: false, 
+                    message: 'No se han encontrado plazas registradas activas',
+                    data: {}
+                });
+            }
+        } 
+        else {
+            callback({
+                success: false, 
+                message: 'Ha ocurrido un error, no se ha obtenido la lista de plazas',
+                data: {}
+            });
+        }
+    });    
+};
+
+exports.getPlaza = function(data, callback){
+    repository.executeQuery({
+        spName: 'sp_obtenerPlaza',
+        params: data.id
+    }, 
+    function(success, data) {
+        console.log(data[0]);
+        if(success) {
+            data = data[0];
+            if(data.length > 0) {
+                callback({
+                    success: true, 
+                    message: 'Se ha obtenido la información de la plaza de manera exitosa',
+                    data: data[0]
+                });
+            }
+            else {
+                callback({
+                    success: false, 
+                    message: 'La plaza no se encuentra registrada',
+                    data: {}
+                });
+            }
+        } 
+        else {
+            callback({
+                success: false, 
+                message: 'Ha ocurrido un error, no se ha obtenido la plaza correspondiente',
+                data: {}
+            });
+        }
+    });    
+};

@@ -234,9 +234,6 @@ exports.updateAntecedentesFuncionario = function(data, callback){
 };
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 exports.getAllFuncionarios = function(callback){
 
     repository.executeQuery({

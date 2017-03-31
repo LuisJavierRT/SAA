@@ -1,0 +1,74 @@
+<div> 
+    <ol class="breadcrumb">
+        <li class="active">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Plazas</li>
+        <li class="active">Ver plaza</li>
+    </ol> 
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table id ="plazasTable" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Categoría</th>
+                            <th>Porcentaje Creación</th>
+                            <th>Fecha Autorización Inicial</th>
+                            <th>Fecha Autorización Final</th>
+                            <th>Período</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        <tr>
+                            <td>{{plaza.codigo}}</td>
+                            <td>{{plaza.categoria}}</td> 
+                            <td>{{plaza.porcentajeCreacion}}</td> 
+                            <td>{{plaza.fechaAutorizacionInicio | date: 'dd-MM-yyyy'}}</td>  
+                            <td>{{plaza.fechaAutorizacionFinal | date: 'dd-MM-yyyy'}}</td> 
+                            <td>{{plaza.periodo}}</td>   
+                        </tr>             
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container">
+            <h4>Información de la plaza</h4>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table id ="plazasTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Descripción</th>
+                                <th>Artículo</th>
+                                <th>Número de Acuerdo</th>
+                                <th>Fecha de Acuerdo</th>
+                                <th>Puesto</th>
+                                <th>Programa</th>
+                                <th>Categoría</th>
+                            </tr>
+                        </thead>
+                        <tbody> 
+                            <tr>
+                                <td>{{plaza.descripcion}}</td>
+                                <td>{{plaza.articulo}}</td>
+                                <td>{{plaza.numeroAcuerdo}}</td>
+                                <td>{{plaza.fechaAcuerdo | date: 'dd-MM-yyyy'}}</td>
+                                <td>{{plaza.puesto}}</td>
+                                <td>{{plaza.programa}}</td>
+                                <td>{{plaza.categoria}}</td>   
+                            </tr>         
+                        </tbody>
+                    </table>  
+                </div>
+            </div>
+       </div>
+    </div>
+    <div>
+        <div class="container">
+            <button class="btn btn-primary" ng-click="sendToPlazasView()">Regresar</button> 
+            <br></br>
+       </div>
+    </div>
+    <br></br>
+</div>

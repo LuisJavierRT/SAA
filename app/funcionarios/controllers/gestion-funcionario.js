@@ -2,7 +2,7 @@
  /**
  * @ngdoc Controller
  * @author Jose Alberto Hidalgo Bonilla
- * @name LoginCtrl
+ * @name GestionFuncionariosCtrl
  * @description
  * #  controller para gestion de funcionarios
  */ 

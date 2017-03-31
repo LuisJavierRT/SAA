@@ -47,7 +47,8 @@ app.put('/funcionarios/records/:id', funcionarioController.updateRecords);
 
 app.post('/plazas', plazaController.addPlaza);
 app.post('/plazasInfo', plazaController.addPlazaInfo);
-
+app.get('/plazas', plazaController.getAllPlazas);
+app.get('/plazas/:id', plazaController.getPlaza);
 
 server.listen(8080, function(){
 	console.log('Listening at port 8080...');

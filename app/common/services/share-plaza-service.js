@@ -1,7 +1,7 @@
 /**
  * @ngdoc Service
  * @author Jose Alberto Hidalgo Bonilla
- * @name shareFuncionarioService
+ * @name sharePlazaService
  * @description
  * #  service for share information between controllers
  */
@@ -9,25 +9,25 @@
     'use strict';
     angular
         .module('saaApp')
-        .service('shareFuncionarioService', function() {
+        .service('sharePlazaService', function() {
 
-            var funcionarioData = {
-                currentFuncionarioId: -1
+            var plazaData = {
+                currentPlazaId: -1
             };
 
             var setId = function(pId) {
-                funcionarioData.currentFuncionarioId = pId;
+                plazaData.currentPlazaId = pId;
             };
 
             var getId = function() {
-                return  funcionarioData.currentFuncionarioId;
+                return  plazaData.currentPlazaId;
             };
 
             return  {
-                setFuncionarioId: function(pId) {
+                setPlazaId: function(pId) {
                     return setId(pId);
                 },
-                getFuncionarioId: function() {
+                getPlazaId: function() {
                     return getId();
                 }
             };
