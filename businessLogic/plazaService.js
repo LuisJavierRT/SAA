@@ -67,13 +67,13 @@ exports.addPlazaInfo = function(data, callback) {
 	data.fechaAutorizacionFinal = formatDateFromJSToMySQL(data.fechaAutorizacionFinal);
 	data.fechaAcuerdo = formatDateFromJSToMySQL(data.fechaAcuerdo);
 
-	var sp_params = data.idPlaza + "," + "\"" + data.codigo + "\"" + "," + "\"" + data.periodo + "\"" + "," +
-					data.programa + "," + "\"" + data.categoria + "\"" + "," + "\"" + data.tce + "\"" + "," +
+	var sp_params = data.idPlaza + "," + "\"" + data.codigo + "\"" + "," + data.periodo + "," +
+					data.programa + "," + "\"" + data.tipo + "\"" + "," + data.categoria + "," +
 					"\"" + data.puesto + "\"" + "," +  data.porcentajeCreacion + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
-					"\"" + data.fechaAutorizacionFinal + "\"" + "," + "\"" + data.articulo + "\"" + "," + data.numeroAcuerdo + "," +
+					"\"" + data.fechaAutorizacionFinal + "\"" + "," + data.articulo + "," + "\"" + data.numeroAcuerdo + "\"" + "," +
 					"\"" + data.fechaAcuerdo + "\"";
 
-    repository.executeQuery({
+    repository.executeQuery({ 
         spName: 'sp_agregarCaracteristicaPlaza',
         params: sp_params
     }, 

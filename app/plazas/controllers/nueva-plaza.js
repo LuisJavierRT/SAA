@@ -16,7 +16,7 @@
 			$scope.plaza.fechaAutorizacionInicial = new Date();
 			$scope.plaza.fechaAutorizacionFinal = new Date();
 			$scope.plaza.fechaAcuerdo = new Date();
-			$scope.categoryList = ["CF", "CN", "CT"];
+			$scope.typeList = ["CF", "NT", "FS", "CT"];
 
 			$scope.openRegDatePickerPopUp = function() {	
 		    	$scope.dateSettings.showRegDate = !$scope.dateSettings.showRegDate;
@@ -47,7 +47,7 @@
 			    		periodo: pData.periodo,
 			    		programa: pData.programa,
 			    		categoria: pData.categoria,
-			    		tce: pData.tce,
+			    		tipo: pData.tipo,
 			    		puesto: pData.puesto,
 			    		porcentajeCreacion: pData.porcentajeCreacion,
 			    		fechaAutorizacionInicio: pData.fechaAutorizacionInicial,

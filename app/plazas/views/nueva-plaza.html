@@ -27,9 +27,9 @@
                                         </input>
                                     </td>
                                     <td>
-                                        <select class="form-control" ng-model="plaza.categoria">
-                                            <option value="" disabled selected>Categoría</option>
-                                            <option ng-repeat="category in categoryList">{{category}}</option>
+                                        <select class="form-control" ng-model="plaza.tipo">
+                                            <option value="" disabled selected>Tipo</option>
+                                            <option ng-repeat="type in typeList">{{type}}</option>
                                         </select> 
                                     </td> 
                                      <td>
@@ -46,16 +46,16 @@
                                         </p>
                                     </td>
                                     <td  class="col-xs-2" >
-                                        <p class="input-group" ng-hide="plaza.categoria == 'CF'">
+                                        <p class="input-group" ng-hide="plaza.tipo == 'CF'">
                                           <input type="text" class="form-control" uib-datepicker-popup="{{dateSettings.dateFormat}}" min-date="plaza.fechaAutorizacionInicial" ng-model="plaza.fechaAutorizacionFinal" is-open="dateSettings.showEndDate"  date-disabled="false" current-text="Hoy" close-text="Cerrar" ng-readonly="true"/>
                                           <span class="input-group-btn"> 
                                             <button type="button" class="btn btn-default" ng-click="openEndDatePickerPopUp()"><i class="glyphicon glyphicon-calendar"></i></button>
                                           </span>
                                         </p>
-                                        <input type="text" class="form-control" value="Indefinida" ng-readonly="true" ng-show="plaza.categoria == 'CF'"/>
+                                        <input type="text" class="form-control" value="Indefinida" ng-readonly="true" ng-show="plaza.tipo == 'CF'"/>
                                     </td>
                                     <td>
-                                        <input class="form-control" type="text" placeholder="Período" required ng-model="plaza.periodo" required>
+                                        <input class="form-control" type="number" placeholder="Período" required ng-model="plaza.periodo" required>
                                         </input>
                                     </td>
                                 </tr>             
@@ -81,7 +81,7 @@
                                     <th>Fecha de Acuerdo</th>
                                     <th>Puesto</th>
                                     <th>Programa</th>
-                                    <th>TCE</th>
+                                    <th>Categoría</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -91,11 +91,11 @@
                                         </input>
                                     </td> 
                                     <td>
-                                        <input class="form-control" type="text" placeholder="Artículo" ng-model="plaza.articulo" required ></input>
+                                        <input class="form-control" type="number" placeholder="Artículo" ng-model="plaza.articulo" required ></input>
                                     </td>
 
                                     <td>
-                                        <input class="form-control" type="number" placeholder="Número de Acuerdo" ng-model="plaza.numeroAcuerdo" required ></input>
+                                        <input class="form-control" type="text" placeholder="Número de Acuerdo" ng-model="plaza.numeroAcuerdo" required ></input>
                                     </td>
                                     <td class="col-xs-2" >
                                         <p class="input-group">
@@ -116,9 +116,8 @@
                                         </input>
                                     </td>
                                     <td>
-                                        <input class="form-control" type="text" placeholder="TCE" required ng-model="plaza.tce" requiered>
-                                        </input>
-                                    </td> 
+                                        <input class="form-control" type="number" placeholder="Categoría" ng-model="plaza.categoria" required ></input>
+                                    </td>
                                 </tr>         
                             </tbody>
                         </table>

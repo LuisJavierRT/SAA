@@ -144,22 +144,23 @@ create table `mydb`.`Plaza` (
 ENGINE = InnoDB;
 
 
-create table `mydb`.`CaracteristicaPlaza` (
+create table `mydb`.`CaracteristicaPlaza` ( 
   `id` INT NOT NULL AUTO_INCREMENT,
   `idPlaza` INT NOT NULL, 
   `codigo` VARCHAR(8) NOT NULL,
-  `periodo` VARCHAR(30) NOT NULL,  -- ??
+  `periodo` int NOT NULL,
   `programa` INT NOT NULL,
-  `categoria` VARCHAR(6) NOT NULL,   	   -- ??
-  `tce` VARCHAR(10) NOT NULL,
+  `tipo` VARCHAR(6) NOT NULL,
+  `categoria` INT NOT NULL,   	
+  `tce` DOUBLE NOT NULL,
   `activo` BIT NOT NULL DEFAULT 1,
   `puesto` VARCHAR(30) NOT NULL, 
   `porcentajeCreacion` INT NOT NULL,
   `asignacionDependencia` BIT NOT NULL DEFAULT 0,
   `fechaAutorizacionInicio` DATETIME NOT NULL,
   `fechaAutorizacionFinal` DATETIME,
-  `articulo` VARCHAR(10) NOT NULL, 
-  `numeroAcuerdo` INT NOT NULL,
+  `articulo` INT NOT NULL, 
+  `numeroAcuerdo` VARCHAR(35) NOT NULL,
   `fechaAcuerdo` DATETIME NOT NULL,
   
   PRIMARY KEY (`id`,`idPlaza`),
@@ -169,7 +170,7 @@ create table `mydb`.`CaracteristicaPlaza` (
     REFERENCES `Plaza` (`id`))
 ENGINE = InnoDB;
 
-create table `mydb`.`HistorialGestionPlaza` (
+create table `mydb`.`HistorialGestionPlaza` ( 
 	`id` int not null auto_increment,
     `usuario` varchar(30) not null,
     `idPlaza` int not null,
@@ -376,8 +377,6 @@ create table `mydb`.`PlazaContratacion` (
         references `mydb`.`Contrato` (`id`, `idDependencia`, `idFuncionario`)
 )
 engine = innodb; 
-
-
 
 INSERT INTO Usuario(usuario, contrasena, cedula, nombre, correo, tipo, activo, fechaInicioAutorizacion, fechaFinalAutorizacion) 
     VALUES('jose', md5('123'), '207510507', 'Jose', 'correo', 'Administrador', 1, '2017-01-02', '2017-02-03');

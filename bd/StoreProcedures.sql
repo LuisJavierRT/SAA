@@ -387,26 +387,28 @@ delimiter ;
 
 
 delimiter $$
-create procedure sp_agregarCaracteristicaPlaza ( 
+create procedure sp_agregarCaracteristicaPlaza (
 	
 	 in _idPlaza int, 
 	 in _codigo varchar(8),
-	 in _periodo varchar(30),  -- ??
+	 in _periodo int,
 	 in _programa int,
-	 in _categoria varchar(6),   	   -- ??
-	 in _tce varchar(10),
+	 in _tipo varchar(6),
+     in _categoria int,
 	 in _puesto varchar(30),
 	 in _porcentajeCreacion int,
 	 in _fechaAutorizacionInicio datetime,
 	 in _fechaAutorizacionFinal datetime,
-	 in _articulo varchar(10),
-	 in _numeroAcuerdo int,
+	 in _articulo int,
+	 in _numeroAcuerdo varchar(35),
 	 in _fechaAcuerdo datetime
 )
 begin
-	insert into CaracteristicaPlaza (idPlaza, codigo, periodo, programa, categoria, tce, puesto, 
+	declare _tce double;
+    set _tce = (_periodo/12)*(_porcentajeCreacion/100);
+	insert into CaracteristicaPlaza (idPlaza, codigo, periodo, programa, tipo, categoria, tce, puesto, 
     porcentajeCreacion, fechaAutorizacionInicio, fechaAutorizacionFinal, articulo, numeroAcuerdo, fechaAcuerdo)
-    values (_idPlaza, _codigo, _periodo, _programa, _categoria, _tce, _puesto, 
+    values (_idPlaza, _codigo, _periodo, _programa, _tipo, _categoria, _tce, _puesto, 
     _porcentajeCreacion, _fechaAutorizacionInicio, _fechaAutorizacionFinal, _articulo, _numeroAcuerdo, _fechaAcuerdo);
 end $$
 delimiter ;
