@@ -23,6 +23,16 @@
 	  			});
 			};
 
+			var updatePl = function(pData) {
+                    var link = '/plazas/';                  
+                    return  requestService.putRequest({data: pData, params: pData.id}, {url: link}).then(function(pResp) {
+                        return pResp;
+                    },
+                    function(pResp){
+                        return pResp;
+                    });
+                };
+
 			var getAllPlazas = function(pData) {
                 var link = '/plazas';           
                 return requestService.getRequest({params: ""}, {url: link}).then(function(pResp) {
@@ -55,6 +65,9 @@
 				},
 				getPlaza: function(pData) {
 					return getPlazaById(pData);
+				},
+				updatePlaza: function(pData){
+					return updatePl(pData);
 				}
 			};
 		}]);

@@ -49,6 +49,7 @@ app.post('/plazas', plazaController.addPlaza);
 app.post('/plazasInfo', plazaController.addPlazaInfo);
 app.get('/plazas', plazaController.getAllPlazas);
 app.get('/plazas/:id', plazaController.getPlaza);
+app.put('/plazas/:id',plazaController.updatePlaza);
 
 server.listen(8080, function(){
 	console.log('Listening at port 8080...');

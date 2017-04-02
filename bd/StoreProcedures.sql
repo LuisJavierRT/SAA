@@ -413,6 +413,44 @@ begin
 end $$
 delimiter ;
 
+delimiter $$
+create procedure sp_actualizarPlaza(
+    in _id int,
+    in _codigo varchar(8),
+    in _descripcion varchar(60),
+    -- in _codigoNuevo varchar(8),   <--  ??
+    in _periodo int, 
+	in _programa int,
+	in _tipo varchar(6),
+	in _categoria int,
+	in _puesto varchar(30),
+	in _porcentajeCreacion int,
+	in _fechaAutorizacionInicio datetime,
+	in _fechaAutorizacionFinal datetime,
+	in _articulo int,
+	in _numeroAcuerdo varchar(35),
+	in _fechaAcuerdo datetime
+)
+begin
+	declare valid int;
+    if exists(select * from Plaza where id != _id and codigo = _codigo) then
+		set valid = 0;
+	else
+		if exists(select * from caracteristicaplaza where id != _id and codigo = _codigo) then
+			set valid = 0;
+		else
+			update Plaza set descripcion = _descripcion where id = _id; 
+            update caracteristicaplaza set periodo = _periodo, programa = _programa, tipo = _tipo,
+            categoria = _categoria, puesto = _puesto, porcentajeCreacion = _porcentajeCreacion, fechaAutorizacionInicio = _fechaAutorizacionInicio,
+            fechaAutorizacionFinal = _fechaAutorizacionFinal, articulo = _articulo, numeroAcuerdo = _numeroAcuerdo,
+            fechaAcuerdo = _fechaAcuerdo where id = _id;
+			set valid = 1;
+		end if;
+	end if;
+    select valid;
+end $$
+delimiter ; 
+
 
 delimiter $$
 create procedure sp_obtenerPlazas () 

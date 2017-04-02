@@ -12,6 +12,12 @@ exports.addPlazaInfo = function(pRequest, pResponse) {
     });
 };
 
+exports.updatePlaza = function(pRequest, pResponse) {
+	var data = plazaService.updatePlaza(pRequest.body, function(data) {
+        pResponse.send(data);
+    });
+};
+
 exports.getAllPlazas = function(pRequest, pResponse) {
 	var data = plazaService.getAllPlazas(function(data) {
 		pResponse.send(data);

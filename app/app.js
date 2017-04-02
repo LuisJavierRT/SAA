@@ -98,6 +98,12 @@
           templateUrl: 'plazas/views/ver-plaza.html',
           controller: 'VerPlazaCtrl'
         })
+        .state('actualizar-plaza', {
+          url: '/actualizar-plaza',
+          parent: 'saa',
+          templateUrl: 'plazas/views/actualizar-plaza.html',
+          controller: 'ActualizarPlazaCtrl'
+        })
     })
 
   .directive('stringToNumber', function() {

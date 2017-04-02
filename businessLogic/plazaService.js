@@ -98,6 +98,69 @@ exports.addPlazaInfo = function(data, callback) {
     });
 };
 
+
+exports.updatePlaza = function(data, callback){
+    data.fechaAutorizacionInicio = formatDateFromJSToMySQL(data.fechaAutorizacionInicio);
+    if (data.fechaAutorizacionFinal != undefined){
+        data.fechaAutorizacionFinal = formatDateFromJSToMySQL(data.fechaAutorizacionFinal);
+    }
+
+    var response = plazaValidator.validatePlazaData(data);
+    if (!response.success){
+        callback(response);
+        return;
+    }
+    var sp_params = data.idPlaza + "," + "\"" + data.codigo + "," + "\"" + data.descripcion + "\"" + "," + data.periodo + "," +
+                    data.programa + "," + "\"" + data.tipo + "\"" + "," + data.categoria + "," +
+                    "\"" + data.puesto + "\"" + "," +  data.porcentajeCreacion + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
+                    "\"" + data.fechaAutorizacionFinal + "\"" + "," + data.articulo + "," + "\"" + data.numeroAcuerdo + "\"" + "," +
+                    "\"" + data.fechaAcuerdo + "\"";
+    repository.executeQuery({
+        spName: 'sp_actualizarPlaza',
+        params: sp_params
+    }, 
+    function(success, dataQuery) {
+        if(success) {
+            if(dataQuery[0][0].valid == 0) {
+                callback(
+                {
+                    success: false,
+                    message: "Ya existe una plaza con ese código",
+                    data: null
+                });
+            }
+
+            else{
+                var paramsString2 = '\"'+data.usuarioActual+'\"'+','+
+                                        dataQuery[0][0].valid+','+ '\"' + 'm' + '\"';
+                repository.executeQuery({
+                    spName:  'sp_HistorialGestionPlaza',
+                    params: paramsString2
+                }, 
+                function(success2, data2) {
+                    callback({
+                        success: true, 
+                        message: "La plaza se agregó correctamente",
+                        data: dataQuery[0][0].valid
+                    });
+                });
+                
+
+            }
+        } 
+        else 
+        {
+            callback(
+            {
+                success: false,
+                data: null,
+                message: "No se pudo agregar la plaza, por favor verifique todos los campos"
+            });
+        }
+    });        
+};
+
+
 exports.getAllPlazas = function(callback){
 
     repository.executeQuery({
