@@ -416,6 +416,7 @@ delimiter ;
 delimiter $$
 create procedure sp_actualizarPlaza(
     in _id int,
+    in _idcp int,
     in _codigo varchar(8),
     in _descripcion varchar(60),
     -- in _codigoNuevo varchar(8),   <--  ??
@@ -433,24 +434,20 @@ create procedure sp_actualizarPlaza(
 )
 begin
 	declare valid int;
-    if exists(select * from Plaza where id != _id and codigo = _codigo) then
+    
+	if exists(select * from caracteristicaplaza where id != _id and codigo = _codigo) then
 		set valid = 0;
 	else
-		if exists(select * from caracteristicaplaza where id != _id and codigo = _codigo) then
-			set valid = 0;
-		else
-			update Plaza set descripcion = _descripcion where id = _id; 
-            update caracteristicaplaza set periodo = _periodo, programa = _programa, tipo = _tipo,
-            categoria = _categoria, puesto = _puesto, porcentajeCreacion = _porcentajeCreacion, fechaAutorizacionInicio = _fechaAutorizacionInicio,
-            fechaAutorizacionFinal = _fechaAutorizacionFinal, articulo = _articulo, numeroAcuerdo = _numeroAcuerdo,
-            fechaAcuerdo = _fechaAcuerdo where id = _id;
-			set valid = 1;
-		end if;
+		update Plaza set descripcion = _descripcion where id = _id; 
+        update CaracteristicaPlaza set periodo = _periodo, programa = _programa, tipo = _tipo,
+        categoria = _categoria, puesto = _puesto, porcentajeCreacion = _porcentajeCreacion, fechaAutorizacionInicio = _fechaAutorizacionInicio,
+        fechaAutorizacionFinal = _fechaAutorizacionFinal, articulo = _articulo, numeroAcuerdo = _numeroAcuerdo,
+        fechaAcuerdo = _fechaAcuerdo where id = _idcp and idPlaza = _id;
+		set valid = 1;
 	end if;
     select valid;
 end $$
 delimiter ; 
-
 
 delimiter $$
 create procedure sp_obtenerPlazas () 
@@ -465,9 +462,9 @@ create procedure sp_obtenerPlaza (
 	in _id int
 )
 begin
-	select p.id, p.descripcion, cp.codigo, cp.categoria, cp.porcentajeCreacion, cp.fechaAutorizacionInicio,
+	select p.id,cp.id as idcp, p.descripcion, cp.codigo, cp.categoria, cp.porcentajeCreacion, cp.fechaAutorizacionInicio,
 			fechaAutorizacionFinal, cp.periodo, cp.articulo, cp.numeroAcuerdo, cp.fechaAcuerdo, cp.puesto, 
-            cp.programa, cp.categoria from Plaza as p join CaracteristicaPlaza as cp on p.id = cp.idPlaza where p.id = _id;
+            cp.programa, cp.categoria, cp.tipo from Plaza as p join CaracteristicaPlaza as cp on p.id = cp.idPlaza where p.id = _id;
 end $$
 delimiter ;
 

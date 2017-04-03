@@ -13,7 +13,7 @@
                 showAgreDate: false
 	    	}; 
 
-			$scope.plaza.fechaAutorizacionInicial = new Date();
+			$scope.plaza.fechaAutorizacionInicio = new Date();
 			$scope.plaza.fechaAutorizacionFinal = new Date();
 			$scope.plaza.fechaAcuerdo = new Date();
 			$scope.typeList = ["CF", "NT", "FS", "CT"];
@@ -59,6 +59,7 @@
 		    	if(pIsValid && pIsValid2) {
 		    		var plazaInfo = {
 		    			id: pData.id,
+		    			idcp: pData.idcp,
 		    			usuarioActual: $scope.user.usuario,
 			    		descripcion: pData.descripcion,
 			    		codigo: pData.codigo,
@@ -68,7 +69,7 @@
 			    		tipo: pData.tipo,
 			    		puesto: pData.puesto,
 			    		porcentajeCreacion: pData.porcentajeCreacion,
-			    		fechaAutorizacionInicio: pData.fechaAutorizacionInicial,
+			    		fechaAutorizacionInicio: pData.fechaAutorizacionInicio,
 			    		fechaAutorizacionFinal: pData.fechaAutorizacionFinal,
 			    		articulo: pData.articulo,
 			    		numeroAcuerdo: pData.numeroAcuerdo,
@@ -77,23 +78,7 @@
 			    	plazaService.updatePlaza(plazaInfo).then(function(result) {
 			    		if(result.success) {
 			    			messageHandlerService.notifySuccess(null, result.message);
-			    			$scope.plaza = {};
-					    	$scope.plaza.fechaAutorizacionInicial = new Date();
-							$scope.plaza.fechaAutorizacionFinal = new Date();
-							$scope.plaza.fechaAcuerdo = new Date();
-			    			/*plazaInfo.idPlaza = result.data;
-					    	plazaService.addPlazaInfo(plazaInfo).then(function(result) {
-					    		if(result.success) {
-					    			messageHandlerService.notifySuccess(null, result.message);
-					    			$scope.plaza = {};
-					    			$scope.plaza.fechaAutorizacionInicial = new Date();
-									$scope.plaza.fechaAutorizacionFinal = new Date();
-									$scope.plaza.fechaAcuerdo = new Date();
-					    		}
-					    		else{
-					    			messageHandlerService.notifyError(null, result.message);
-					    		}
-					    	});*/
+			    			$scope.plaza = plazaInfo;
 			    		}
 			    		else{
 			    			messageHandlerService.notifyError(null, result.message);

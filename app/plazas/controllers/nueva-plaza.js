@@ -56,6 +56,7 @@
 			    		numeroAcuerdo: pData.numeroAcuerdo,
 			    		fechaAcuerdo: pData.fechaAcuerdo
 			    	};
+			    	console.log(plazaInfo);
 			    	plazaService.addPlaza(plazaInfo).then(function(result) {
 			    		if(result.success) {
 			    			plazaInfo.idPlaza = result.data;

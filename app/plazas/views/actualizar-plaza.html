@@ -12,7 +12,7 @@
                             <thead>
                                 <tr>
                                     <th>Código</th>
-                                    <th>Categoria</th>
+                                    <th>Tipo</th>
                                     <th>Porcentaje Creación</th>
                                     <th>Fecha Autorización Inicial</th>
                                     <th>Fecha Autorización Final</th>
@@ -36,7 +36,7 @@
                                     </td>
                                     <td class="col-xs-2">
                                         <p class="input-group">
-                                            <input type="text" class="form-control" uib-datepicker-popup="{{dateSettings.dateFormat}}" ng-model="plaza.fechaAutorizacionInicial" is-open="dateSettings.showRegDate"  date-disabled="false" close-text="Cerrar" current-text="Hoy" ng-readonly="true" requiered/>
+                                            <input type="text" class="form-control" uib-datepicker-popup="{{dateSettings.dateFormat}}" ng-model="plaza.fechaAutorizacionInicio" is-open="dateSettings.showRegDate"  date-disabled="false" close-text="Cerrar" current-text="Hoy" ng-readonly="true" requiered/>
                                             <span class="input-group-btn"> 
                                                 <button type="button" class="btn btn-default" ng-click="openRegDatePickerPopUp()">
                                                     <i class="glyphicon glyphicon-calendar"></i>
@@ -46,7 +46,7 @@
                                     </td>
                                     <td  class="col-xs-2" >
                                         <p class="input-group" ng-hide="plaza.tipo == 'CF'">
-                                          <input type="text" class="form-control" uib-datepicker-popup="{{dateSettings.dateFormat}}" min-date="plaza.fechaAutorizacionInicial" ng-model="plaza.fechaAutorizacionFinal" is-open="dateSettings.showEndDate"  date-disabled="false" current-text="Hoy" close-text="Cerrar" ng-readonly="true"/>
+                                          <input type="text" class="form-control" uib-datepicker-popup="{{dateSettings.dateFormat}}" min-date="plaza.fechaAutorizacionInicio" ng-model="plaza.fechaAutorizacionFinal" is-open="dateSettings.showEndDate"  date-disabled="false" current-text="Hoy" close-text="Cerrar" ng-readonly="true"/>
                                           <span class="input-group-btn"> 
                                             <button type="button" class="btn btn-default" ng-click="openEndDatePickerPopUp()"><i class="glyphicon glyphicon-calendar"></i></button>
                                           </span>
@@ -127,7 +127,7 @@
     </div>
     <div>
         <div class="container">
-            <button class="btn btn-primary center-block" ng-click="validatedPlaza(plazaForm.$valid, plazaForm2.$valid, plaza)">Agregar Plaza</button> 
+            <button class="btn btn-primary center-block" ng-click="validatedPlaza(plazaForm.$valid, plazaForm2.$valid, plaza)">Actualizar Plaza</button> 
             <br></br>
        </div>
     </div>

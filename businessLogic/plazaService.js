@@ -100,7 +100,9 @@ exports.addPlazaInfo = function(data, callback) {
 
 
 exports.updatePlaza = function(data, callback){
+    
     data.fechaAutorizacionInicio = formatDateFromJSToMySQL(data.fechaAutorizacionInicio);
+    data.fechaAcuerdo = formatDateFromJSToMySQL(data.fechaAcuerdo);
     if (data.fechaAutorizacionFinal != undefined){
         data.fechaAutorizacionFinal = formatDateFromJSToMySQL(data.fechaAutorizacionFinal);
     }
@@ -110,11 +112,13 @@ exports.updatePlaza = function(data, callback){
         callback(response);
         return;
     }
-    var sp_params = data.idPlaza + "," + "\"" + data.codigo + "," + "\"" + data.descripcion + "\"" + "," + data.periodo + "," +
+    var sp_params = data.id + ","+ data.idcp + "," + "\"" + data.codigo + "\"" + "," + "\"" + data.descripcion + "\"" + "," + data.periodo + "," +
                     data.programa + "," + "\"" + data.tipo + "\"" + "," + data.categoria + "," +
                     "\"" + data.puesto + "\"" + "," +  data.porcentajeCreacion + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
                     "\"" + data.fechaAutorizacionFinal + "\"" + "," + data.articulo + "," + "\"" + data.numeroAcuerdo + "\"" + "," +
                     "\"" + data.fechaAcuerdo + "\"";
+
+    console.log(sp_params);
     repository.executeQuery({
         spName: 'sp_actualizarPlaza',
         params: sp_params
@@ -132,7 +136,7 @@ exports.updatePlaza = function(data, callback){
 
             else{
                 var paramsString2 = '\"'+data.usuarioActual+'\"'+','+
-                                        dataQuery[0][0].valid+','+ '\"' + 'm' + '\"';
+                                        data.id+','+ '\"' + 'm' + '\"';
                 repository.executeQuery({
                     spName:  'sp_HistorialGestionPlaza',
                     params: paramsString2
@@ -141,7 +145,7 @@ exports.updatePlaza = function(data, callback){
                     callback({
                         success: true, 
                         message: "La plaza se agregó correctamente",
-                        data: dataQuery[0][0].valid
+                        data: null
                     });
                 });
                 
@@ -154,7 +158,7 @@ exports.updatePlaza = function(data, callback){
             {
                 success: false,
                 data: null,
-                message: "No se pudo agregar la plaza, por favor verifique todos los campos"
+                message: "No se pudo actualizar la plaza, por favor verifique todos los campos"
             });
         }
     });        
@@ -201,7 +205,6 @@ exports.getPlaza = function(data, callback){
         params: data.id
     }, 
     function(success, data) {
-        console.log(data[0]);
         if(success) {
             data = data[0];
             if(data.length > 0) {
