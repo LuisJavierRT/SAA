@@ -68,11 +68,11 @@
 			    		categoria: pData.categoria,
 			    		tipo: pData.tipo,
 			    		puesto: pData.puesto,
-			    		porcentajeCreacion: pData.porcentajeCreacion,
+			    		jornada: pData.jornada,
 			    		fechaAutorizacionInicio: pData.fechaAutorizacionInicio,
 			    		fechaAutorizacionFinal: pData.fechaAutorizacionFinal,
 			    		articulo: pData.articulo,
-			    		numeroAcuerdo: pData.numeroAcuerdo,
+			    		numeroSesion: pData.numeroSesion,
 			    		fechaAcuerdo: pData.fechaAcuerdo
 			    	};
 			    	plazaService.updatePlaza(plazaInfo).then(function(result) {

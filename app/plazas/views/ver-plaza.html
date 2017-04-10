@@ -11,17 +11,17 @@
                         <tr>
                             <th>Código</th>
                             <th>Tipo</th>
-                            <th>Porcentaje Creación</th>
+                            <th>Jornada(%)</th>
                             <th>Fecha Autorización Inicial</th>
                             <th>Fecha Autorización Final</th>
-                            <th>Período</th>
+                            <th>Período(Meses)</th>
                         </tr>
                     </thead>
                     <tbody> 
                         <tr>
                             <td>{{plaza.codigo}}</td>
                             <td>{{plaza.tipo}}</td> 
-                            <td>{{plaza.porcentajeCreacion}}</td> 
+                            <td>{{plaza.jornada}}</td> 
                             <td>{{plaza.fechaAutorizacionInicio | date: 'dd-MM-yyyy'}}</td>  
                             <td>{{plaza.fechaAutorizacionFinal | date: 'dd-MM-yyyy'}}</td> 
                             <td>{{plaza.periodo}}</td>   
@@ -41,7 +41,7 @@
                             <tr>
                                 <th>Descripción</th>
                                 <th>Artículo</th>
-                                <th>Número de Acuerdo</th>
+                                <th>Número de Sesión</th>
                                 <th>Fecha de Acuerdo</th>
                                 <th>Puesto</th>
                                 <th>Programa</th>
@@ -52,7 +52,7 @@
                             <tr>
                                 <td>{{plaza.descripcion}}</td>
                                 <td>{{plaza.articulo}}</td>
-                                <td>{{plaza.numeroAcuerdo}}</td>
+                                <td>{{plaza.numeroSesion}}</td>
                                 <td>{{plaza.fechaAcuerdo | date: 'dd-MM-yyyy'}}</td>
                                 <td>{{plaza.puesto}}</td>
                                 <td>{{plaza.programa}}</td>

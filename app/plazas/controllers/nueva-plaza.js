@@ -16,7 +16,10 @@
 			$scope.plaza.fechaAutorizacionInicial = new Date();
 			$scope.plaza.fechaAutorizacionFinal = new Date();
 			$scope.plaza.fechaAcuerdo = new Date();
+			$scope.plaza.fechaRegistro = new Date();
+			$scope.plaza.activo = 1;
 			$scope.typeList = ["CF", "NT", "FS", "CT"];
+			$scope.progList = [1,2,3,4,5,6,7,8,9,10];
 
 			$scope.openRegDatePickerPopUp = function() {	
 		    	$scope.dateSettings.showRegDate = !$scope.dateSettings.showRegDate;
@@ -37,6 +40,14 @@
 	    		$scope.user = shareSessionService.getSession();
 	    	};
 
+	    	$scope.setTCE = function(){
+	    		if ($scope.plaza.jornada && $scope.plaza.periodo){
+	    			$scope.plaza.tce = ($scope.plaza.periodo/12) * ($scope.plaza.jornada/100);
+	    		}
+	    		else{
+	    			$scope.plaza.tce = undefined;
+	    		}
+	    	};
 
 		    $scope.validatedPlaza = function(pIsValid, pIsValid2, pData) {
 		    	if(pIsValid && pIsValid2) {
@@ -49,11 +60,11 @@
 			    		categoria: pData.categoria,
 			    		tipo: pData.tipo,
 			    		puesto: pData.puesto,
-			    		porcentajeCreacion: pData.porcentajeCreacion,
+			    		jornada: pData.jornada,
 			    		fechaAutorizacionInicio: pData.fechaAutorizacionInicial,
 			    		fechaAutorizacionFinal: pData.fechaAutorizacionFinal,
 			    		articulo: pData.articulo,
-			    		numeroAcuerdo: pData.numeroAcuerdo,
+			    		numeroSesion: pData.numeroSesion,
 			    		fechaAcuerdo: pData.fechaAcuerdo
 			    	};
 			    	console.log(plazaInfo);
@@ -67,6 +78,8 @@
 					    			$scope.plaza.fechaAutorizacionInicial = new Date();
 									$scope.plaza.fechaAutorizacionFinal = new Date();
 									$scope.plaza.fechaAcuerdo = new Date();
+									$scope.plaza.fechaRegistro = new Date();
+									$scope.plaza.activo = 1;
 					    		}
 					    		else{
 					    			messageHandlerService.notifyError(null, result.message);

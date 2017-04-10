@@ -70,8 +70,8 @@ exports.addPlazaInfo = function(data, callback) {
 	var sp_params = data.idPlaza + "," + "\"" + data.codigo + "\"" + "," + data.periodo + "," +
 					data.programa + "," + "\"" + data.tipo + "\"" + "," + data.categoria + "," +
 					"\"" + data.puesto + "\"" + "," +  data.porcentajeCreacion + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
-					"\"" + data.fechaAutorizacionFinal + "\"" + "," + data.articulo + "," + "\"" + data.numeroAcuerdo + "\"" + "," +
-					"\"" + data.fechaAcuerdo + "\"";
+					"\"" + data.fechaAutorizacionFinal + "\"" + "," + data.articulo + "," + "\"" + data.numeroSesion + "\"" + "," +
+					"\"" + data.fechaAcuerdo + "\"" + "," + data.tce;
 
     repository.executeQuery({ 
         spName: 'sp_agregarCaracteristicaPlaza',
@@ -115,7 +115,7 @@ exports.updatePlaza = function(data, callback){
     var sp_params = data.id + ","+ data.idcp + "," + "\"" + data.codigo + "\"" + "," + "\"" + data.descripcion + "\"" + "," + data.periodo + "," +
                     data.programa + "," + "\"" + data.tipo + "\"" + "," + data.categoria + "," +
                     "\"" + data.puesto + "\"" + "," +  data.porcentajeCreacion + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
-                    "\"" + data.fechaAutorizacionFinal + "\"" + "," + data.articulo + "," + "\"" + data.numeroAcuerdo + "\"" + "," +
+                    "\"" + data.fechaAutorizacionFinal + "\"" + "," + data.articulo + "," + "\"" + data.numeroSesion + "\"" + "," +
                     "\"" + data.fechaAcuerdo + "\"";
 
     console.log(sp_params);

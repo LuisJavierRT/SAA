@@ -391,25 +391,24 @@ create procedure sp_agregarCaracteristicaPlaza (
 	
 	 in _idPlaza int, 
 	 in _codigo varchar(8),
-	 in _periodo int,
+	 in _periodo real,
 	 in _programa int,
 	 in _tipo varchar(6),
      in _categoria int,
 	 in _puesto varchar(30),
-	 in _porcentajeCreacion int,
+	 in _jornada int,
 	 in _fechaAutorizacionInicio datetime,
 	 in _fechaAutorizacionFinal datetime,
 	 in _articulo int,
-	 in _numeroAcuerdo varchar(35),
-	 in _fechaAcuerdo datetime
+	 in _numeroSesion varchar(35),
+	 in _fechaAcuerdo datetime,
+     in _tce double
 )
 begin
-	declare _tce double;
-    set _tce = (_periodo/12)*(_porcentajeCreacion/100);
 	insert into CaracteristicaPlaza (idPlaza, codigo, periodo, programa, tipo, categoria, tce, puesto, 
-    porcentajeCreacion, fechaAutorizacionInicio, fechaAutorizacionFinal, articulo, numeroAcuerdo, fechaAcuerdo)
+    jornada, fechaAutorizacionInicio, fechaAutorizacionFinal, articulo, numeroSesion, fechaAcuerdo)
     values (_idPlaza, _codigo, _periodo, _programa, _tipo, _categoria, _tce, _puesto, 
-    _porcentajeCreacion, _fechaAutorizacionInicio, _fechaAutorizacionFinal, _articulo, _numeroAcuerdo, _fechaAcuerdo);
+    _jornada, _fechaAutorizacionInicio, _fechaAutorizacionFinal, _articulo, _numeroSesion, _fechaAcuerdo);
 end $$
 delimiter ;
 
@@ -420,16 +419,16 @@ create procedure sp_actualizarPlaza(
     in _codigo varchar(8),
     in _descripcion varchar(60),
     -- in _codigoNuevo varchar(8),   <--  ??
-    in _periodo int, 
+    in _periodo real, 
 	in _programa int,
 	in _tipo varchar(6),
 	in _categoria int,
 	in _puesto varchar(30),
-	in _porcentajeCreacion int,
+	in _jornada int,
 	in _fechaAutorizacionInicio datetime,
 	in _fechaAutorizacionFinal datetime,
 	in _articulo int,
-	in _numeroAcuerdo varchar(35),
+	in _numeroSesion varchar(35),
 	in _fechaAcuerdo datetime
 )
 begin
@@ -440,8 +439,8 @@ begin
 	else
 		update Plaza set descripcion = _descripcion where id = _id; 
         update CaracteristicaPlaza set periodo = _periodo, programa = _programa, tipo = _tipo,
-        categoria = _categoria, puesto = _puesto, porcentajeCreacion = _porcentajeCreacion, fechaAutorizacionInicio = _fechaAutorizacionInicio,
-        fechaAutorizacionFinal = _fechaAutorizacionFinal, articulo = _articulo, numeroAcuerdo = _numeroAcuerdo,
+        categoria = _categoria, puesto = _puesto, jornada = _jornada, fechaAutorizacionInicio = _fechaAutorizacionInicio,
+        fechaAutorizacionFinal = _fechaAutorizacionFinal, articulo = _articulo, numeroSesion = _numeroSesion,
         fechaAcuerdo = _fechaAcuerdo where id = _idcp and idPlaza = _id;
 		set valid = 1;
 	end if;
@@ -462,8 +461,8 @@ create procedure sp_obtenerPlaza (
 	in _id int
 )
 begin
-	select p.id,cp.id as idcp, p.descripcion, cp.codigo, cp.categoria, cp.porcentajeCreacion, cp.fechaAutorizacionInicio,
-			fechaAutorizacionFinal, cp.periodo, cp.articulo, cp.numeroAcuerdo, cp.fechaAcuerdo, cp.puesto, 
+	select p.id,cp.id as idcp, p.descripcion, cp.codigo, cp.categoria, cp.jornada, cp.fechaAutorizacionInicio,
+			fechaAutorizacionFinal, cp.periodo, cp.articulo, cp.numeroSesion, cp.fechaAcuerdo, cp.puesto, 
             cp.programa, cp.categoria, cp.tipo from Plaza as p join CaracteristicaPlaza as cp on p.id = cp.idPlaza where p.id = _id;
 end $$
 delimiter ;
