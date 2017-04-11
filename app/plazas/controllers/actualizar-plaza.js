@@ -16,6 +16,8 @@
 			$scope.plaza.fechaAutorizacionInicio = new Date();
 			$scope.plaza.fechaAutorizacionFinal = new Date();
 			$scope.plaza.fechaAcuerdo = new Date();
+			$scope.plaza.fechaRegistro = new Date();
+			$scope.plaza.activo = 1;
 			$scope.typeList = ["CF", "NT", "FS", "CT"];
 
 			$scope.openRegDatePickerPopUp = function() {	
@@ -53,6 +55,14 @@
                 $scope.plaza.id = sharePlazaService.getPlazaId();
             };
 
+            $scope.setTCE = function(){
+	    		if ($scope.plaza.jornada && $scope.plaza.periodo){
+	    			$scope.plaza.tce = ($scope.plaza.periodo/12) * ($scope.plaza.jornada/100);
+	    		}
+	    		else{
+	    			$scope.plaza.tce = undefined;
+	    		}
+	    	};
 
 		    $scope.validatedPlaza = function(pIsValid, pIsValid2, pData) {
 		    	console.log(pData);
@@ -73,7 +83,8 @@
 			    		fechaAutorizacionFinal: pData.fechaAutorizacionFinal,
 			    		articulo: pData.articulo,
 			    		numeroSesion: pData.numeroSesion,
-			    		fechaAcuerdo: pData.fechaAcuerdo
+			    		fechaAcuerdo: pData.fechaAcuerdo,
+			    		tce: pData.tce
 			    	};
 			    	plazaService.updatePlaza(plazaInfo).then(function(result) {
 			    		if(result.success) {

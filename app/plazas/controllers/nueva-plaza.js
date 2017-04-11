@@ -65,7 +65,8 @@
 			    		fechaAutorizacionFinal: pData.fechaAutorizacionFinal,
 			    		articulo: pData.articulo,
 			    		numeroSesion: pData.numeroSesion,
-			    		fechaAcuerdo: pData.fechaAcuerdo
+			    		fechaAcuerdo: pData.fechaAcuerdo,
+			    		tce: pData.tce
 			    	};
 			    	console.log(plazaInfo);
 			    	plazaService.addPlaza(plazaInfo).then(function(result) {

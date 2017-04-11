@@ -116,7 +116,7 @@ exports.updatePlaza = function(data, callback){
                     data.programa + "," + "\"" + data.tipo + "\"" + "," + data.categoria + "," +
                     "\"" + data.puesto + "\"" + "," +  data.porcentajeCreacion + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
                     "\"" + data.fechaAutorizacionFinal + "\"" + "," + data.articulo + "," + "\"" + data.numeroSesion + "\"" + "," +
-                    "\"" + data.fechaAcuerdo + "\"";
+                    "\"" + data.fechaAcuerdo + "\"" + "," + data.tce;
 
     console.log(sp_params);
     repository.executeQuery({
