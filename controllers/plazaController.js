@@ -29,3 +29,15 @@ exports.getPlaza = function(pRequest, pResponse) {
 		pResponse.send(data);
 	});
 };
+
+exports.getCategorias = function(pRequest, pResponse) {
+	var data = plazaService.getCategorias(function(data) {
+		pResponse.send(data);
+	});
+};
+
+exports.getPuestos = function(pRequest, pResponse) {
+	var data = plazaService.getPuestos(function(data) {
+		pResponse.send(data);
+	});
+};

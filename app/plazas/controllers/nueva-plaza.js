@@ -13,6 +13,8 @@
                 showAgreDate: false
 	    	}; 
 
+	    	$scope.puestoList = [];
+	    	$scope.categoriaList = [];
 			$scope.plaza.fechaAutorizacionInicial = new Date();
 			$scope.plaza.fechaAutorizacionFinal = new Date();
 			$scope.plaza.fechaAcuerdo = new Date();
@@ -49,15 +51,15 @@
 	    		}
 	    	};
 
-		    $scope.validatedPlaza = function(pIsValid, pIsValid2, pData) {
-		    	if(pIsValid && pIsValid2) {
+		    $scope.validatedPlaza = function(pIsValid, pIsValid2, pIsValid3, pData) {
+		    	if(pIsValid && pIsValid2 && pIsValid3) {
 		    		var plazaInfo = {
 		    			usuarioActual: $scope.user.usuario,
 			    		descripcion: pData.descripcion,
 			    		codigo: pData.codigo,
 			    		periodo: pData.periodo,
-			    		programa: pData.programa,
-			    		categoria: pData.categoria,
+			    		programa: parseInt(pData.programa),
+			    		categoria: parseInt(pData.categoria),
 			    		tipo: pData.tipo,
 			    		puesto: pData.puesto,
 			    		jornada: pData.jornada,
@@ -68,7 +70,6 @@
 			    		fechaAcuerdo: pData.fechaAcuerdo,
 			    		tce: pData.tce
 			    	};
-			    	console.log(plazaInfo);
 			    	plazaService.addPlaza(plazaInfo).then(function(result) {
 			    		if(result.success) {
 			    			plazaInfo.idPlaza = result.data;
@@ -97,7 +98,24 @@
 		    	}
 		    };
 
-		    $scope.getUser();
+		    $scope.getPuestosPlaza = function() {
+		    	plazaService.getPuestos().then(function(result) {
+		    		if(result.success) {
+		    			$scope.puestoList = result.data;
+		    		}
+		    	});
+		    };
 
+		    $scope.getCategoriasPlaza = function() {
+		    	plazaService.getCategorias().then(function(result) {
+		    		if(result.success) {
+		    			$scope.categoriaList = result.data;
+		    		}
+		    	});
+		    };
+
+		    $scope.getPuestosPlaza();
+		    $scope.getCategoriasPlaza();
+		    $scope.getUser();
 		}]);
 })();

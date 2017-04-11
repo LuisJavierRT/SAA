@@ -144,18 +144,24 @@
                                             </span>
                                         </p>
                                     </td>
-                                    <td>
-                                        <input class="form-control" type="text" placeholder="Puesto" required ng-model="plaza.puesto" requiered>
-                                        </input>
+                                    <td>     
+                                        <select class="form-control" ng-model="plaza.puesto">
+                                            <option value="" disabled selected>Puesto</option>
+                                            <option ng-repeat="puesto in puestoList">{{puesto.puesto}}</option>
+                                        </select> 
                                     </td> 
                                     <td>
-                                        <input class="form-control" type="number" placeholder="Categoría" ng-model="plaza.categoria" required ></input>
+                                        <select class="form-control" ng-model="plaza.categoria">
+                                            <option value="" disabled selected>Categoría</option>
+                                            <option ng-repeat="cat in categoriaList">{{cat.categoria}}</option>
+                                        </select> 
                                     </td>
                                     <td>
-                                        <input class="form-control" type="number" placeholder="Programa" required ng-model="plaza.programa" requiered>
-                                        </input>
+                                        <select class="form-control" ng-model="plaza.programa">
+                                            <option value="" disabled selected>Programa</option>
+                                            <option ng-repeat="prog in progList">{{prog}}</option>
+                                        </select>
                                     </td>
-                                    
                                 </tr>         
                             </tbody>
                         </table>
@@ -166,7 +172,7 @@
     </div>
     <div>
         <div class="container">
-            <button class="btn btn-primary center-block" ng-click="validatedPlaza(plazaForm.$valid, plazaForm2.$valid, plaza)">Actualizar Plaza</button> 
+            <button class="btn btn-primary center-block" ng-click="validatedPlaza(descriptionForm.$valid, plazaForm.$valid, plazaForm2.$valid, plaza)">Actualizar Plaza</button> 
             <br></br>
        </div>
     </div>

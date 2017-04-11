@@ -148,7 +148,7 @@ create table `mydb`.`CaracteristicaPlaza` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `idPlaza` INT NOT NULL, 
   `codigo` VARCHAR(8) NOT NULL,
-  `periodo` REAL NOT NULL,
+  `periodo` DOUBLE NOT NULL,
   `programa` INT NOT NULL,
   `tipo` VARCHAR(6) NOT NULL,
   `categoria` INT NOT NULL,   	
@@ -168,6 +168,18 @@ create table `mydb`.`CaracteristicaPlaza` (
   CONSTRAINT `fk_caracteristica_plaza`
 	FOREIGN KEY (`idPlaza`)
     REFERENCES `Plaza` (`id`))
+ENGINE = InnoDB;
+
+create table `mydb`.`PuestosPlaza` (
+	`id` int not null auto_increment,
+    `puesto` varchar(20),
+    primary key(`id`))
+ENGINE = InnoDB;
+
+create table `mydb`.`CategoriasPlaza` (
+	`id` int not null auto_increment,
+    `categoria` int,
+    primary key(`id`)) 
 ENGINE = InnoDB;
 
 create table `mydb`.`HistorialGestionPlaza` ( 
@@ -380,3 +392,9 @@ engine = innodb;
 
 INSERT INTO Usuario(usuario, contrasena, cedula, nombre, correo, tipo, activo, fechaInicioAutorizacion, fechaFinalAutorizacion) 
     VALUES('jose', md5('123'), '207510507', 'Jose', 'correo', 'Administrador', 1, '2017-01-02', '2017-02-03');
+    
+insert into PuestosPlaza(puesto) values('puesto1');
+insert into PuestosPlaza(puesto) values('puesto2');
+
+insert into CategoriasPlaza(categoria) values(1);
+insert into CategoriasPlaza(categoria) values(2); 

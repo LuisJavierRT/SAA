@@ -54,19 +54,23 @@ var validateDates = function(startDate, endDate) {
     return response;
 };
 
-var validateNumberParams = function(programa, numeroAcuerdo) {
+var validateNumberParams = function(jornada, periodo, articulo) {
     var response = {};
-    if(programa <= 0){
+    if(jornada <= 0){
         response.success = false;
-        response.message = "El número de programa a asignar debe ser mayor a 0";
+        response.message = "La jornada a asignar debe ser mayor a 0";
     }
-    else if(numeroAcuerdo <= 0) {
+    else if(periodo <= 0) {
         response.success = false;
-        response.message = "El número de acuerdo a asignar debe ser mayor a 0";
+        response.message = "El período a asignar debe ser mayor a 0";
+    }
+    else if(articulo <= 0) {
+        response.success = false;
+        response.message = "El artículo a asignar debe ser mayor a 0"
     }
     else{
         response.success = true;
-        response.message = null;
+        response.message = "";
     }
 
     return response;
@@ -86,7 +90,7 @@ exports.validatePlazaData = function(data) {
     if (!validationResponse.success){
         return validationResponse;
     }
-    validationResponse = validateNumberParams(data.programa, data.numeroAcuerdo);
+    validationResponse = validateNumberParams(data.jornada, data.periodo, data.articulo);
     if(!validationResponse.success) {
         return validationResponse;
     }

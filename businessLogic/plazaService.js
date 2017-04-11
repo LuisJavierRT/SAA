@@ -63,16 +63,17 @@ exports.addPlaza = function(data, callback){
 };
 
 exports.addPlazaInfo = function(data, callback) {
+    console.log(data);
 	data.fechaAutorizacionInicio = formatDateFromJSToMySQL(data.fechaAutorizacionInicio);
 	data.fechaAutorizacionFinal = formatDateFromJSToMySQL(data.fechaAutorizacionFinal);
 	data.fechaAcuerdo = formatDateFromJSToMySQL(data.fechaAcuerdo);
 
 	var sp_params = data.idPlaza + "," + "\"" + data.codigo + "\"" + "," + data.periodo + "," +
 					data.programa + "," + "\"" + data.tipo + "\"" + "," + data.categoria + "," +
-					"\"" + data.puesto + "\"" + "," +  data.porcentajeCreacion + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
+					"\"" + data.puesto + "\"" + "," +  data.jornada + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
 					"\"" + data.fechaAutorizacionFinal + "\"" + "," + data.articulo + "," + "\"" + data.numeroSesion + "\"" + "," +
 					"\"" + data.fechaAcuerdo + "\"" + "," + data.tce;
-
+    console.log(sp_params);
     repository.executeQuery({ 
         spName: 'sp_agregarCaracteristicaPlaza',
         params: sp_params
@@ -100,7 +101,6 @@ exports.addPlazaInfo = function(data, callback) {
 
 
 exports.updatePlaza = function(data, callback){
-    
     data.fechaAutorizacionInicio = formatDateFromJSToMySQL(data.fechaAutorizacionInicio);
     data.fechaAcuerdo = formatDateFromJSToMySQL(data.fechaAcuerdo);
     if (data.fechaAutorizacionFinal != undefined){
@@ -114,11 +114,9 @@ exports.updatePlaza = function(data, callback){
     }
     var sp_params = data.id + ","+ data.idcp + "," + "\"" + data.codigo + "\"" + "," + "\"" + data.descripcion + "\"" + "," + data.periodo + "," +
                     data.programa + "," + "\"" + data.tipo + "\"" + "," + data.categoria + "," +
-                    "\"" + data.puesto + "\"" + "," +  data.porcentajeCreacion + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
+                    "\"" + data.puesto + "\"" + "," +  data.jornada + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
                     "\"" + data.fechaAutorizacionFinal + "\"" + "," + data.articulo + "," + "\"" + data.numeroSesion + "\"" + "," +
                     "\"" + data.fechaAcuerdo + "\"" + "," + data.tce;
-
-    console.log(sp_params);
     repository.executeQuery({
         spName: 'sp_actualizarPlaza',
         params: sp_params
@@ -144,12 +142,10 @@ exports.updatePlaza = function(data, callback){
                 function(success2, data2) {
                     callback({
                         success: true, 
-                        message: "La plaza se agregó correctamente",
+                        message: "La plaza se actualizó correctamente",
                         data: null
                     });
                 });
-                
-
             }
         } 
         else 
@@ -226,6 +222,72 @@ exports.getPlaza = function(data, callback){
             callback({
                 success: false, 
                 message: 'Ha ocurrido un error, no se ha obtenido la plaza correspondiente',
+                data: {}
+            });
+        }
+    });    
+};
+
+exports.getCategorias = function(callback){
+    repository.executeQuery({
+        spName: 'sp_obtenerCategoriasPlaza',
+        params: ''
+    }, 
+    function(success, data) {
+        if(success) {
+            data = data[0];
+            if(data.length > 0) {
+                callback({
+                    success: true, 
+                    message: 'Se ha obtenido las categorías de las plazas de manera exitosa',
+                    data: data
+                });
+            }
+            else {
+                callback({
+                    success: false, 
+                    message: 'No hay categorías para las plazas registradas',
+                    data: {}
+                });
+            }
+        } 
+        else {
+            callback({
+                success: false, 
+                message: 'Ha ocurrido un error, no se ha obtenido las categorías de las plazas',
+                data: {}
+            });
+        }
+    });    
+};
+
+exports.getPuestos = function(callback){
+    repository.executeQuery({
+        spName: 'sp_obtenerPuestosPlaza',
+        params: ''
+    }, 
+    function(success, data) {
+        if(success) {
+            data = data[0];
+            if(data.length > 0) {
+                callback({
+                    success: true, 
+                    message: 'Se ha obtenido los puestos de las plazas de manera exitosa',
+                    data: data
+                });
+            }
+            else {
+                callback({
+                    success: false, 
+                    message: 'No hay puestos para las plazas registradas',
+                    data: {}
+                });
+            }
+        } 
+        else {
+            callback({
+                success: false, 
+                message: 'Ha ocurrido un error, no se ha obtenido los puestos de las plazas',
                 data: {}
             });
         }

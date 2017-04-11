@@ -53,6 +53,26 @@
                 });
             };
 
+            var categorias = function(){
+            	var link = "/plazaCategorias";
+            	return requestService.getRequest({params: ""}, {url: link}).then(function(pResp) {
+            		return pResp;
+            	},
+            	function(pResp) {
+            		return pResp;
+            	});
+            };
+
+            var puestos = function(){
+            	var link = "/plazaPuestos";
+            	return requestService.getRequest({params: ""}, {url: link}).then(function(pResp) {
+            		return pResp;
+            	},
+            	function(pResp) {
+            		return pResp;
+            	});
+            };
+
 			return {
 				addPlaza: function(pData) {
 					return addP(pData);
@@ -68,6 +88,12 @@
 				},
 				updatePlaza: function(pData){
 					return updatePl(pData);
+				},
+				getCategorias: function() {
+					return categorias();
+				},
+				getPuestos: function() {
+					return puestos();
 				}
 			};
 		}]);

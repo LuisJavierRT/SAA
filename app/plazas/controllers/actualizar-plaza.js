@@ -13,12 +13,15 @@
                 showAgreDate: false
 	    	}; 
 
+	    	$scope.puestoList = [];
+	    	$scope.categoriaList = [];
 			$scope.plaza.fechaAutorizacionInicio = new Date();
 			$scope.plaza.fechaAutorizacionFinal = new Date();
 			$scope.plaza.fechaAcuerdo = new Date();
 			$scope.plaza.fechaRegistro = new Date();
 			$scope.plaza.activo = 1;
 			$scope.typeList = ["CF", "NT", "FS", "CT"];
+			$scope.progList = [1,2,3,4,5,6,7,8,9,10];
 
 			$scope.openRegDatePickerPopUp = function() {	
 		    	$scope.dateSettings.showRegDate = !$scope.dateSettings.showRegDate;
@@ -41,9 +44,11 @@
 
 	    	var getPlaza = function(pId) {
 				plazaService.getPlaza(pId).then(function(result) {
-					console.log(result);
 					if(result.success) {
 						$scope.plaza = result.data;
+						$scope.plaza.categoria = $scope.plaza.categoria + '';
+						$scope.plaza.programa = $scope.plaza.programa + '';
+						$scope.plaza.activo = $scope.plaza.activo.data[0];
 					}
 					else {
 						messageHandlerService.notifyError(null, result.message);
@@ -64,9 +69,8 @@
 	    		}
 	    	};
 
-		    $scope.validatedPlaza = function(pIsValid, pIsValid2, pData) {
-		    	console.log(pData);
-		    	if(pIsValid && pIsValid2) {
+		    $scope.validatedPlaza = function(pIsValid, pIsValid2, pIsValid3, pData) {
+		    	if(pIsValid && pIsValid2 && pIsValid3) {
 		    		var plazaInfo = {
 		    			id: pData.id,
 		    			idcp: pData.idcp,
@@ -74,8 +78,8 @@
 			    		descripcion: pData.descripcion,
 			    		codigo: pData.codigo,
 			    		periodo: pData.periodo,
-			    		programa: pData.programa,
-			    		categoria: pData.categoria,
+			    		programa: parseInt(pData.programa),
+			    		categoria: parseInt(pData.categoria),
 			    		tipo: pData.tipo,
 			    		puesto: pData.puesto,
 			    		jornada: pData.jornada,
@@ -84,12 +88,16 @@
 			    		articulo: pData.articulo,
 			    		numeroSesion: pData.numeroSesion,
 			    		fechaAcuerdo: pData.fechaAcuerdo,
-			    		tce: pData.tce
+			    		tce: pData.tce,
+			    		fechaRegistro: pData.fechaRegistro,
+			    		activo: pData.activo,
 			    	};
 			    	plazaService.updatePlaza(plazaInfo).then(function(result) {
 			    		if(result.success) {
 			    			messageHandlerService.notifySuccess(null, result.message);
 			    			$scope.plaza = plazaInfo;
+			    			$scope.plaza.categoria = $scope.plaza.categoria + '';
+							$scope.plaza.programa = $scope.plaza.programa + '';
 			    		}
 			    		else{
 			    			messageHandlerService.notifyError(null, result.message);
@@ -101,6 +109,24 @@
 		    	}
 		    };
 
+		    $scope.getPuestosPlaza = function() {
+		    	plazaService.getPuestos().then(function(result) {
+		    		if(result.success) {
+		    			$scope.puestoList = result.data;
+		    		}
+		    	});
+		    };
+
+		    $scope.getCategoriasPlaza = function() {
+		    	plazaService.getCategorias().then(function(result) {
+		    		if(result.success) {
+		    			$scope.categoriaList = result.data;
+		    		}
+		    	});
+		    };
+
+		    $scope.getPuestosPlaza();
+		    $scope.getCategoriasPlaza();
 		    $scope.getUser();
 		    getPlazaId();
 			getPlaza($scope.plaza.id);

@@ -391,7 +391,7 @@ create procedure sp_agregarCaracteristicaPlaza (
 	
 	 in _idPlaza int, 
 	 in _codigo varchar(8),
-	 in _periodo real,
+	 in _periodo double,
 	 in _programa int,
 	 in _tipo varchar(6),
      in _categoria int,
@@ -414,12 +414,12 @@ delimiter ;
 
 
 delimiter $$
-create procedure sp_actualizarPlaza(
+create procedure sp_actualizarPlaza( 
     in _id int,
     in _idcp int,
     in _codigo varchar(8),
     in _descripcion varchar(60),
-    in _periodo real, 
+    in _periodo double, 
 	in _programa int,
 	in _tipo varchar(6),
 	in _categoria int,
@@ -432,19 +432,17 @@ create procedure sp_actualizarPlaza(
 	in _fechaAcuerdo datetime,
     in _tce double
 )
-begin
+begin                           /*call sp_actualizarPlaza(1,1,'CX1234','qqq',12,1,'CF',1,'puesto1',50,'2017-04-11','2017-04-11',1,'qqqq','2017-04-11',0.5);*/
 	declare valid int;
-    
-	if exists(select * from caracteristicaplaza where id != _id and codigo = _codigo) then
+	if exists(select * from CaracteristicaPlaza where id != _id and codigo = _codigo) then
 		set valid = 0;
 	else
-		update CaracteristicaPlaza set activo = 0 where idcp = _idcp; 
+		update CaracteristicaPlaza set activo = 0 where id = _idcp; 
 		insert into CaracteristicaPlaza (idPlaza, codigo, periodo, programa, tipo, categoria, tce, puesto, 
 		jornada, fechaAutorizacionInicio, fechaAutorizacionFinal, articulo, numeroSesion, fechaAcuerdo)
 		values (_id, _codigo, _periodo, _programa, _tipo, _categoria, _tce, _puesto, 
 		_jornada, _fechaAutorizacionInicio, _fechaAutorizacionFinal, _articulo, _numeroSesion, _fechaAcuerdo);
         set valid = 1;
-        
 	end if;
     select valid;
 end $$
@@ -458,18 +456,30 @@ begin
 end $$ 
 delimiter ; 
 
+delimiter $$
+create procedure sp_obtenerPuestosPlaza ()
+begin
+	select puesto from PuestosPlaza;
+end $$
+delimiter ;
+
+delimiter $$
+create procedure sp_obtenerCategoriasPlaza ()
+begin
+	select categoria from CategoriasPlaza;
+end $$
+delimiter ;
 
 delimiter $$
 create procedure sp_obtenerPlaza ( 
 	in _id int
 )
 begin
-	select p.id,cp.id as idcp, p.descripcion, cp.codigo, cp.categoria, cp.jornada, cp.fechaAutorizacionInicio,
+	select p.id,cp.id as idcp, p.fechaRegistro, p.activo, p.descripcion, cp.codigo, cp.categoria, cp.jornada, cp.fechaAutorizacionInicio,
 			fechaAutorizacionFinal, cp.periodo, cp.articulo, cp.numeroSesion, cp.fechaAcuerdo, cp.puesto, 
-            cp.programa, cp.categoria, cp.tipo from Plaza as p join CaracteristicaPlaza as cp on p.id = cp.idPlaza where p.id = _id;
+            cp.programa, cp.categoria, cp.tipo, cp.tce from Plaza as p join CaracteristicaPlaza as cp on p.id = cp.idPlaza where p.id = _id and p.activo = 1 and cp.activo = 1;
 end $$
 delimiter ;
-
 
 delimiter $$
 create procedure sp_HistorialGestionPlaza (
@@ -659,4 +669,3 @@ begin
     values (_idPlaza, _idContrato, _idDependencia, _idFuncionario, _porcentajeContratacion);
 end $$
 delimiter ;
-

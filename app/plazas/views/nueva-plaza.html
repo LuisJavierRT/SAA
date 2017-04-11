@@ -26,7 +26,6 @@
                                     <th>Activo</th>
                                 </tr> 
                                 <tr>
-
                                     <td><input class="form-control" type="text" ng-readonly="true" required ng-model="plaza.fechaRegistro | date: 'dd-MM-yyyy'" required></td>
                                     <td><input class="form-control" type="text" ng-readonly="true" required ng-model="plaza.activo" required></td> 
                                 </tr>   
@@ -107,8 +106,7 @@
         </div>
     </div>
     <div>
-        <div class="container">
-            
+        <div class="container">   
             <div class="panel panel-default">
                 <div class="panel-body">
                     <form name="plazaForm2" novalidate>
@@ -121,7 +119,6 @@
                                     <th>Puesto</th>
                                     <th>Categoría</th>
                                     <th>Programa</th>
-                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -142,17 +139,16 @@
                                             </span>
                                         </p>
                                     </td>
-                                    <td>
-                                        
+                                    <td>     
                                         <select class="form-control" ng-model="plaza.puesto">
                                             <option value="" disabled selected>Puesto</option>
-                                            <option ng-repeat="puesto in puestoList">{{puesto}}</option>
+                                            <option ng-repeat="puesto in puestoList">{{puesto.puesto}}</option>
                                         </select> 
                                     </td> 
                                     <td>
                                         <select class="form-control" ng-model="plaza.categoria">
                                             <option value="" disabled selected>Categoría</option>
-                                            <option ng-repeat="cat in catList">{{cat}}</option>
+                                            <option ng-repeat="cat in categoriaList">{{cat.categoria}}</option>
                                         </select> 
                                     </td>
                                     <td>
@@ -171,7 +167,7 @@
     </div>
     <div>
         <div class="container">
-            <button class="btn btn-primary center-block" ng-click="validatedPlaza(plazaForm.$valid, plazaForm2.$valid, plaza)">Agregar Plaza</button> 
+            <button class="btn btn-primary center-block" ng-click="validatedPlaza(descriptionForm.$valid, plazaForm.$valid, plazaForm2.$valid, plaza)">Agregar Plaza</button> 
             <br></br>
        </div>
     </div>

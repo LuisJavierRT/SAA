@@ -16,9 +16,9 @@
 
 	    	var getPlaza = function(pId) {
 				plazaService.getPlaza(pId).then(function(result) {
-					console.log(result);
 					if(result.success) {
 						$scope.plaza = result.data;
+						$scope.plaza.activo = $scope.plaza.activo.data[0];
 					}
 					else {
 						messageHandlerService.notifyError(null, result.message);
