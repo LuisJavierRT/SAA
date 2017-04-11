@@ -63,7 +63,6 @@ exports.addPlaza = function(data, callback){
 };
 
 exports.addPlazaInfo = function(data, callback) {
-    console.log(data);
 	data.fechaAutorizacionInicio = formatDateFromJSToMySQL(data.fechaAutorizacionInicio);
 	data.fechaAutorizacionFinal = formatDateFromJSToMySQL(data.fechaAutorizacionFinal);
 	data.fechaAcuerdo = formatDateFromJSToMySQL(data.fechaAcuerdo);
@@ -73,7 +72,6 @@ exports.addPlazaInfo = function(data, callback) {
 					"\"" + data.puesto + "\"" + "," +  data.jornada + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
 					"\"" + data.fechaAutorizacionFinal + "\"" + "," + data.articulo + "," + "\"" + data.numeroSesion + "\"" + "," +
 					"\"" + data.fechaAcuerdo + "\"" + "," + data.tce;
-    console.log(sp_params);
     repository.executeQuery({ 
         spName: 'sp_agregarCaracteristicaPlaza',
         params: sp_params
@@ -162,7 +160,6 @@ exports.updatePlaza = function(data, callback){
 
 
 exports.getAllPlazas = function(callback){
-
     repository.executeQuery({
         spName: 'sp_obtenerPlazas',
         params: ''

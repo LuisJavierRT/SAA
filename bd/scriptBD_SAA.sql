@@ -134,9 +134,9 @@ create table `mydb`.`Titulo` (
     REFERENCES `Funcionario` (`id`))
 ENGINE = InnoDB;
 
-create table `mydb`.`Plaza` (
+create table `mydb`.`Plaza` (   
   `id` INT NOT NULL AUTO_INCREMENT,
-  `descripcion` VARCHAR(60) NOT NULL, 
+  `descripcion` VARCHAR(200) NOT NULL, 
   `fechaRegistro` DATETIME NOT NULL,
   `activo` BIT NOT NULL DEFAULT 1,
   

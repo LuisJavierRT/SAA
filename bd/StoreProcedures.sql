@@ -367,9 +367,9 @@ end $$
 delimiter ;
 
 delimiter $$
-create procedure sp_agregarPlaza (
+create procedure sp_agregarPlaza (  
 	
-     in _descripcion varchar(60),
+     in _descripcion varchar(200),
      in _codigo varchar(8)
 )
 begin
@@ -418,7 +418,7 @@ create procedure sp_actualizarPlaza(
     in _id int,
     in _idcp int,
     in _codigo varchar(8),
-    in _descripcion varchar(60),
+    in _descripcion varchar(200),
     in _periodo double, 
 	in _programa int,
 	in _tipo varchar(6),
@@ -432,7 +432,7 @@ create procedure sp_actualizarPlaza(
 	in _fechaAcuerdo datetime,
     in _tce double
 )
-begin                           /*call sp_actualizarPlaza(1,1,'CX1234','qqq',12,1,'CF',1,'puesto1',50,'2017-04-11','2017-04-11',1,'qqqq','2017-04-11',0.5);*/
+begin                          
 	declare valid int;
 	if exists(select * from CaracteristicaPlaza where id != _id and codigo = _codigo) then
 		set valid = 0;
@@ -666,6 +666,6 @@ create procedure sp_agregarPlazaContratacion (
 )
 begin  
 	insert into PlazaContratacion (idPlaza, idContrato, idDependencia, idFuncionario, porcentajeContratacion)
-    values (_idPlaza, _idContrato, _idDependencia, _idFuncionario, _porcentajeContratacion);
+    values (_idPlaza, _idContrato, _idDependencia, _idFuncionario, _porcentajeContratadescripciondescripciondescripcioncion);
 end $$
 delimiter ;

@@ -13,22 +13,22 @@
                             <thead>
                                 <tr>
                                     <th>Descripción</th>
+                                    <th>Fecha Registro</th>
+                                    <th>Activo</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>
-                                        <textarea class="form-control" type="text" align="justify" uib-tooltip="Atributo Único" placeholder="Descripción" ng-model="plaza.descripcion" required></textarea>
+                                        <textarea class="form-control" maxlength="200" type="text" align="justify" uib-tooltip="Atributo Único" placeholder="Descripción" ng-model="plaza.descripcion" required></textarea>
                                     </td>
+                                    <td>
+                                        <input type="text" class="form-control" uib-datepicker-popup="{{dateSettings.dateFormat}}" ng-model="plaza.fechaRegistro" ng-readonly="true"/>
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="text" ng-readonly="true" required ng-model="plaza.activo" required>
+                                    </td> 
                                 </tr>  
-                                <tr>
-                                    <th>Fecha Registro</th>
-                                    <th>Activo</th>
-                                </tr> 
-                                <tr>
-                                    <td><input class="form-control" type="text" ng-readonly="true" required ng-model="plaza.fechaRegistro | date: 'dd-MM-yyyy'" required></td>
-                                    <td><input class="form-control" type="text" ng-readonly="true" required ng-model="plaza.activo" required></td> 
-                                </tr>   
                             </tbody>
                         </table>
                     </form>
