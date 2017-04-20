@@ -434,7 +434,7 @@ create procedure sp_actualizarPlaza(
 )
 begin                          
 	declare valid int;
-	if exists(select * from CaracteristicaPlaza where id != _id and codigo = _codigo) then
+	if exists(select * from CaracteristicaPlaza where id != _idcp and codigo = _codigo and activo = 1) then
 		set valid = 0;
 	else
 		update CaracteristicaPlaza set activo = 0 where id = _idcp; 
@@ -442,7 +442,7 @@ begin
 		jornada, fechaAutorizacionInicio, fechaAutorizacionFinal, articulo, numeroSesion, fechaAcuerdo)
 		values (_id, _codigo, _periodo, _programa, _tipo, _categoria, _tce, _puesto, 
 		_jornada, _fechaAutorizacionInicio, _fechaAutorizacionFinal, _articulo, _numeroSesion, _fechaAcuerdo);
-        set valid = 1;
+        set valid = (select max(id) from CaracteristicaPlaza);
 	end if;
     select valid;
 end $$

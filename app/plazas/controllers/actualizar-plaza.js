@@ -98,6 +98,7 @@
 			    			$scope.plaza = plazaInfo;
 			    			$scope.plaza.categoria = $scope.plaza.categoria + '';
 							$scope.plaza.programa = $scope.plaza.programa + '';
+							$scope.plaza.idcp = result.data;
 			    		}
 			    		else{
 			    			messageHandlerService.notifyError(null, result.message);

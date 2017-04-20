@@ -141,7 +141,7 @@ exports.updatePlaza = function(data, callback){
                     callback({
                         success: true, 
                         message: "La plaza se actualizó correctamente",
-                        data: null
+                        data: dataQuery[0][0].valid
                     });
                 });
             }
