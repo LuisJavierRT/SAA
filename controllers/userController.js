@@ -31,6 +31,12 @@ exports.updateUser= function(dRequest, dResponse) {
     });
 };
 
+exports.disableUser= function(dRequest, dResponse) {
+    var data = userService.disableUser(dRequest.body, function(data) {
+        dResponse.send(data);
+    });
+};
+
 exports.changePassword = function(dRequest, dResponse) {
     var data = userService.changePassword(dRequest.body, function(data) {
         dResponse.send(data);

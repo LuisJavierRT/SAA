@@ -33,6 +33,16 @@
 	  			});
 			};
 
+			var delU = function(pData){
+				var link = "/users/disable/";
+				return requestService.putRequest({params: pData.usuario, data: pData}, {url: link}).then(function(result){
+	  				return result;
+	  			},
+	  			function(result){
+	  				return result;
+	  			});
+			};
+
 			return {
 				getUsers: function() {
 					return getU();
@@ -42,6 +52,9 @@
 				},
 				editUser: function(pData) {
 					return editU(pData);
+				},
+				disableUser: function(pData){
+					return delU(pData);
 				}
 			};
 		}]);

@@ -207,7 +207,6 @@ exports.updateUser = function(data, callback){
                 params:  paramsString2
             },
             function(success2, data2) {
-                console.log(success2);
                 callback(
                 {
                     success: true,
@@ -226,6 +225,42 @@ exports.updateUser = function(data, callback){
         }
     }); 
 };
+
+exports.disableUser = function(data, callback){
+    
+    
+    var paramsString = '\"'+data.usuario+'\"';
+    repository.executeQuery({
+        spName: 'sp_deshabilitarUsuario',
+        params: paramsString
+    }, 
+    function(success, dataQuery) {
+        if(success) {
+            var paramsString2 = '\"' + data.usuarioActual + '\"' + ',' + '\"' + data.usuario + '\"' + ',' + '\"' + 'd' + '\"';
+            repository.executeQuery({
+                spName: 'sp_historialGestionUsuario',
+                params:  paramsString2
+            },
+            function(success2, data2) {
+                callback(
+                {
+                    success: true,
+                    data: null,
+                    message: "El usuario se actualizó correctamente"
+                });
+            });
+        } 
+        else 
+        {callback(
+            {
+                success: false,
+                data: null,
+                message: "Por favor asegúrese de selecionar un usuario antes de actualizar o que el nombre del usuario no está en uso"
+            });
+        }
+    }); 
+};
+
 
 exports.changePassword = function(data, callback) {
     var passwordsStatus = userValidator.validatePasswords(data.currentPassword, data.newPassword, data.newPassword2);

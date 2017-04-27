@@ -10,7 +10,7 @@
    */
   angular
     .module('saaApp')
-    .controller('GestionUsuariosCtrl', ["$scope", "UsuarioService", "messageHandlerService" , "shareSessionService", function ($scope, usuarioService, messageHandlerService, shareSessionService) {
+    .controller('GestionUsuariosCtrl', ["$scope", "UsuarioService", "messageHandlerService" , "shareSessionService","$uibModal","confirmationModalService", function ($scope, usuarioService, messageHandlerService, shareSessionService,$uibModal,confirmationModalService) {
       $scope.dateFormat = "dd-MM-yyyy";
       $scope.usersList = {};
       $scope.inputUser = {};
@@ -85,8 +85,58 @@
         });
       };
 
+      $scope.disableUser = function(user){
+        $scope.openConfirmationModal(function(response){
+          if (!response.success){
+            return;
+          }
+          user.usuarioActual = $scope.user.usuario;
+          usuarioService.disableUser(user).then(function(result){
+            if(result.success == true){
+              messageHandlerService.notifySuccess(null, result.message);
+              $scope.getUsers();
+              $scope.inputUser = {};
+            }
+            else{
+              if (!result.message) {
+                messageHandlerService.notifyError(null, "No se pudo deshabilitar el usuario");
+                return;
+              };
+                messageHandlerService.notifyError(null, result.message);
+            }
+          });
+        }); 
+      };
+
       $scope.getUser = function() {
         $scope.user = shareSessionService.getSession();
+      };
+
+
+      var setModalContent = function(mTitle, mMessage){
+        confirmationModalService.setModalContent(mTitle, mMessage);
+      };
+
+      $scope.openConfirmationModal = function (callback) {
+        setModalContent('Deshabilitar usuario', '¿Está seguro(a) de que desea deshabilitar el usuario?');
+        var modalInstance = $uibModal.open({
+          animation: true,
+          templateUrl: 'confirmationModalTemplate.html',
+          controller: 'ModalInstanceCtrl',
+          size: 'sm',
+          resolve: {}
+        });
+
+        modalInstance.result.then(
+          function (confirmationResponse) {
+            callback({
+              success: confirmationResponse
+            });
+        }, function () {
+          callback({
+              success: false
+            });
+        });
       };
 
       $scope.getUser();

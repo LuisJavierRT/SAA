@@ -122,6 +122,16 @@ begin
 end $$
 delimiter ;
 
+
+delimiter $$ 
+create procedure sp_deshabilitarUsuario (
+	in _usuario varchar(30)
+)
+begin
+	update Usuario set activo = 0 where usuario = _usuario;
+end $$
+delimiter ;
+
 delimiter $$
 create procedure sp_historialGestionUsuario (
 	in _usuarioEjecutador varchar(30),

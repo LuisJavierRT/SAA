@@ -27,6 +27,7 @@ app.get('/users', userController.getAllUsers);
 app.get('/users/:id', userController.getUserById);
 app.post('/users', userController.addUser);
 app.put('/users/:id', userController.updateUser);
+app.put('/users/disable/:id',userController.disableUser);
 app.put('/changePassword/:id', userController.changePassword);
 
 app.get('/dependencies', dependencyController.getAllDependencies);
