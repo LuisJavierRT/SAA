@@ -196,6 +196,14 @@ begin
 end $$
 delimiter ; 
 
+delimiter $$
+create procedure sp_deshabilitarFuncionario (
+	in _id int
+)
+begin
+	update Funcionario set activo = 0 where id = _id; 
+end $$
+delimiter ;
 
 delimiter $$
 create procedure sp_actualizarTituloFuncionario(

@@ -146,3 +146,15 @@ exports.getAntecedentesFuncionario = function(pRequest, pResponse) {
         pResponse.send(funcionarioResponse);
     });
 };
+
+exports.disableFuncionario = function(pRequest, pResponse) {
+    var funcionarioResponse = {};
+
+    funcionarioService.disableFuncionario(pRequest.body, function(result) {
+        funcionarioResponse.success = result.status;
+        funcionarioResponse.message = result.message;
+        funcionarioResponse.data = result.data;
+        pResponse.status(200);
+        pResponse.send(funcionarioResponse);
+    });
+};

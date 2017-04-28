@@ -112,7 +112,6 @@
         $scope.user = shareSessionService.getSession();
       };
 
-
       var setModalContent = function(mTitle, mMessage){
         confirmationModalService.setModalContent(mTitle, mMessage);
       };

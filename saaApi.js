@@ -45,6 +45,7 @@ app.get('/funcionarios/records/:id', funcionarioController.getAntecedentesFuncio
 app.put('/funcionarios/:id', funcionarioController.updateFuncionario);
 app.put('/funcionarios/academics/:id', funcionarioController.updateAcademics);
 app.put('/funcionarios/records/:id', funcionarioController.updateRecords);
+app.put('/funcionarios/disable/:id', funcionarioController.disableFuncionario);
 
 app.post('/plazas', plazaController.addPlaza);
 app.post('/plazasInfo', plazaController.addPlazaInfo);

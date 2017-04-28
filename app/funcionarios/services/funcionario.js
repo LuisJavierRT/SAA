@@ -53,6 +53,15 @@
                     });
                 };
                 
+                var desactivateFuncionario = function(pData) {
+                    var link = '/funcionarios/disable/';                  
+                    return  requestService.putRequest({data: pData, params: pData.funcionarioId}, {url: link}).then(function(pResp) {
+                        return pResp;
+                    },
+                    function(pResp){
+                        return pResp;
+                    });
+                };
 
                 return {
                     newFuncionario: function(pData) {
@@ -66,6 +75,9 @@
                     },
                     editFuncionario: function(pData){
                         return updateFuncionario(pData);
+                    },
+                    disableFuncionario: function(pData) {
+                        return desactivateFuncionario(pData);
                     }
                 };
         }]);

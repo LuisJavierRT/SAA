@@ -110,7 +110,6 @@ exports.createAntecedentesFuncionario = function(data, callback){
     });    
 };
 
-
 exports.updateFuncionario = function(data, callback){
     var paramsString =  '\"'+data.id+'\"'+','+
                         '\"'+data.infoPersonal.cedula+'\"'+','+
@@ -197,7 +196,6 @@ exports.updateAcademicInfo = function(data, callback){
     });    
 };
 
-
 exports.updateAntecedentesFuncionario = function(data, callback){
     var paramsString = data.id + ',' +  
                     '\"'+data.idFuncionario+'\"' + ',' +  
@@ -232,7 +230,6 @@ exports.updateAntecedentesFuncionario = function(data, callback){
         }
     });    
 };
-
 
 exports.getAllFuncionarios = function(callback){
 
@@ -368,4 +365,36 @@ exports.getAntecedentesFuncionario = function(data, callback){
             });
         }
     });    
+};
+
+exports.disableFuncionario = function(data, callback){
+
+    repository.executeQuery({
+        spName:  'sp_deshabilitarFuncionario',
+        params: data.funcionarioId
+    },
+    function(success, dataQuery) {
+        if(success) {
+            var paramsString = '\"'+data.usuario+'\"'+','+
+                                data.funcionarioId+','+ '\"' + 'd' + '\"';
+            repository.executeQuery({
+                spName:  'sp_HistorialGestionFuncionario',
+                params: paramsString
+            },
+            function(success2, data2) {
+                callback({
+                    status: true, 
+                    message: 'Se ha deshabilitado el funcionario de manera exitosa',
+                    data: {}
+                });
+            });
+        } 
+        else {
+            callback({
+                status: false, 
+                message: 'Ha ocurrido un error, no se ha deshabilitado el funcionario',
+                data: {}
+            });
+        }
+    });   
 };
