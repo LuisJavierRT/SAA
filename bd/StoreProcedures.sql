@@ -412,6 +412,15 @@ begin
 end $$
 delimiter ;
 
+delimiter $$
+create procedure sp_deshabilitarPlaza(
+	in _id int
+)
+begin
+	update Plaza set activo = 0 where id = _id;
+    update CaracteristicaPlaza set activo = 0 where idPlaza = _id;
+end $$
+delimiter ;
 
 delimiter $$
 create procedure sp_agregarCaracteristicaPlaza (

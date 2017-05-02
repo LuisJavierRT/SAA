@@ -97,7 +97,6 @@ exports.addPlazaInfo = function(data, callback) {
     });
 };
 
-
 exports.updatePlaza = function(data, callback){
     data.fechaAutorizacionInicio = formatDateFromJSToMySQL(data.fechaAutorizacionInicio);
     data.fechaAcuerdo = formatDateFromJSToMySQL(data.fechaAcuerdo);
@@ -289,4 +288,39 @@ exports.getPuestos = function(callback){
             });
         }
     });    
+};
+
+exports.disablePlaza = function(data, callback) {
+
+    repository.executeQuery({ 
+        spName: 'sp_deshabilitarPlaza',
+        params: data.id
+    }, 
+    function(success, dataQuery) {
+        if(success) {
+            var paramsString = '\"'+data.usuarioActual+'\"'+','+
+                                        data.id+','+ '\"' + 'd' + '\"';
+            repository.executeQuery({
+                spName:  'sp_HistorialGestionPlaza',
+                params: paramsString
+            }, 
+            function(success2, data2) {
+                callback(
+                {
+                    success: true,
+                    message: "La plaza se deshabilitó correctamente",
+                    data: null
+                });
+            });
+        } 
+        else 
+        {
+        	callback(
+            {
+                success: false,
+                data: null,
+                message: "No se pudo deshabilitar la plaza"
+            });
+        }
+    });
 };

@@ -10,20 +10,20 @@
 	'use strict';
 	angular
 		.module('saaApp')
-	    .controller('GestionPlazasCtrl', ['$scope', '$state', 'PlazaService', 'sharePlazaService', 'messageHandlerService',"$uibModal","confirmationModalService", 
-	    function($scope, $state, plazaService, sharePlazaService, messageHandlerService,$uibModal,confirmationModalService){
+	    .controller('GestionPlazasCtrl', ['$scope', '$state', 'PlazaService', 'sharePlazaService', 'messageHandlerService',"$uibModal","confirmationModalService", "shareSessionService", 
+	    function($scope, $state, plazaService, sharePlazaService, messageHandlerService,$uibModal,confirmationModalService, shareSessionService){
 	    	
 	    	$scope.plazaList = [];
 	    	$scope.mdlTag = "";
 			$scope.filters = 0; 
-
+			$scope.user = {};
 			$scope.viewsVisibility = {
 				showFind: true,
 				showPlazaList: true,
 				showPlazaUpdate: false
 			};
 
-			var getPlazaList = function() {
+			$scope.getPlazaList = function() {
 				plazaService.getPlazaList().then(function(result) {
 					if(result.success) {
 						$scope.plazaList = result.data;
@@ -45,15 +45,21 @@
 			};
 
 			$scope.disablePlaza = function(pId) {
-				plazaService.disablePlaza(pId).then(function(result) {
-					if(result.success) {
-						messageHandlerService.notifySuccess(null, result.message);	
-						$scope.plazaList = [];
-						getFPlazaList();
+				$scope.openConfirmationModal(function(response){
+					if (!response.success){
+						return;
 					}
-					else {
-						messageHandlerService.notifyWarning(null, result.message);
-					}
+					var data = {id: pId, usuario: $scope.user.usuario};
+					plazaService.disablePlaza(data).then(function(result) {
+						if(result.success) {
+							messageHandlerService.notifySuccess(null, result.message);	
+							$scope.plazaList = [];
+							getFPlazaList();
+						}
+						else {
+							messageHandlerService.notifyWarning(null, result.message);
+						}
+					});
 				});
 			};
 
@@ -82,8 +88,12 @@
 		            });
 		        });
 		    };
+			
+			$scope.getUser = function() {
+				$scope.user = shareSessionService.getSession();
+			};
 
-
-			getPlazaList();
+			$scope.getUser();
+			$scope.getPlazaList();
 		}]);	
 })();
