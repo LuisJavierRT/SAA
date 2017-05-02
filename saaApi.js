@@ -34,6 +34,7 @@ app.get('/dependencies', dependencyController.getAllDependencies);
 app.get('/dependencies/:id', dependencyController.getDependencyById);
 app.post('/dependencies', dependencyController.addDependency);
 app.put('/dependencies/:id', dependencyController.updateDependency);
+app.put('/dependencies/disable/:id', dependencyController.disableDependency);
 
 app.post('/funcionarios', funcionarioController.addFuncionario);
 app.post('/funcionarios/academics', funcionarioController.addAcademics);

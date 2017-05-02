@@ -24,3 +24,9 @@ exports.updateDependency= function(dRequest, dResponse) {
     	dResponse.send(data);
     });
 };
+
+exports.disableDependency= function(dRequest, dResponse) {
+    var data = dependencyService.disableDependency(dRequest.body, function(data) {
+        dResponse.send(data);
+    });
+};

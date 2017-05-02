@@ -1,7 +1,6 @@
 CREATE SCHEMA `mydb` DEFAULT CHARACTER SET utf8;
 USE `mydb`;
 
-
 create table `mydb`.`Usuario` (
   `usuario` VARCHAR(30) NOT NULL,
   `contrasena` VARCHAR(32) NOT NULL, 
@@ -73,6 +72,7 @@ create table `mydb`.`Dependencia` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `codigo` VARCHAR(10) NOT NULL, 
   `nombre` VARCHAR(60) NOT NULL,
+  `activo` BIT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -392,8 +392,8 @@ create table `mydb`.`PlazaContratacion` (
 engine = innodb; 
 
 INSERT INTO Usuario(usuario, contrasena, cedula, nombre, correo, tipo, activo, fechaInicioAutorizacion, fechaFinalAutorizacion) 
-    VALUES('jose4', md5('123'), '207510507', 'Jose', 'correo', 'Administrador', 1, '2017-01-02', '2017-02-03');
-    
+    VALUES('jose', md5('123'), '207510507', 'Jose', 'correo', 'Administrador', 1, '2017-01-02', '2017-02-03');
+
  
 insert into PuestosPlaza(puesto) values('puesto1');
 insert into PuestosPlaza(puesto) values('puesto2');

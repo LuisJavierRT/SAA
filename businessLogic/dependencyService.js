@@ -205,3 +205,35 @@ exports.updateDependency = function(data, callback){
         }
     }); 
 };
+
+exports.disableDependency = function(data, callback){
+
+    repository.executeQuery({
+        spName:  'sp_deshabilitarDependencia',
+        params: data.idDependencia
+    },
+    function(success, dataQuery) {
+        if(success) {
+            var paramsString = '\"'+data.usuario+'\"'+','+
+                                data.idDependencia+','+ '\"' + 'd' + '\"';
+            repository.executeQuery({
+                spName:  'sp_historialGestionDependencia',
+                params: paramsString
+            },
+            function(success2, data2) {
+                callback({
+                    success: true, 
+                    message: 'Se ha deshabilitado la dependencia de manera exitosa',
+                    data: {}
+                });
+            });
+        } 
+        else {
+            callback({
+                success: false, 
+                message: 'Ha ocurrido un error, no se ha deshabilitado la dependencia',
+                data: {}
+            });
+        }
+    });   
+};

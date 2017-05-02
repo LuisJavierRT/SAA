@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc Controller
- * @author Antony Duran Hernandez
+ * @author Luis Javier Ramírez Torres
  * @name ModalInstanceCtrl
  * @description
  * #  controller para gestionar la respuestas de los modales

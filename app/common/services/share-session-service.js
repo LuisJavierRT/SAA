@@ -1,7 +1,7 @@
 
 /**
  * @ngdoc Service
- * @author Carlos Fernandez Jimenez
+ * @author Luis Javier Ramírez Torres
  * @name shareSessionService
  * @description
  * #  service for share information between controllers

@@ -33,6 +33,16 @@
 	  			});
 			};
 
+			var delDepen = function(pData){
+				var link = "/dependencies/disable/";
+				return requestService.putRequest({params: pData.idDependencia, data: pData}, {url: link}).then(function(result){
+	  				return result;
+	  			},
+	  			function(result){
+	  				return result;
+	  			});
+			};
+
 			return {
 				getDependencies: function() {
 					return getDepen();
@@ -42,6 +52,9 @@
 				},
 				editDependency: function(pData) {
 					return editDepen(pData);
+				},
+				disableDependency: function(pData){
+					return delDepen(pData);
 				}
 			}
 		}]);

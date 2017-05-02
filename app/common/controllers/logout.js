@@ -1,6 +1,6 @@
 /**
  * @ngdoc Controller
- * @author Carlos Fernandez Jimenez
+ * @author Alberto Hidalgo Bonilla
  * @name LoginCtrl
  * @description
  * #  controller para logout

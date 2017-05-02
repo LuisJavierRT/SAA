@@ -275,7 +275,7 @@ end $$
 delimiter ;
 
 delimiter $$
-create procedure sp_HistorialGestionFuncionario (
+create procedure sp_historialGestionFuncionario (
 	in _usuario varchar(30),
     in _idFuncionario int,
     in _accion char
@@ -289,7 +289,7 @@ delimiter ;
 delimiter $$ 
 create procedure sp_obtenerDependencias()
 	begin
-		select * from Dependencia;
+		select * from Dependencia where activo = 1;
 	end $$
 delimiter ;
 
@@ -331,6 +331,15 @@ begin
 end $$
 delimiter ;
 
+
+delimiter $$
+create procedure sp_deshabilitarDependencia (
+	in _id int
+)
+begin
+	update Dependencia set activo = 0 where id = _id; 
+end $$
+delimiter ;
 
 delimiter $$
 create procedure sp_historialGestionDependencia (
@@ -500,7 +509,7 @@ end $$
 delimiter ;
 
 delimiter $$
-create procedure sp_HistorialGestionPlaza (
+create procedure sp_historialGestionPlaza (
 	in _usuario varchar(30),
     in _idPlaza int,
     in _accion char

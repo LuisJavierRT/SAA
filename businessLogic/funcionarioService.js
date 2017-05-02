@@ -36,7 +36,7 @@ exports.createFuncionario = function(data, callback){
                 var paramsString2 = '\"'+data.usuarioActual+'\"'+','+
                                         dataQuery[0][0].idF+','+ '\"' + 'i' + '\"';
                 repository.executeQuery({
-                    spName:  'sp_HistorialGestionFuncionario',
+                    spName:  'sp_historialGestionFuncionario',
                     params: paramsString2
                 },
                 function(success2, data2) {
@@ -137,7 +137,7 @@ exports.updateFuncionario = function(data, callback){
                 var paramsString2 = '\"'+data.usuarioActual+'\"'+','+
                                 data.idFuncionario+','+ '\"' + 'm' + '\"';
                 repository.executeQuery({
-                    spName:  'sp_HistorialGestionFuncionario',
+                    spName:  'sp_historialGestionFuncionario',
                     params: paramsString2
                 },
                 function(success2, data2) {
@@ -175,7 +175,7 @@ exports.updateAcademicInfo = function(data, callback){
             var paramsString2 = '\"'+data.usuario+'\"'+','+
                                 data.idFuncionario+','+ '\"' + 'm' + '\"';
             repository.executeQuery({
-                spName:  'sp_HistorialGestionFuncionario',
+                spName:  'sp_historialGestionFuncionario',
                 params: paramsString2
             },
             function(success2, data2) {
@@ -210,7 +210,7 @@ exports.updateAntecedentesFuncionario = function(data, callback){
             var paramsString2 = '\"'+data.usuario+'\"'+','+
                                 data.idFuncionario+','+ '\"' + 'm' + '\"';
             repository.executeQuery({
-                spName:  'sp_HistorialGestionFuncionario',
+                spName:  'sp_historialGestionFuncionario',
                 params: paramsString2
             },
             function(success2, data2) {
@@ -378,7 +378,7 @@ exports.disableFuncionario = function(data, callback){
             var paramsString = '\"'+data.usuario+'\"'+','+
                                 data.funcionarioId+','+ '\"' + 'd' + '\"';
             repository.executeQuery({
-                spName:  'sp_HistorialGestionFuncionario',
+                spName:  'sp_historialGestionFuncionario',
                 params: paramsString
             },
             function(success2, data2) {

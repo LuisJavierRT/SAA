@@ -10,7 +10,9 @@
    */
   angular
     .module('saaApp')
-    .controller('GestionUsuariosCtrl', ["$scope", "UsuarioService", "messageHandlerService" , "shareSessionService","$uibModal","confirmationModalService", function ($scope, usuarioService, messageHandlerService, shareSessionService,$uibModal,confirmationModalService) {
+    .controller('GestionUsuariosCtrl', ["$scope", "UsuarioService", "messageHandlerService" , "shareSessionService","$uibModal","confirmationModalService",
+     function ($scope, usuarioService, messageHandlerService, shareSessionService,$uibModal,confirmationModalService) {
+      
       $scope.dateFormat = "dd-MM-yyyy";
       $scope.usersList = {};
       $scope.inputUser = {};

@@ -1,6 +1,6 @@
 /**
  * @ngdoc Service
- * @author Antony Duran Hernandez
+ * @author Jose Alberto Hidalgo Bonilla
  * @name confirmationModalService
  * @description
  * #  service to show confirmation modals
