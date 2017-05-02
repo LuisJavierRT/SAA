@@ -18,6 +18,12 @@ exports.updatePlaza = function(pRequest, pResponse) {
     });
 };
 
+exports.disablePlaza = function(pRequest, pResponse) {
+	var data = plazaService.disablePlaza(pRequest.body, function(data) {
+        pResponse.send(data);
+    });
+};
+
 exports.getAllPlazas = function(pRequest, pResponse) {
 	var data = plazaService.getAllPlazas(function(data) {
 		pResponse.send(data);

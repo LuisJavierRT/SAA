@@ -10,8 +10,8 @@
 	'use strict';
 	angular
 		.module('saaApp')
-	    .controller('GestionPlazasCtrl', ['$scope', '$state', 'PlazaService', 'sharePlazaService', 'messageHandlerService', 
-	    function($scope, $state, plazaService, sharePlazaService, messageHandlerService){
+	    .controller('GestionPlazasCtrl', ['$scope', '$state', 'PlazaService', 'sharePlazaService', 'messageHandlerService',"$uibModal","confirmationModalService", 
+	    function($scope, $state, plazaService, sharePlazaService, messageHandlerService,$uibModal,confirmationModalService){
 	    	
 	    	$scope.plazaList = [];
 	    	$scope.mdlTag = "";
@@ -44,8 +44,8 @@
 				$state.go('actualizar-plaza');
 			};
 
-			$scope.desactivePlaza = function(pId) {
-				plazaService.desactivePlaza(pId).then(function(result) {
+			$scope.disablePlaza = function(pId) {
+				plazaService.disablePlaza(pId).then(function(result) {
 					if(result.success) {
 						messageHandlerService.notifySuccess(null, result.message);	
 						$scope.plazaList = [];
@@ -56,6 +56,33 @@
 					}
 				});
 			};
+
+			var setModalContent = function(mTitle, mMessage){
+				confirmationModalService.setModalContent(mTitle, mMessage);
+      		};
+
+		    $scope.openConfirmationModal = function (callback) {
+		    	setModalContent('Deshabilitar plaza', '¿Está seguro(a) de que desea deshabilitar la plaza?');
+		        var modalInstance = $uibModal.open({
+		          animation: true,
+		          templateUrl: 'confirmationModalTemplate.html',
+		          controller: 'ModalInstanceCtrl',
+		          size: 'sm',
+		          resolve: {}
+		        });
+
+		        modalInstance.result.then(
+		          function (confirmationResponse) {
+		            callback({
+		              success: confirmationResponse
+		            });
+		        }, function () {
+		          callback({
+		              success: false
+		            });
+		        });
+		    };
+
 
 			getPlazaList();
 		}]);	

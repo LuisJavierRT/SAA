@@ -24,6 +24,16 @@
 			};
 
 			var updatePl = function(pData) {
+                var link = '/plazas/';                  
+                return  requestService.putRequest({data: pData, params: pData.id}, {url: link}).then(function(pResp) {
+                    return pResp;
+                },
+                function(pResp){
+                    return pResp;
+                });
+            };
+
+            var disablePl = function(pData) {
                     var link = '/plazas/';                  
                     return  requestService.putRequest({data: pData, params: pData.id}, {url: link}).then(function(pResp) {
                         return pResp;
@@ -32,6 +42,7 @@
                         return pResp;
                     });
                 };
+
 
 			var getAllPlazas = function(pData) {
                 var link = '/plazas';           
@@ -73,6 +84,7 @@
             	});
             };
 
+
 			return {
 				addPlaza: function(pData) {
 					return addP(pData);
@@ -94,6 +106,9 @@
 				},
 				getPuestos: function() {
 					return puestos();
+				},
+				disablePlaza: function(pData){
+					return disablePl(pData);
 				}
 			};
 		}]);

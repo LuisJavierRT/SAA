@@ -87,23 +87,20 @@
         });
       };
 
-      $scope.disableUser = function(user){
+      $scope.disableUser = function(pId){
         $scope.openConfirmationModal(function(response){
           if (!response.success){
             return;
           }
-          user.usuarioActual = $scope.user.usuario;
-          usuarioService.disableUser(user).then(function(result){
+          var data = {usuario: pId, usuarioActual: $scope.user.usuario};
+          //user.usuarioActual = $scope.user.usuario;
+          usuarioService.disableUser(data).then(function(result){
             if(result.success == true){
               messageHandlerService.notifySuccess(null, result.message);
               $scope.getUsers();
               $scope.inputUser = {};
             }
             else{
-              if (!result.message) {
-                messageHandlerService.notifyError(null, "No se pudo deshabilitar el usuario");
-                return;
-              };
                 messageHandlerService.notifyError(null, result.message);
             }
           });

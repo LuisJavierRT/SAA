@@ -19,6 +19,18 @@
         <div class="container">
             <div class="panel panel-default">
                 <div class="panel-body">
+                <script type="text/ng-template" id="confirmationModalTemplate.html">
+                    <div class="modal-header">
+                        <h3 class="modal-title">{{modalContent.title}}</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{modalContent.message}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="button" ng-click="ok()">Confirmar</button>
+                        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancelar</button>
+                    </div>
+                </script>
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -34,7 +46,7 @@
                                     <button class="btn btn-primary btn-xs"  uib-tooltip="visualizar" ng-click="sendToPlazaView(plaza.id)"><span class="glyphicon glyphicon-eye-open"></span></button>
                                     <button class="btn btn-warning btn-xs"  uib-tooltip="editar" ng-click="sendToUpdatePlazaView(plaza.id)"><span class="glyphicon glyphicon-pencil">
                                     </button>
-                                    <button class="btn btn-danger btn-xs"  uib-tooltip="desactivar" ng-click="desactivePlaza(plaza.id)"><span class="glyphicon glyphicon-trash">
+                                    <button class="btn btn-danger btn-xs"  uib-tooltip="desactivar" ng-click="disablePlaza(plaza.id)"><span class="glyphicon glyphicon-trash">
                                     </button>
                                 </td>
                             </tr>
