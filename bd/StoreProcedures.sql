@@ -197,7 +197,7 @@ end $$
 delimiter ; 
 
 delimiter $$
-create procedure sp_deshabilitarFuncionario (
+create procedure sp_deshabilitarFuncionario ( 
 	in _id int
 )
 begin

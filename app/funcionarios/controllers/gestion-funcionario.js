@@ -55,7 +55,7 @@
 						if(result.success) {
 							messageHandlerService.notifySuccess(null, result.message);	
 							$scope.funcionarioList = [];
-							getFuncionarioList();
+							$scope.getFuncionarioList();
 						}
 						else {
 							messageHandlerService.notifyWarning(null, result.message);

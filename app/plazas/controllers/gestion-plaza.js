@@ -54,7 +54,7 @@
 						if(result.success) {
 							messageHandlerService.notifySuccess(null, result.message);	
 							$scope.plazaList = [];
-							getFPlazaList();
+							$scope.getPlazaList();
 						}
 						else {
 							messageHandlerService.notifyWarning(null, result.message);
