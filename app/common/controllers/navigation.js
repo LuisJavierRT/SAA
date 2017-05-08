@@ -49,6 +49,10 @@
                     name: "Gestión de Usuarios",
                     link: "gestionar-usuarios"
                 },
+                {
+                    name: "Asignar funcionario a dependencia",
+                    link: "asignar-fun-dep"
+                }
             ];
                     
             $scope.sesion = [

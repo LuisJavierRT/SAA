@@ -104,6 +104,12 @@
           templateUrl: 'plazas/views/actualizar-plaza.html',
           controller: 'ActualizarPlazaCtrl'
         })
+        .state('asignar-fun-dep', {
+          url: '/asignar-funcionario-dependencia',
+          parent: 'saa',
+          templateUrl: 'funcionario-dependencia/views/fun-dep.html',
+          controller: 'FunDepCtrl'
+        })
     })
 
   .directive('stringToNumber', function() {

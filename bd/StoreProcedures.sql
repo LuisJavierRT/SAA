@@ -354,15 +354,27 @@ end $$
 delimiter ;
 
 delimiter $$
-create procedure sp_agregarPerteneceFuncionarioDependencia (
+create procedure sp_agregarPerteneceFuncionarioDependencia ( 
 
 	 in _idFuncionario int,
-	 in _idDependencia int, 
-	 in _activo bit
+	 in _idDependencia int
 )
 begin
-	insert into Pertenece (idFuncionario, idDependencia, activo)
-    values (_idFuncionario, _idDependencia, _activo);
+	insert into Pertenece (idFuncionario, idDependencia)
+    values (_idFuncionario, _idDependencia);
+end $$
+delimiter ;
+
+delimiter $$
+create procedure sp_historialAsignacionFuncionarioDependencia ( 
+	in _usuario varchar(30),
+    in _idFuncionario int,
+    in _idDependencia int,
+    in _accion char
+)
+begin
+	insert into HistorialAsignacionFuncionarioDependencia(usuario, idFuncionario, idDependencia, fecha, accion)
+    values (_usuario, _idFuncionario, _idDependencia, NOW(), _accion);
 end $$
 delimiter ;
 

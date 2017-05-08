@@ -97,7 +97,7 @@ create table `mydb`.`Pertenece` (
   `idDependencia` INT NOT NULL, 
   `activo` BIT NOT NULL DEFAULT 1,
   
-  PRIMARY KEY (`idFuncionario`,`idDependencia`),
+  PRIMARY KEY (`idFuncionario`,`idDependencia`), 
   
   CONSTRAINT `fk_pertenece_funcionario`
 	FOREIGN KEY (`idFuncionario`)
@@ -106,6 +106,28 @@ create table `mydb`.`Pertenece` (
   CONSTRAINT `fk_pertenece_dependencia`
     FOREIGN KEY (`idDependencia`)
     REFERENCES `Dependencia` (`id`))
+ENGINE = InnoDB;
+
+create table `mydb`.`HistorialAsignacionFuncionarioDependencia` ( 
+	`id` int not null auto_increment,
+    `usuario` varchar(30) not null,
+    `idFuncionario` int not null,
+    `idDependencia` int not null,
+    `fecha` varchar(20) not null,
+    `accion` char not null, /* 'i' = insertar / 'm' = modificar / 'd' = deshabilitar */
+    primary key (`id`),
+    
+    CONSTRAINT `fk_usuario_asignar_funcionario_dependencia_historial`
+		FOREIGN KEY (`usuario`)
+		REFERENCES `Usuario` (`usuario`),
+	
+    CONSTRAINT `fk_idFuncionario_asignar_funcionario_dependencia_historial`
+		FOREIGN KEY (`idFuncionario`)
+		REFERENCES `Funcionario` (`id`),
+        
+	CONSTRAINT `fk_idDependencia_asignar_funcionario_dependencia_historial`
+		FOREIGN KEY (`idDependencia`)
+		REFERENCES `Dependencia` (`id`))
 ENGINE = InnoDB;
 
 create table `mydb`.`Antecedente` (

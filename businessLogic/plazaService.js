@@ -36,7 +36,7 @@ exports.addPlaza = function(data, callback){
                 var paramsString2 = '\"'+data.usuarioActual+'\"'+','+
                                         dataQuery[0][0].valid+','+ '\"' + 'i' + '\"';
                 repository.executeQuery({
-                    spName:  'sp_HistorialGestionPlaza',
+                    spName:  'sp_historialGestionPlaza',
                     params: paramsString2
                 }, 
                 function(success2, data2) {
@@ -133,7 +133,7 @@ exports.updatePlaza = function(data, callback){
                 var paramsString2 = '\"'+data.usuarioActual+'\"'+','+
                                         data.id+','+ '\"' + 'm' + '\"';
                 repository.executeQuery({
-                    spName:  'sp_HistorialGestionPlaza',
+                    spName:  'sp_historialGestionPlaza',
                     params: paramsString2
                 }, 
                 function(success2, data2) {
@@ -301,7 +301,7 @@ exports.disablePlaza = function(data, callback) {
             var paramsString = '\"'+data.usuarioActual+'\"'+','+
                                         data.id+','+ '\"' + 'd' + '\"';
             repository.executeQuery({
-                spName:  'sp_HistorialGestionPlaza',
+                spName:  'sp_historialGestionPlaza',
                 params: paramsString
             }, 
             function(success2, data2) {

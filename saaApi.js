@@ -6,7 +6,8 @@ var express       = require('express'),
     userController = require('./controllers/userController.js'),
     dependencyController = require('./controllers/dependencyController.js'),
     funcionarioController = require('./controllers/funcionarioController.js'),
-    plazaController = require('./controllers/plazaController.js');
+    plazaController = require('./controllers/plazaController.js'),
+    funDepController = require('./controllers/funDepController.js');
 
 
 app.use(bodyParser.urlencoded({
@@ -57,6 +58,7 @@ app.put('/plazas/disable/:id',plazaController.disablePlaza);
 app.get('/plazaCategorias', plazaController.getCategorias);
 app.get('/plazaPuestos', plazaController.getPuestos);
 
+app.post('/funDep', funDepController.assignFunDep);
 
 server.listen(8080, function(){
 	console.log('Listening at port 8080...');
