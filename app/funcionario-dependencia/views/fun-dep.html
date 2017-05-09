@@ -3,16 +3,27 @@
         <li class="active">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Administración</li>
         <li class="active">Asignar funcionarios a dependencias</li>
     </ol>
-    <div class="container">
-        <div>
-            <div ng-repeat="func in funcionarioList">
-                <input type="checkbox"> {{func.nombre}}
+    <div class="container" style="display:flex">
+        <div style="padding-left:20px;">
+            <h3>Funcionarios</h3>
+            <hr>
+            <div style="display: inline-block; overflow:scroll; width:500px; height:280px;">
+                <div ng-repeat="func in funcionarioList">
+                    <input type="checkbox" ng-model="func.selected"> {{func.nombre}}
+                </div>
             </div>
         </div>
-        </div>
-            <div ng-repeat="depen in dependenciaList">
-                <input type="checkbox"> {{depen.nombre}}
+        <div style="padding-left: 100px;">
+            <h3>Dependencias</h3>
+            <hr>
+            <div style="display: inline-block; overflow:scroll; width:500px; height:280px;">
+                <div ng-repeat="depen in dependenciaList">
+                    <input type="checkbox" ng-model="depen.selected"> {{depen.nombre}}
+                </div>
             </div>
         </div>
     </div>
+    <br>
+    <button class="btn btn-primary center-block" ng-click="assign(funcionarioList, dependenciaList)">Asignar funcionarios</button>
+    <br><br>
 </div>

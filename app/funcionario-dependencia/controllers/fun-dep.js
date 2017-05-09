@@ -25,7 +25,7 @@
                     }
                 });
             };
-            $scope.getDependencias = function() {
+            $scope.getDependencies = function() {
                 dependenciaService.getDependencies().then(function(result) {
                     if(result.success) {
                         $scope.dependenciaList = result.data;
@@ -35,23 +35,28 @@
                     }
                 });
             };
-            $scope.assign = function(funcionarios, idD) {
-                for(var i=0; i<funcionarios.length; i++) {
-                    var data = {usuario: $scope.user.usuario, idFuncionario: funcionarios[i], idDependencia: idD};
-                    funDepService.assign(data).then(function(result) {
-                        if(!result.success){
-                            messageHandlerService.notifyError(null, result.message);                        
+            $scope.assign = function(funcionarios, dependencias) {
+                for(var j=0; j<dependencias.length; j++) {
+                    for(var i=0; i<funcionarios.length; i++) {
+                        if(funcionarios[i].selected == true && dependencias[j].selected == true){
+                            var data = {usuario: $scope.user.usuario, idFuncionario: funcionarios[i].id, idDependencia: dependencias[j].id};
+                            console.log(data);
+                            funDepService.assign(data).then(function(result) {
+                                if(!result.success){
+                                    messageHandlerService.notifyError(null, result.message);                        
+                                }
+                            });
                         }
-                    });
+                    }
                 }
             };
 
             $scope.getUser = function() {
                 $scope.user = shareSessionService.getSession();
             };
-
+    
             $scope.getUser();
-            $scope.getDependencias();
+            $scope.getDependencies();
             $scope.getFuncionarios();
 		}]);	
 })();
