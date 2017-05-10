@@ -6,3 +6,9 @@ exports.assignFunDep = function(dRequest, dResponse) {
         dResponse.send(data);
     });
 };
+
+exports.getFuncionariosPerDependency = function(dRequest, dResponse) {
+    var data = funDepService.getFuncionariosPerDependency(dRequest.params, function(data){
+        dResponse.send(data);
+    });
+};

@@ -59,6 +59,7 @@ app.get('/plazaCategorias', plazaController.getCategorias);
 app.get('/plazaPuestos', plazaController.getPuestos);
 
 app.post('/funDep', funDepController.assignFunDep);
+app.get('/funDep/:id', funDepController.getFuncionariosPerDependency);
 
 server.listen(8080, function(){
 	console.log('Listening at port 8080...');

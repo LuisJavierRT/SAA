@@ -337,7 +337,7 @@ create procedure sp_deshabilitarDependencia (
 	in _id int
 )
 begin
-	update Dependencia set activo = 0 where id = _id; 
+	update Dependencia set activo = 0 where id = _id;
 end $$
 delimiter ;
 
@@ -362,6 +362,15 @@ create procedure sp_agregarPerteneceFuncionarioDependencia (
 begin
 	insert into Pertenece (idFuncionario, idDependencia)
     values (_idFuncionario, _idDependencia);
+end $$
+delimiter ;
+
+delimiter $$ 
+create procedure sp_funcionariosPorDependencia (
+	in _idDependencia int
+)
+begin
+	select f.id, f.nombre, f.apellido1, f.apellido2 from Funcionario as f where f.id not in (select idFuncionario from Pertenece as p where p.idDependencia = _idDependencia);
 end $$
 delimiter ;
 

@@ -14,9 +14,11 @@
             $scope.funcionarioList = [];
             $scope.dependenciaList = [];
             $scope.user = {};
+            $scope.selectedDependency = "";
 
-            $scope.getFuncionarios = function() {
-                funcionarioService.getFuncionarioList().then(function(result) {
+            $scope.getFuncionarios = function(pData) {
+                var idD = pData.split("-")[0];
+                funDepService.getFuncionariosPorDependencia(idD).then(function(result) {
                     if(result.success) {
                         $scope.funcionarioList = result.data;
                     }
@@ -29,25 +31,37 @@
                 dependenciaService.getDependencies().then(function(result) {
                     if(result.success) {
                         $scope.dependenciaList = result.data;
+                        if($scope.dependenciaList.length > 0){
+                            $scope.selectedDependency = $scope.dependenciaList[0].id + " - " + $scope.dependenciaList[0].nombre;
+                            $scope.getFuncionarios($scope.selectedDependency);
+                        }
                     }
                     else{
                         messageHandlerService.notifyWarning(null, result.message);                        
                     }
                 });
             };
-            $scope.assign = function(funcionarios, dependencias) {
-                for(var j=0; j<dependencias.length; j++) {
-                    for(var i=0; i<funcionarios.length; i++) {
-                        if(funcionarios[i].selected == true && dependencias[j].selected == true){
-                            var data = {usuario: $scope.user.usuario, idFuncionario: funcionarios[i].id, idDependencia: dependencias[j].id};
-                            console.log(data);
-                            funDepService.assign(data).then(function(result) {
-                                if(!result.success){
-                                    messageHandlerService.notifyError(null, result.message);                        
-                                }
-                            });
-                        }
+            $scope.assign = function(funcionarios, idD) {
+                var id = idD.split("-")[0];
+                for(var i=0; i<funcionarios.length; i++) {
+                    if(funcionarios[i].selected != undefined && funcionarios[i].selected == true){
+                        var data = {usuario: $scope.user.usuario, idFuncionario: funcionarios[i].id, idDependencia: id};
+                        funDepService.assign(data).then(function(result) {
+                            if(!result.success){
+                                messageHandlerService.notifyError(null, result.message);                        
+                            }
+                        });
                     }
+                }
+            };
+           
+            $scope.checkFunc = function(func){
+                func.selected = !func.selected;
+                if(func.selected){
+                    document.getElementById(func.id.toString()).className = "glyphicon glyphicon-ok";
+                }
+                else{
+                    document.getElementById(func.id.toString()).className = "";
                 }
             };
 
@@ -57,6 +71,5 @@
     
             $scope.getUser();
             $scope.getDependencies();
-            $scope.getFuncionarios();
 		}]);	
 })();

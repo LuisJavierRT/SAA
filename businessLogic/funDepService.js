@@ -37,3 +37,26 @@ exports.assignFunDep = function(data, callback){
         }
     });    
 };
+
+exports.getFuncionariosPerDependency = function(data, callback){
+    repository.executeQuery({
+        spName: 'sp_funcionariosPorDependencia',
+        params: data.id
+    }, 
+    function(success, data) {
+        if(success) {
+            callback({
+                success: true, 
+                message: 'Funcionarios por dependencias',
+                data: data[0]
+            });
+        } 
+        else {
+            callback({
+                success: false, 
+                message: 'No se han obtenido los funcionarios por dependencia',
+                data: {}
+            });
+        }
+    });    
+};
