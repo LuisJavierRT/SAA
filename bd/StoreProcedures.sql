@@ -366,7 +366,7 @@ end $$
 delimiter ;
 
 delimiter $$ 
-create procedure sp_funcionariosPorDependencia (
+create procedure sp_funcionariosPorDependencia ( 
 	in _idDependencia int
 )
 begin

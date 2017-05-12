@@ -9,8 +9,8 @@
 	'use strict';
 	angular
 		.module('saaApp')
-	    .controller('FunDepCtrl', ['$scope', '$state', 'funcionarioService', 'DependenciaService', 'FunDepService', 'shareSessionService','messageHandlerService', 
-	    function($scope, $state, funcionarioService, dependenciaService, funDepService, shareSessionService, messageHandlerService) {
+	    .controller('FunDepCtrl', ['$q' ,'$scope', '$state', 'funcionarioService', 'DependenciaService', 'FunDepService', 'shareSessionService','messageHandlerService', 
+	    function($q, $scope, $state, funcionarioService, dependenciaService, funDepService, shareSessionService, messageHandlerService) {
             $scope.funcionarioList = [];
             $scope.dependenciaList = [];
             $scope.user = {};
@@ -43,16 +43,40 @@
             };
             $scope.assign = function(funcionarios, idD) {
                 var id = idD.split("-")[0];
+                var error;
                 for(var i=0; i<funcionarios.length; i++) {
                     if(funcionarios[i].selected != undefined && funcionarios[i].selected == true){
                         var data = {usuario: $scope.user.usuario, idFuncionario: funcionarios[i].id, idDependencia: id};
                         funDepService.assign(data).then(function(result) {
                             if(!result.success){
-                                messageHandlerService.notifyError(null, result.message);                        
+                                error = result.message;
                             }
                         });
                     }
                 }
+                $q.all(funcionarios).then(function(arrayOfResults) { 
+                    if(error) {
+                        messageHandlerService.notifyError(null, error);                                        
+                    }
+                    else{
+                        var listOfId = [];
+                        for(var i=0; i<$scope.funcionarioList.length; i++) {
+                            if($scope.funcionarioList[i].selected != undefined && $scope.funcionarioList[i].selected == true) {
+                                listOfId.push($scope.funcionarioList[i].id);
+                            }
+                        }
+                        for(var i=0; i<listOfId.length; i++) {
+                            cleanSelected(listOfId[i]);
+                        }
+                        messageHandlerService.notifySuccess(null, "Las asignaciones se realizaron correctamente");
+                    }
+                });
+            };
+
+            var cleanSelected = function(id) {
+                $scope.funcionarioList = $scope.funcionarioList.filter(function(value) {
+                    return id != value.id;
+                });
             };
            
             $scope.checkFunc = function(func){

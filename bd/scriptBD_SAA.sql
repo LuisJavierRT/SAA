@@ -108,7 +108,7 @@ create table `mydb`.`Pertenece` (
     REFERENCES `Dependencia` (`id`))
 ENGINE = InnoDB;
 
-create table `mydb`.`HistorialAsignacionFuncionarioDependencia` ( 
+create table `mydb`.`HistorialAsignacionFuncionarioDependencia` (
 	`id` int not null auto_increment,
     `usuario` varchar(30) not null,
     `idFuncionario` int not null,
