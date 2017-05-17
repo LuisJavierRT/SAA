@@ -509,7 +509,7 @@ delimiter ;
 delimiter $$
 create procedure sp_obtenerPlazas () 
 begin 
-	select p.id, cp.codigo from CaracteristicaPlaza as cp join Plaza as p on p.id = cp.idPlaza where cp.activo = 1;
+	select p.id, cp.codigo, cp.jornada, cp.tipo from CaracteristicaPlaza as cp join Plaza as p on p.id = cp.idPlaza where cp.activo = 1;
 end $$ 
 delimiter ; 
 
