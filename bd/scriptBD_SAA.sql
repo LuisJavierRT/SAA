@@ -229,7 +229,7 @@ create table `mydb`.`PlazaDependencia` (
   `porcentajeAcordado` INT NOT NULL,
   `activo` BIT NOT NULL DEFAULT 1,
   `fechaInicio` DATETIME NOT NULL,
-  `fechaFinal` DATETIME NOT NULL,
+  `fechaFinal` DATETIME ,
   `indefinida` BIT NOT NULL DEFAULT 0,
   `descripcion` VARCHAR(60) NOT NULL,
   

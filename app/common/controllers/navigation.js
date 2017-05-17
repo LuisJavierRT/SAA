@@ -52,6 +52,10 @@
                 {
                     name: "Asignar funcionario a dependencia",
                     link: "asignar-fun-dep"
+                },
+                {
+                    name: "Asignar plaza a dependencia",
+                    link: "asignar-plaza-dependencia"
                 }
             ];
                     
