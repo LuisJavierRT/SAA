@@ -2,11 +2,12 @@
 	'use strict';
 	angular
 		.module('saaApp')
-	    .controller('PlazaDependenciaCtrl', ['$scope', '$state', 'PlazaService', 'DependenciaService', 'shareSessionService','messageHandlerService', 
-	    function($scope, $state, plazaService, dependenciaService, shareSessionService, messageHandlerService) {
+	    .controller('PlazaDependenciaCtrl', ['$scope', '$uibModal','$state', 'PlazaService', 'DependenciaService', 'shareSessionService','messageHandlerService', 'AssignmentModalService',
+	    function($scope, $uibModal, $state, plazaService, dependenciaService, shareSessionService, messageHandlerService, assignmentModalService) {
             $scope.dependenciaList = [];
             $scope.plazaList = [];
             $scope.user = {};
+
 
             $scope.getDependencies = function() {
                 dependenciaService.getDependencies().then(function(result) {
@@ -35,7 +36,39 @@
             };
 
             $scope.dragCallback = function(event, ui, plaza) {
-                //setJob_newJobProfessorAssignmentModal( job );
+                assignmentModalService.setPlaza(plaza);
+            };
+
+            $scope.dropCallback = function(event, ui, dependencia) {
+                assignmentModalService.setDependencia(dependencia);
+                $scope.openNewAssignmentModal(function(response) {
+                    if(!response.success){
+                        return;
+                    }
+                    console.log(response.data);
+                });
+            };
+
+            $scope.openNewAssignmentModal = function (callback) {
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'asignacionPlazaDependenciaTemplate.html',
+                    controller: 'AssignmentModalInstanceCtrl',
+                    size: 'md',
+                    resolve: {}
+                });
+
+                modalInstance.result.then(
+                    function (confirmationResponse) { //success
+                        callback(confirmationResponse);
+                    }, 
+                    function () {
+                        callback({
+                            success: false,
+                            data: null,
+                            message: 'Se cancela la asignacion de la plaza al profesor'
+                        });
+                    });
             };
     
             $scope.getUser();

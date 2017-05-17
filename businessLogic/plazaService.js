@@ -7,10 +7,9 @@ var formatDateFromJSToMySQL = function(JSdate){
 
 exports.addPlaza = function(data, callback){
     data.fechaAutorizacionInicio = formatDateFromJSToMySQL(data.fechaAutorizacionInicio);
-    if (data.fechaAutorizacionFinal != undefined){
+    if (data.fechaAutorizacionFinal != ""){
         data.fechaAutorizacionFinal = formatDateFromJSToMySQL(data.fechaAutorizacionFinal);
     }
-
     var response = plazaValidator.validatePlazaData(data);
 	if (!response.success){
         callback(response);
@@ -63,15 +62,25 @@ exports.addPlaza = function(data, callback){
 };
 
 exports.addPlazaInfo = function(data, callback) {
+    var sp_params = "";
+    data.fechaAcuerdo = formatDateFromJSToMySQL(data.fechaAcuerdo);
 	data.fechaAutorizacionInicio = formatDateFromJSToMySQL(data.fechaAutorizacionInicio);
-	data.fechaAutorizacionFinal = formatDateFromJSToMySQL(data.fechaAutorizacionFinal);
-	data.fechaAcuerdo = formatDateFromJSToMySQL(data.fechaAcuerdo);
-
-	var sp_params = data.idPlaza + "," + "\"" + data.codigo + "\"" + "," + data.periodo + "," +
+    if(data.fechaAutorizacionFinal != ''){
+        data.fechaAutorizacionFinal = formatDateFromJSToMySQL(data.fechaAutorizacionFinal);
+        sp_params = data.idPlaza + "," + "\"" + data.codigo + "\"" + "," + data.periodo + "," +
 					data.programa + "," + "\"" + data.tipo + "\"" + "," + data.categoria + "," +
 					"\"" + data.puesto + "\"" + "," +  data.jornada + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
 					"\"" + data.fechaAutorizacionFinal + "\"" + "," + data.articulo + "," + "\"" + data.numeroSesion + "\"" + "," +
 					"\"" + data.fechaAcuerdo + "\"" + "," + data.tce;
+    }
+    else{
+        data.fechaAutorizacionFinal = null;
+        sp_params = data.idPlaza + "," + "\"" + data.codigo + "\"" + "," + data.periodo + "," +
+					data.programa + "," + "\"" + data.tipo + "\"" + "," + data.categoria + "," +
+					"\"" + data.puesto + "\"" + "," +  data.jornada + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
+					data.fechaAutorizacionFinal+ "," + data.articulo + "," + "\"" + data.numeroSesion + "\"" + "," +
+					"\"" + data.fechaAcuerdo + "\"" + "," + data.tce;
+    }
     repository.executeQuery({ 
         spName: 'sp_agregarCaracteristicaPlaza',
         params: sp_params

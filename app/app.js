@@ -5,10 +5,10 @@
       'ui.router',
       'ui-notification',
       'ui.bootstrap',
-      'ui.navbar'
-      //'ngDragDrop',
+      'ui.navbar',
+      'ngDragDrop',
       //'angular.filter',
-      //'toggle-switch',
+      'toggle-switch',
       //'chart.js'
     ])
     .config(function($stateProvider, $urlRouterProvider) {

@@ -205,7 +205,7 @@ create table `mydb`.`CategoriasPlaza` (
     primary key(`id`)) 
 ENGINE = InnoDB;
 
-create table `mydb`.`HistorialGestionPlaza` ( 
+create table `mydb`.`HistorialGestionPlaza` (
 	`id` int not null auto_increment,
     `usuario` varchar(30) not null,
     `idPlaza` int not null,

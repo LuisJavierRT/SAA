@@ -45,13 +45,20 @@ var validatePlazaAvailabilityPercentage = function(plazaPerc) {
 
 var validateDates = function(startDate, endDate) {
     var response = {};
-    if(startDate <= endDate){
-        response.success = true;
-    }else{
-        response.success = false;
-        response.message = "La fecha final no puede ser mayor a la fecha de registro";
+    if(endDate != "") {
+        if(startDate <= endDate){
+            response.success = true;
+        }
+        else{
+            response.success = false;
+            response.message = "La fecha final no puede ser mayor a la fecha de registro";
+        }
+        return response;
     }
-    return response;
+    else {
+        response.success = true;
+        return response;
+    }
 };
 
 var validateNumberParams = function(jornada, periodo, articulo) {

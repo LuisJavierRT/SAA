@@ -444,7 +444,7 @@ end $$
 delimiter ;
 
 delimiter $$
-create procedure sp_agregarCaracteristicaPlaza (
+create procedure sp_agregarCaracteristicaPlaza ( 
 	
 	 in _idPlaza int, 
 	 in _codigo varchar(8),
@@ -507,9 +507,9 @@ delimiter ;
 
 
 delimiter $$
-create procedure sp_obtenerPlazas () 
+create procedure sp_obtenerPlazas ()  
 begin 
-	select p.id, cp.codigo, cp.jornada, cp.tipo from CaracteristicaPlaza as cp join Plaza as p on p.id = cp.idPlaza where cp.activo = 1;
+	select p.id, cp.codigo, cp.jornada, cp.tipo, cp.fechaAutorizacionFinal, cp.fechaAutorizacionInicio, cp.asignacionDependencia from CaracteristicaPlaza as cp join Plaza as p on p.id = cp.idPlaza where cp.activo = 1;
 end $$ 
 delimiter ; 
 
@@ -521,7 +521,7 @@ end $$
 delimiter ;
 
 delimiter $$
-create procedure sp_obtenerCategoriasPlaza ()
+create procedure sp_obtenerCategoriasPlaza () 
 begin
 	select categoria from CategoriasPlaza;
 end $$

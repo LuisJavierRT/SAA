@@ -73,6 +73,9 @@
 			    	plazaService.addPlaza(plazaInfo).then(function(result) {
 			    		if(result.success) {
 			    			plazaInfo.idPlaza = result.data;
+							if(plazaInfo.tipo == 'CF' || plazaInfo.tipo == 'NT') {
+								plazaInfo.fechaAutorizacionFinal = '';
+							}
 					    	plazaService.addPlazaInfo(plazaInfo).then(function(result) {
 					    		if(result.success) {
 					    			messageHandlerService.notifySuccess(null, result.message);
