@@ -98,7 +98,7 @@
                                 <uib-accordion-group class="accordion-toggle" panel-class="panel-primary" data-drag="true" 
                                   data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" 
                                   jqyoui-draggable="{animate:true, onStart:'dragCallback(plaza)'}"
-                                  ng-hide="plaza.jornada <= 0" ng-repeat="plaza in plazaList" is-open="true">
+                                  ng-if="!(plaza.jornada <= 0)" ng-repeat="plaza in plazaList" is-open="true">
 						    	                <uib-accordion-heading><span class="glyphicon glyphicon-th-large"></span> {{plaza.codigo}}</uib-accordion-heading>
                                   Tipo: {{plaza.tipo}}
                                   <br>

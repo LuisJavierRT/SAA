@@ -567,6 +567,7 @@ begin
 	insert into PlazaDependencia (idPlaza, idDependencia, porcentajeAcordado, activo, fechaInicio, fechaFinal, indefinida, descripcion)
     values (_idPlaza, _idDependencia, _porcentajeAcordado, _activo, _fechaInicio, _fechaFinal, _indefinida, _descripcion);
     update CaracteristicaPlaza set jornada = (jornada - _porcentajeAcordado) where idPlaza = _idPlaza and activo = 1; 
+    update CaracteristicaPlaza set asignacionDependencia = 1 where idPlaza = _idPlaza and activo = 1;
 end $$
 delimiter ;
 
