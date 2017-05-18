@@ -566,8 +566,24 @@ create procedure sp_agregarPlazaDependencia (
 begin
 	insert into PlazaDependencia (idPlaza, idDependencia, porcentajeAcordado, activo, fechaInicio, fechaFinal, indefinida, descripcion)
     values (_idPlaza, _idDependencia, _porcentajeAcordado, _activo, _fechaInicio, _fechaFinal, _indefinida, _descripcion);
+    update CaracteristicaPlaza set jornada = (jornada - _porcentajeAcordado) where idPlaza = _idPlaza and activo = 1; 
 end $$
 delimiter ;
+
+
+delimiter $$
+create procedure sp_historialAsignacionPlazaDependencia ( 
+	in _usuario varchar(30),
+    in _idPlaza int,
+    in _idDependencia int,
+    in _accion char
+)
+begin
+	insert into HistorialAsignacionPlazaDependencia(usuario, idPlaza, idDependencia, fecha, accion)
+    values (_usuario, _idPlaza, _idDependencia, NOW(), _accion);
+end $$
+delimiter ;
+
 
 
 delimiter $$
@@ -713,6 +729,7 @@ begin
 end $$
 delimiter ;
 
+ 
 delimiter $$
 create procedure sp_agregarPlazaContratacion (
 	in _idPlaza int,
@@ -724,5 +741,6 @@ create procedure sp_agregarPlazaContratacion (
 begin  
 	insert into PlazaContratacion (idPlaza, idContrato, idDependencia, idFuncionario, porcentajeContratacion)
     values (_idPlaza, _idContrato, _idDependencia, _idFuncionario, _porcentajeContratadescripciondescripciondescripcioncion);
+    
 end $$
 delimiter ;

@@ -9,7 +9,9 @@
     'use strict';
     angular
         .module('saaApp')
-        .controller('AssignmentModalInstanceCtrl', function ($scope, messageHandlerService, $uibModalInstance, AssignmentModalService) {
+        .controller('AssignmentModalInstanceCtrl',['$scope','messageHandlerService','$uibModalInstance','AssignmentModalService','PlazaDependenciaService','shareSessionService',
+            function ($scope, messageHandlerService, $uibModalInstance, assignmentModalService,plazaDependenciaService,shareSessionService) {
+            $scope.user = {};
             $scope.plaza = {};
             $scope.dependencia = {};
             $scope.assigment = {};
@@ -53,6 +55,22 @@
             $scope.getAssigment = function() {
                 return $scope.assigment;
             };
+
+
+            $scope.assign = function(){
+                $scope.assigment.usuario = $scope.user.usuario;
+                $scope.assigment.idPlaza = $scope.plaza.id;
+                $scope.assigment.idDependencia = $scope.dependencia.id;
+                plazaDependenciaService.assign($scope.assigment).then(function(result){
+                    if(result.success){
+                        $scope.plaza.jornada -= $scope.assigment.jornada;
+                        messageHandlerService.notifySuccess(null, result.message);
+                    }
+                    else{
+                        messageHandlerService.notifySuccess(null, result.message);
+                    }
+                });
+            }
 
             $scope.checkAvailability = function(){
                 if($scope.assigment.jornada < 1){
@@ -115,14 +133,20 @@
                     data: $scope.assigment,
                     message: "Operación exitosa"
                 });
+                $scope.assign();
             };
 
             $scope.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
             };
 
-            $scope.setPlaza(AssignmentModalService.getPlaza());
-            $scope.setDependencia(AssignmentModalService.getDependencia());
+            $scope.getUser = function() {
+                $scope.user = shareSessionService.getSession();
+            };
+
+            $scope.getUser();
+            $scope.setPlaza(assignmentModalService.getPlaza());
+            $scope.setDependencia(assignmentModalService.getDependencia());
             $scope.setAssignment();
-        });
+        }]);    
 })();

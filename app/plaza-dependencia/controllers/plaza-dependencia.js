@@ -31,6 +31,8 @@
                     }
                 });
             };
+
+
             $scope.getUser = function() {
                 $scope.user = shareSessionService.getSession();
             };
