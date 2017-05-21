@@ -2,18 +2,29 @@
 	'use strict';
 	angular
 		.module('saaApp')
-	    .controller('PlazaDependenciaCtrl', ['$scope', '$uibModal','$state', 'PlazaService', 'DependenciaService', 'shareSessionService','messageHandlerService', 'AssignmentModalService',
-	    function($scope, $uibModal, $state, plazaService, dependenciaService, shareSessionService, messageHandlerService, assignmentModalService) {
+	    .controller('PlazaDependenciaCtrl', ['$scope',"$q", '$uibModal','$state', 'PlazaService', 'DependenciaService', 'shareSessionService','messageHandlerService', 'AssignmentModalService','PlazaDependenciaService',
+	    function($scope, $q, $uibModal, $state, plazaService, dependenciaService, shareSessionService, messageHandlerService, assignmentModalService,plazaDependenciaService) {
             $scope.dependenciaList = [];
             $scope.plazaList = [];
             $scope.user = {};
 
 
             $scope.getDependencies = function() {
+                var error;
                 dependenciaService.getDependencies().then(function(result) {
                     if(result.success) {
+                        error = false;
                         $scope.dependenciaList = result.data;
-                        console.log($scope.dependenciaList);
+
+                        $q.all($scope.dependenciaList).then(function(arrayOfResults) { 
+                        if(error) {
+                            messageHandlerService.notifyError(null, result.message);                                        
+                        }
+                        else{
+                            $scope.getPlazasPorDependencia();
+                            
+                            }
+                        });
                     }
                     else{
                         messageHandlerService.notifyWarning(null, result.message);                        
@@ -31,6 +42,24 @@
                     }
                 });
             };
+
+            $scope.getPlazasPorDependencia = function(){
+                var c = 0;
+                for (var j = 0; j < $scope.dependenciaList.length; j++) {
+                    
+                    var data = {id: $scope.dependenciaList[j].id};
+
+                    plazaDependenciaService.getPlazasPorDependencia(data.id).then(function(result){
+                        if(result.success){
+                            $scope.dependenciaList[c].plazas = result.data;
+                            c+=1;
+                        }
+                        else{
+                            messageHandlerService.notifyWarning(null, result.message); 
+                        }
+                    });   
+                }
+            }
 
 
             $scope.getUser = function() {
@@ -76,5 +105,7 @@
             $scope.getUser();
             $scope.getDependencies();
             $scope.getPlazas();
+           
+
 		}]);	
 })();

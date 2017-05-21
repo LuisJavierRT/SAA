@@ -94,11 +94,11 @@
                 <tr>
                     <td>
                         <div>
-                            <uib-accordion close-others="false">
+                            <uib-accordion close-others="true">
                                 <uib-accordion-group class="accordion-toggle" panel-class="panel-primary" data-drag="true" 
                                   data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" 
                                   jqyoui-draggable="{animate:true, onStart:'dragCallback(plaza)'}"
-                                  ng-if="!(plaza.jornada <= 0)" ng-repeat="plaza in plazaList" is-open="true">
+                                  ng-if="!(plaza.jornada <= 0)" ng-repeat="plaza in plazaList" is-open="false">
 						    	                <uib-accordion-heading><span class="glyphicon glyphicon-th-large"></span> {{plaza.codigo}}</uib-accordion-heading>
                                   Tipo: {{plaza.tipo}}
                                   <br>
@@ -109,12 +109,29 @@
                     </td>
                     <td>
                         <div>
-                            <uib-accordion close-others="false">
+                            <uib-accordion close-others="true">
                                 <uib-accordion-group class="accordion-toggle" panel-class="panel-primary" data-drop="true" jqyoui-droppable="{onDrop:'dropCallback(depen)'}"
-                                 ng-repeat="depen in dependenciaList"is-open="true">
+                                 ng-repeat="depen in dependenciaList" is-open="false">
 						    	                <uib-accordion-heading><span class="glyphicon glyphicon-folder-open"></span> {{depen.codigo}}</uib-accordion-heading>
                                   Nombre: {{depen.nombre}}
+                                  <div>
+                                    <uib-accordion close-others="true">
+                                        <uib-accordion-group class="accordion-toggle" panel-class="panel-primary" data-drop="true" jqyoui-droppable="{onDrop:'dropCallback(depen)'}"
+                                         ng-repeat="plazas in depen.plazas" is-open="false">
+                                          <uib-accordion-heading><span class="glyphicon glyphicon-folder-open"></span> {{plazas.codigo}}
 
+                                          </uib-accordion-heading>
+                                          Tipo: {{plazas.tipo}}
+                                          <br>
+                                          Porcentaje Asignado: {{plazas.porcentajeAcordado}} %
+                                          <br>
+                                          Fecha Inicio: {{plazas.fechaInicio}}
+                                          <br>
+                                          Fecha Final: {{plazas.fechaFinal}}
+
+                                        </uib-accordion-group>
+                                    </uib-accordion>
+                                  </div>  
                                 </uib-accordion-group>
                             </uib-accordion>
                         </div>

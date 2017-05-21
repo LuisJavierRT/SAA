@@ -14,7 +14,7 @@ var formatDateFromJSToMySQL = function(JSdate){
 exports.assignPlazaDependencia = function(data, callback){
     var paramsString = "";
     data.fechaInicial = formatDateFromJSToMySQL(data.fechaInicial);
-    if(data.fechafinal != undefined){
+    if(data.indefinida == 0){
         data.fechaFinal = formatDateFromJSToMySQL(data.fechaFinal);
         paramsString = data.idPlaza+','+data.idDependencia+','+data.jornada+','+ 1 + ',' + "\"" +data.fechaInicial + "\"" + "," + "\"" + data.fechaFinal + "\"" + "," + data.indefinida + "," + "\"" + data.descripcion + "\"";
     }
@@ -46,6 +46,30 @@ exports.assignPlazaDependencia = function(data, callback){
             callback({
                 success: false, 
                 message: 'Ha ocurrido un error, no se han realizado las asignaciones',
+                data: {}
+            });
+        }
+    });    
+};
+
+exports.getPlazasPerDependency = function(data, callback){
+
+    repository.executeQuery({
+        spName: 'sp_plazasPorDependencia',
+        params: data.id
+    }, 
+    function(success, data) {
+        if(success) {
+            callback({
+                success: true, 
+                message: 'Plazas por dependencias',
+                data: data[0]
+            });
+        } 
+        else {
+            callback({
+                success: false, 
+                message: 'No se han obtenido las plazas por dependencia',
                 data: {}
             });
         }

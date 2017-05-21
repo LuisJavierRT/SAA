@@ -586,6 +586,17 @@ end $$
 delimiter ;
 
 
+delimiter $$ 
+create procedure sp_plazasPorDependencia ( 
+	in _idDependencia int
+)
+begin
+	select cp.codigo, cp.tipo, pd.porcentajeAcordado, pd.fechaInicio, pd.fechaFinal from CaracteristicaPlaza as cp join PlazaDependencia as pd where  cp.idPlaza = pd.idPlaza and pd.idDependencia = _idDependencia;
+end $$
+delimiter ;
+
+call sp_plazasPorDependencia(1)
+select * from plazadependencia
 
 delimiter $$
 create procedure sp_agregarResolucionRectoriaPlaza (

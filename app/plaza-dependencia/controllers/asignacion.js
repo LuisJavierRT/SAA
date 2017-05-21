@@ -105,14 +105,14 @@
 
             $scope.updateAssignmentType = function (undefinedAssignment) {
                 if (undefinedAssignment == true){
-                    $scope.assigment.indefinida = 0;
+                    $scope.assigment.indefinida = 1;
                     if ($scope.plaza.fechaAutorizacionFinal != null){
                         messageHandlerService.notifyWarning(null, 'No se puede asignar de forma indefinida porque la plaza está asignada temporalmente');
                         return;
                     }
                 }
                 else{
-                    $scope.assigment.indefinida = 1;
+                    $scope.assigment.indefinida = 0;
                 }
             }
 
