@@ -595,9 +595,6 @@ begin
 end $$
 delimiter ;
 
-call sp_plazasPorDependencia(1)
-select * from plazadependencia
-
 delimiter $$
 create procedure sp_agregarResolucionRectoriaPlaza (
 
