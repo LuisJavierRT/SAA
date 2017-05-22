@@ -50,7 +50,7 @@
                             <td class=" col-xs-2">
                             <p class="input-group">
                                     <input type="text" class="form-control" uib-datepicker-popup="{{dateFormat}}" min-date="plaza.fechaAutorizacionInicio" 
-                                            max-date="plaza.fechaAutorizacionFinal" ng-model="assigment.fechaInicial" is-open="showStartDate" 
+                                            max-date="plaza.fechaAutorizacionFinal" ng-model="assigment.fechaInicio" is-open="showStartDate" 
                                             date-disabled="false" show-button-bar="false" ng-readonly="true" uib-tooltip="fecha inicio"
                                              ng-change="checkStartDate()"/>
                                     <span class="input-group-btn" style="white-space: nowrap"> 
@@ -94,46 +94,50 @@
                 <tr>
                     <td>
                         <div>
-                            <uib-accordion close-others="true">
-                                <uib-accordion-group class="accordion-toggle" panel-class="panel-primary" data-drag="true" 
+                            <uib-accordion close-others="false">
+
+                                <uib-accordion-group  ng-repeat="plaza in plazaList" is-open="false" panel-class="panel-primary" data-drag="true" 
                                   data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" 
                                   jqyoui-draggable="{animate:true, onStart:'dragCallback(plaza)'}"
-                                  ng-if="!(plaza.jornada <= 0)" ng-repeat="plaza in plazaList" is-open="false">
-						    	                <uib-accordion-heading><span class="glyphicon glyphicon-th-large"></span> {{plaza.codigo}}</uib-accordion-heading>
+                                  ng-if="plaza.jornada > 0">
+                                  <uib-accordion-heading>
+                                      <i class="glyphicon glyphicon-th-large"></i> {{ plaza.codigo}}
+                                  </uib-accordion-heading>
+
                                   Tipo: {{plaza.tipo}}
                                   <br>
                                   Jornada: {{plaza.jornada}}%
-                                </uib-accordion-group>
+                                </ui-baccordion-group>
+                                
                             </uib-accordion>
                         </div>
                     </td>
                     <td>
                         <div>
-                            <uib-accordion close-others="true">
-                                <uib-accordion-group class="accordion-toggle" panel-class="panel-primary" data-drop="true" jqyoui-droppable="{onDrop:'dropCallback(depen)'}"
-                                 ng-repeat="depen in dependenciaList" is-open="false">
-						    	                <uib-accordion-heading><span class="glyphicon glyphicon-folder-open"></span> {{depen.codigo}}</uib-accordion-heading>
-                                  Nombre: {{depen.nombre}}
-                                  <div>
-                                    <uib-accordion close-others="true">
-                                        <uib-accordion-group class="accordion-toggle" panel-class="panel-primary" data-drop="true" jqyoui-droppable="{onDrop:'dropCallback(depen)'}"
-                                         ng-repeat="plazas in depen.plazas" is-open="false">
-                                          <uib-accordion-heading><span class="glyphicon glyphicon-folder-open"></span> {{plazas.codigo}}
+                            <uib-accordion close-others="false">
 
-                                          </uib-accordion-heading>
-                                          Tipo: {{plazas.tipo}}
-                                          <br>
-                                          Porcentaje Asignado: {{plazas.porcentajeAcordado}} %
-                                          <br>
-                                          Fecha Inicio: {{plazas.fechaInicio}}
-                                          <br>
-                                          Fecha Final: {{plazas.fechaFinal}}
+                              <uib-accordion-group  ng-repeat="depen in dependenciaList" is-open="false" panel-class="panel-primary" data-drop="true" jqyoui-droppable="{onDrop:'dropCallback(depen)'}">
+                                <uib-accordion-heading>
+                                  <i class="glyphicon glyphicon-folder-open""></i>  {{depen.codigo}} - {{depen.nombre}}
+                                </uib-accordion-heading>
+                                
+                              </ui-baccordion-group>
+                            
+                              <uib-accordion-group ng-repeat="plazas in depen.plazas" is-open="false" panel-class="panel-primary" qyoui-droppable="{onDrop:'dropCallback(depen)'}">
+                                <uib-accordion-heading>
+                                  <i class="glyphicon glyphicon-th-large"></i>  {{plazas.codigo}}
+                                </uib-accordion-heading>
 
-                                        </uib-accordion-group>
-                                    </uib-accordion>
-                                  </div>  
-                                </uib-accordion-group>
-                            </uib-accordion>
+                                Tipo: {{plazas.tipo}}
+                                <br>
+                                Porcentaje Asignado: {{plazas.porcentajeAcordado}} %
+                                <br>
+                                Fecha Inicio: {{plazas.fechaInicio}}
+                                <br>
+                                Fecha Final: {{plazas.fechaFinal}}  
+                              </ui-baccordion-group>
+                            
+                            </uib-accordion> 
                         </div>
                     </td>
                 </tr>

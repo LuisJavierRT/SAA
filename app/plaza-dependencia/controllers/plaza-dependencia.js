@@ -13,18 +13,8 @@
                 var error;
                 dependenciaService.getDependencies().then(function(result) {
                     if(result.success) {
-                        error = false;
                         $scope.dependenciaList = result.data;
-
-                        $q.all($scope.dependenciaList).then(function(arrayOfResults) { 
-                        if(error) {
-                            messageHandlerService.notifyError(null, result.message);                                        
-                        }
-                        else{
-                            $scope.getPlazasPorDependencia();
-                            
-                            }
-                        });
+                        $scope.getPlazasPorDependencia();
                     }
                     else{
                         messageHandlerService.notifyWarning(null, result.message);                        
@@ -44,21 +34,24 @@
             };
 
             $scope.getPlazasPorDependencia = function(){
-                var c = 0;
+                
                 for (var j = 0; j < $scope.dependenciaList.length; j++) {
                     
-                    var data = {id: $scope.dependenciaList[j].id};
-
-                    plazaDependenciaService.getPlazasPorDependencia(data.id).then(function(result){
-                        if(result.success){
-                            $scope.dependenciaList[c].plazas = result.data;
-                            c+=1;
-                        }
-                        else{
-                            messageHandlerService.notifyWarning(null, result.message); 
-                        }
-                    });   
+                    $scope.getPlazasPorDependencia2($scope.dependenciaList[j],j);
+                    
                 }
+            }
+
+            $scope.getPlazasPorDependencia2 = function(dependencia, contador){
+                var data = {id: dependencia.id};
+                plazaDependenciaService.getPlazasPorDependencia(data.id).then(function(result){
+                    if(result.success){
+                        $scope.dependenciaList[contador].plazas = result.data;
+                    }
+                    else{
+                        messageHandlerService.notifyWarning(null, result.message); 
+                    }
+                });   
             }
 
 
@@ -76,7 +69,33 @@
                     if(!response.success){
                         return;
                     }
-                    console.log(response.data);
+                    for (var i = 0; i < $scope.dependenciaList.length; i++) {
+                        if($scope.dependenciaList[i].id == response.data.idDependencia){
+                            var plazaAsignada = {
+                                codigo: response.data.codigo,
+                                tipo: response.data.tipo,
+                                porcentajeAcordado: response.data.jornada,
+                                fechaInicio: response.data.fechaInicio,
+                                fechaFinal: response.data.fechaFinal
+                            }
+                            var flag = false;
+                            for (var j = 0; j < $scope.dependenciaList[i].plazas.length; j++) {
+                                if($scope.dependenciaList[i].plazas[j].codigo == response.data.codigo){
+                                    if($scope.dependenciaList[i].plazas[j].fechaInicio == response.data.fechaInicio && $scope.dependenciaList[i].plazas[j].fechaFinal == response.data.fechaFinal){
+                                        $scope.dependenciaList[i].plazas[j].porcentajeAcordado += response.data.jornada;
+                                        flag = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (flag == false){
+                                $scope.dependenciaList[i].plazas.push(plazaAsignada);
+                            }
+                            break;
+                        }
+                    }
+                    
                 });
             };
 
@@ -91,6 +110,7 @@
 
                 modalInstance.result.then(
                     function (confirmationResponse) { //success
+                        console.log(confirmationResponse);
                         callback(confirmationResponse);
                     }, 
                     function () {

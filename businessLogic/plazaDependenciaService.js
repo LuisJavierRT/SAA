@@ -12,16 +12,18 @@ var formatDateFromJSToMySQL = function(JSdate){
 
 
 exports.assignPlazaDependencia = function(data, callback){
+
     var paramsString = "";
-    data.fechaInicial = formatDateFromJSToMySQL(data.fechaInicial);
+    data.fechaInicio = formatDateFromJSToMySQL(data.fechaInicio);
     if(data.indefinida == 0){
         data.fechaFinal = formatDateFromJSToMySQL(data.fechaFinal);
-        paramsString = data.idPlaza+','+data.idDependencia+','+data.jornada+','+ 1 + ',' + "\"" +data.fechaInicial + "\"" + "," + "\"" + data.fechaFinal + "\"" + "," + data.indefinida + "," + "\"" + data.descripcion + "\"";
+        paramsString = data.idPlaza+','+data.idDependencia+','+data.jornada+','+ 1 + ',' + "\"" +data.fechaInicio + "\"" + "," + "\"" + data.fechaFinal + "\"" + "," + data.indefinida + "," + "\"" + data.descripcion + "\"";
     }
     else{
         data.fechaFinal = null;
-        paramsString = data.idPlaza+','+data.idDependencia+','+data.jornada+','+ 1 + ',' + "\"" +data.fechaInicial + "\"" + "," + data.fechaFinal  + "," + data.indefinida + "," + "\"" + data.descripcion + "\"";
+        paramsString = data.idPlaza+','+data.idDependencia+','+data.jornada+','+ 1 + ',' + "\"" +data.fechaInicio + "\"" + "," + data.fechaFinal  + "," + data.indefinida + "," + "\"" + data.descripcion + "\"";
     }
+
 
     repository.executeQuery({
         spName: 'sp_agregarPlazaDependencia',

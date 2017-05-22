@@ -37,16 +37,20 @@
             };
 
             $scope.setAssignment = function() {
-                $scope.assigment.fechaInicial = $scope.plaza.fechaAutorizacionInicio;
+                $scope.assigment.fechaInicio = $scope.plaza.fechaAutorizacionInicio;
                 if($scope.plaza.fechaAutorizacionFinal){
                     $scope.assigment.fechaFinal = $scope.plaza.fechaAutorizacionFinal;  
+                    $scope.assigment.indefinida = 0;
                 }
                 else{
-                    $scope.assigment.fechaFinal = '';
+                    $scope.assigment.fechaFinal = null;
+                    $scope.assigment.indefinida = 1;
                 }
-                $scope.assigment.indefinida = 0;
+                
                 $scope.assigment.porcentajeAsignado = 0;
                 $scope.assigment.descripcion = '';
+                $scope.assigment.codigo = $scope.plaza.codigo;
+                $scope.assigment.tipo = $scope.plaza.tipo;
                 if($scope.plaza.fechaAutorizacionFinal == null) {
                     $scope.undefinedAssignment = true;
                 }
@@ -57,7 +61,7 @@
             };
 
 
-            $scope.assign = function(){
+            $scope.assign = function(callback){
                 $scope.assigment.usuario = $scope.user.usuario;
                 $scope.assigment.idPlaza = $scope.plaza.id;
                 $scope.assigment.idDependencia = $scope.dependencia.id;
@@ -65,9 +69,20 @@
                     if(result.success){
                         $scope.plaza.jornada -= $scope.assigment.jornada;
                         messageHandlerService.notifySuccess(null, result.message);
+
+                        callback({
+                            success: true,
+                            message: "Operación exitosa",
+                            data: $scope.assigment
+                        });
                     }
                     else{
                         messageHandlerService.notifySuccess(null, result.message);
+                        callback({
+                            success: false,
+                            message: "Operación fallida",
+                            data: $scope.assigment
+                        });
                     }
                 });
             }
@@ -86,15 +101,15 @@
 
 
             $scope.checkStartDate = function(){
-                if ($scope.assigment.fechaInicial){
+                if ($scope.assigment.fechaInicio){
                     return;
                 }
-                $scope.assigment.fechaInicial = $scope.plaza.fechaAutorizacionInicio;
+                $scope.assigment.fechaInicio = $scope.plaza.fechaAutorizacionInicio;
             };
 
             $scope.checkEndDate = function(){
                 if ($scope.undefinedAssignment){
-                    $scope.assigment.fechaFinal = '';
+                    $scope.assigment.fechaFinal = null;
                     return;
                 }
                 if (!$scope.assigment.fechaFinal){
@@ -128,12 +143,23 @@
                 if(!$scope.checkAvailability()){
                     return;
                 }
-                $uibModalInstance.close({
-                    success: true,
-                    data: $scope.assigment,
-                    message: "Operación exitosa"
+                
+                $scope.assign(function(result){
+                    if (result.success){
+                        $uibModalInstance.close({
+                            success: true,
+                            data: $scope.assigment,
+                            message: "Operación exitosa"
+                        });
+                    }
+                    else{
+                        $uibModalInstance.close({
+                            success: false,
+                            data: null,
+                            message: "Operación fallida"
+                        });
+                    }
                 });
-                $scope.assign();
             };
 
             $scope.cancel = function () {
