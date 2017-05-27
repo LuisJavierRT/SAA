@@ -155,32 +155,32 @@
 	    	};
 
 	    	$scope.validRecordForm = function(pIsValid, pData) {
-				if(pIsValid) { 
+				//if(pIsValid) { 
 					var data = {
 						id: $scope.funcionario.id,
 						params: pData
 					}
 					addRecordInfoFuncionario(data);
-				}
-				else {
-					var message = 'Debe completar la información de antecedentes de manera correcta';
-					messageHandlerService.notifyError(null, message);
-				}
+				//}
+				//else {
+					//var message = 'Debe completar la información de antecedentes de manera correcta';
+					//messageHandlerService.notifyError(null, message);
+				//}
 			};
 
 
 	    	$scope.validAcademicForm = function(pIsValid, pData) {
-				if(pIsValid && pData.grado != "") { 
+				//if(pIsValid && pData.grado != "") { 
 					var data = {
 						id: $scope.funcionario.id,
 						params: pData
 					}
 					addAcademicInfoFuncionario(data);
-				}
-				else {
-					var message = 'Debe completar todos los campos de la información académica de manera correcta';
-					messageHandlerService.notifyError(null, message);
-				}
+				//}
+				//else {
+					//var message = 'Debe completar todos los campos de la información académica de manera correcta';
+					//messageHandlerService.notifyError(null, message);
+				//}
 			};
 
 	    	$scope.editFuncionarioTitulos = function(tituloToEdit){
@@ -220,7 +220,7 @@
 
 		  	$scope.updateFuncionario = function (pIsValid,funcionarioToUpdate) {
 		  		console.log(funcionarioToUpdate);
-		  		if (pIsValid) {
+		  		//if (pIsValid) {
 			  		funcionarioToUpdate.activo = 1;
 			  		funcionarioToUpdate.usuario = $scope.user.usuario;
 			  		funcionarioService.editFuncionario(funcionarioToUpdate).then(function(result) {
@@ -233,11 +233,11 @@
 				          	messageHandlerService.notifyError(null, result.message);
 				        }
 			  		});
-		  		}
-		  		else{
-		  			var message = 'Debe completar la información personal de manera correcta';
-					messageHandlerService.notifyError(null, message);
-		  		}
+		  		//}
+		  		//else{
+		  			//var message = 'Debe completar la información personal de manera correcta';
+					//messageHandlerService.notifyError(null, message);
+		  		//}
 			};
 
 			$scope.updateFuncionarioTitulos = function (pIsValid,tituloToUpdate) {
@@ -264,7 +264,7 @@
 
 			$scope.updateFuncionarioAntecedentes = function (pIsValid,antecedenteToUpdate) {
 		  		
-				if (pIsValid) {
+				//if (pIsValid) {
 			  		antecedenteToUpdate.usuario = $scope.user.usuario;
 			  		antecedenteToUpdate.idFuncionario = $scope.funcionario.id;
 			  		recordService.editRecordInfo(antecedenteToUpdate).then(function(result) {
@@ -278,11 +278,11 @@
 				          	messageHandlerService.notifyError(null, result.message);
 				        }
 			  		});
-		  		}
-		  		else{
-		  			var message = 'Debe completar la información de antecedentes de manera correcta';
-					messageHandlerService.notifyError(null, message);
-		  		}
+		  		//}
+		  		//else{
+		  			//var message = 'Debe completar la información de antecedentes de manera correcta';
+					//messageHandlerService.notifyError(null, message);
+		  		//}
 			};
 
 

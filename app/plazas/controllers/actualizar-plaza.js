@@ -70,7 +70,7 @@
 	    	};
 
 		    $scope.validatedPlaza = function(pIsValid, pIsValid2, pIsValid3, pData) {
-		    	if(pIsValid && pIsValid2 && pIsValid3) {
+		    	//if(pIsValid && pIsValid2 && pIsValid3) {
 		    		var plazaInfo = {
 		    			id: pData.id,
 		    			idcp: pData.idcp,
@@ -92,6 +92,7 @@
 			    		fechaRegistro: pData.fechaRegistro,
 			    		activo: pData.activo,
 			    	};
+					console.log(plazaInfo);
 			    	plazaService.updatePlaza(plazaInfo).then(function(result) {
 			    		if(result.success) {
 			    			messageHandlerService.notifySuccess(null, result.message);
@@ -104,10 +105,10 @@
 			    			messageHandlerService.notifyError(null, result.message);
 			    		}
 			    	});
-		    	}
-		    	else{
-			    	messageHandlerService.notifyWarning(null, "Debe completar todo los campos correctamente");
-		    	}
+		    	//}
+		    	//else{
+			    	//messageHandlerService.notifyWarning(null, "Debe completar todo los campos correctamente");
+		    	//}
 		    };
 
 		    $scope.getPuestosPlaza = function() {
