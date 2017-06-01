@@ -70,45 +70,39 @@
 	    	};
 
 		    $scope.validatedPlaza = function(pIsValid, pIsValid2, pIsValid3, pData) {
-		    	//if(pIsValid && pIsValid2 && pIsValid3) {
-		    		var plazaInfo = {
-		    			id: pData.id,
-		    			idcp: pData.idcp,
-		    			usuarioActual: $scope.user.usuario,
-			    		descripcion: pData.descripcion,
-			    		codigo: pData.codigo,
-			    		periodo: pData.periodo,
-			    		programa: parseInt(pData.programa),
-			    		categoria: parseInt(pData.categoria),
-			    		tipo: pData.tipo,
-			    		puesto: pData.puesto,
-			    		jornada: pData.jornada,
-			    		fechaAutorizacionInicio: pData.fechaAutorizacionInicio,
-			    		fechaAutorizacionFinal: pData.fechaAutorizacionFinal,
-			    		articulo: pData.articulo,
-			    		numeroSesion: pData.numeroSesion,
-			    		fechaAcuerdo: pData.fechaAcuerdo,
-			    		tce: pData.tce,
-			    		fechaRegistro: pData.fechaRegistro,
-			    		activo: pData.activo,
-			    	};
-					console.log(plazaInfo);
-			    	plazaService.updatePlaza(plazaInfo).then(function(result) {
-			    		if(result.success) {
-			    			messageHandlerService.notifySuccess(null, result.message);
-			    			$scope.plaza = plazaInfo;
-			    			$scope.plaza.categoria = $scope.plaza.categoria + '';
-							$scope.plaza.programa = $scope.plaza.programa + '';
-							$scope.plaza.idcp = result.data;
-			    		}
-			    		else{
-			    			messageHandlerService.notifyError(null, result.message);
-			    		}
-			    	});
-		    	//}
-		    	//else{
-			    	//messageHandlerService.notifyWarning(null, "Debe completar todo los campos correctamente");
-		    	//}
+				var plazaInfo = {
+					id: pData.id,
+					idcp: pData.idcp,
+					usuarioActual: $scope.user.usuario,
+					descripcion: pData.descripcion,
+					codigo: pData.codigo,
+					periodo: pData.periodo,
+					programa: parseInt(pData.programa),
+					categoria: parseInt(pData.categoria),
+					tipo: pData.tipo,
+					puesto: pData.puesto,
+					jornada: pData.jornada,
+					fechaAutorizacionInicio: pData.fechaAutorizacionInicio,
+					fechaAutorizacionFinal: pData.fechaAutorizacionFinal,
+					articulo: pData.articulo,
+					numeroSesion: pData.numeroSesion,
+					fechaAcuerdo: pData.fechaAcuerdo,
+					tce: pData.tce,
+					fechaRegistro: pData.fechaRegistro,
+					activo: pData.activo,
+				};
+				plazaService.updatePlaza(plazaInfo).then(function(result) {
+					if(result.success) {
+						messageHandlerService.notifySuccess(null, result.message);
+						$scope.plaza = plazaInfo;
+						$scope.plaza.categoria = $scope.plaza.categoria + '';
+						$scope.plaza.programa = $scope.plaza.programa + '';
+						$scope.plaza.idcp = result.data;
+					}
+					else{
+						messageHandlerService.notifyError(null, result.message);
+					}
+				});
 		    };
 
 		    $scope.getPuestosPlaza = function() {

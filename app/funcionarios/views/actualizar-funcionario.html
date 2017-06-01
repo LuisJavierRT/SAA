@@ -39,7 +39,7 @@
                                
                                  <td class="col-xs-2" >
                                     <p class="input-group">
-                                        <input type="text" class="form-control" uib-datepicker-popup="{{dateSettings.dateFormat}}" ng-model="funcionario.infoPersonal.fechaNacimiento" is-open="dateSettings.showRegDate"  date-disabled="false" close-text="Cerrar" current-text="Hoy" ng-readonly="true" requiered/>
+                                        <input type="text" class="form-control" uib-datepicker-popup="{{dateSettings.dateFormat}}" ng-model="funcionario.infoPersonal.fechaNacimiento" is-open="dateSettings.showRegDate"  date-disabled="false" close-text="Cerrar" current-text="Hoy" ng-readonly="true"/>
                                         <span class="input-group-btn"> 
                                             <button type="button" class="btn btn-default" ng-click="openDatePickerPopUp()">
                                                 <i class="glyphicon glyphicon-calendar"></i>
@@ -92,7 +92,7 @@
                                     </td>
                                     <td  class="col-xs-2" >
                                         <p class="input-group">
-                                            <input type="text" class="form-control" uib-datepicker-popup="{{yearDegreeSettings.yearFormat}}" ng-model="inputFuncionario.infoAcademica.annoGraduacion" is-open="yearDegreeSettings.showRegYear" datepicker-options="yearDegreeSettings" ng-readonly="true" close-text="Cerrar" current-text="Hoy" required/>
+                                            <input type="text" class="form-control" uib-datepicker-popup="{{yearDegreeSettings.yearFormat}}" ng-model="inputFuncionario.infoAcademica.annoGraduacion" is-open="yearDegreeSettings.showRegYear" datepicker-options="yearDegreeSettings" ng-readonly="true" close-text="Cerrar" current-text="Hoy"/>
                                             <span class="input-group-btn"> 
                                                 <button type="button" class="btn btn-default" ng-click="openYearDegreePopUp($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                             </span>

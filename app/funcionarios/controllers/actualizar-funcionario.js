@@ -219,7 +219,6 @@
 
 
 		  	$scope.updateFuncionario = function (pIsValid,funcionarioToUpdate) {
-		  		console.log(funcionarioToUpdate);
 		  		//if (pIsValid) {
 			  		funcionarioToUpdate.activo = 1;
 			  		funcionarioToUpdate.usuario = $scope.user.usuario;
@@ -241,8 +240,7 @@
 			};
 
 			$scope.updateFuncionarioTitulos = function (pIsValid,tituloToUpdate) {
-				console.log(tituloToUpdate);
-				if (pIsValid && tituloToUpdate.grado != "") {
+				//if (pIsValid && tituloToUpdate.grado != "") {
 			  		tituloToUpdate.idFuncionario = $scope.funcionario.id;
 			  		tituloToUpdate.usuario = $scope.user.usuario;
 			  		academicService.editAcademicDegree(tituloToUpdate).then(function(result) {
@@ -256,14 +254,14 @@
 				          	messageHandlerService.notifyError(null, result.message);
 				        }
 			  		});
-		  		}else{
-		  			var message = 'Debe completar todos los campos de la información académica de manera correcta';
-					messageHandlerService.notifyError(null, message);
-		  		}
+		  		//}
+				//else{
+		  			//var message = 'Debe completar todos los campos de la información académica de manera correcta';
+					//messageHandlerService.notifyError(null, message);
+		  		//}
 			};
 
 			$scope.updateFuncionarioAntecedentes = function (pIsValid,antecedenteToUpdate) {
-		  		
 				//if (pIsValid) {
 			  		antecedenteToUpdate.usuario = $scope.user.usuario;
 			  		antecedenteToUpdate.idFuncionario = $scope.funcionario.id;
@@ -298,11 +296,6 @@
 	    		$scope.user = shareSessionService.getSession();
 	    	};
 
-            //getProfessorId();
-	    	//getAllDegrees();
-	    	//getAllCodes();
-	    	//getAllAreas();
-	    	//getAllPeriods();
 	    	$scope.getUser();
 	    	getFuncionarioId();
 	    	getFuncionariosList();

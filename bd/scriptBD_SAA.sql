@@ -3,7 +3,7 @@ USE `mydb`;
 
 create table `mydb`.`Usuario` (
   `usuario` VARCHAR(30) NOT NULL,
-  `contrasena` VARCHAR(32) NOT NULL, 
+  `contrasena` VARCHAR(32) NOT NULL,
   `cedula` VARCHAR(11) NOT NULL,
   `nombre` VARCHAR(60) NOT NULL,
   `correo` VARCHAR(60) NOT NULL,
@@ -193,16 +193,20 @@ create table `mydb`.`CaracteristicaPlaza` (
     REFERENCES `Plaza` (`id`))
 ENGINE = InnoDB;
 
-create table `mydb`.`PuestosPlaza` (
-	`id` int not null auto_increment,
-    `puesto` varchar(20),
-    primary key(`id`))
-ENGINE = InnoDB;
-
-create table `mydb`.`CategoriasPlaza` (
+create table `mydb`.`CategoriasPlaza` ( 
 	`id` int not null auto_increment,
     `categoria` int,
     primary key(`id`)) 
+ENGINE = InnoDB;
+
+create table `mydb`.`PuestosPlaza` (
+	`id` int not null auto_increment,
+    `puesto` int not null,
+	`idCategoria` int not null,
+    primary key(`id`),
+    CONSTRAINT `fk_categoria_puesto`
+		FOREIGN KEY (`idCategoria`)
+		REFERENCES `CategoriasPlaza` (`id`))
 ENGINE = InnoDB;
 
 create table `mydb`.`HistorialGestionPlaza` (
@@ -440,9 +444,4 @@ engine = innodb;
 INSERT INTO Usuario(usuario, contrasena, cedula, nombre, correo, tipo, activo, fechaInicioAutorizacion, fechaFinalAutorizacion) 
     VALUES('jose', md5('123'), '207510507', 'Jose', 'correo', 'Administrador', 1, '2017-01-02', '2017-02-03');
 
- 
-insert into PuestosPlaza(puesto) values('puesto1');
-insert into PuestosPlaza(puesto) values('puesto2');
 
-insert into CategoriasPlaza(categoria) values(1);
-insert into CategoriasPlaza(categoria) values(2); 
