@@ -13,8 +13,9 @@
                 showAgreDate: false
 	    	}; 
 
+			$scope.categoria = undefined;
+
 	    	$scope.puestoList = [];
-	    	$scope.categoriaList = [];
 			$scope.plaza.fechaAutorizacionInicial = new Date();
 			$scope.plaza.fechaAutorizacionFinal = new Date();
 			$scope.plaza.fechaAcuerdo = new Date();
@@ -52,6 +53,7 @@
 	    	};
 
 		    $scope.validatedPlaza = function(pIsValid, pIsValid2, pIsValid3, pData) {
+				pData.puesto = JSON.parse(pData.puesto);
 		    	if(pIsValid && pIsValid2 && pIsValid3) {
 		    		var plazaInfo = {
 		    			usuarioActual: $scope.user.usuario,
@@ -59,9 +61,9 @@
 			    		codigo: pData.codigo,
 			    		periodo: pData.periodo,
 			    		programa: parseInt(pData.programa),
-			    		categoria: parseInt(pData.categoria),
+			    		categoria: parseInt($scope.categoria),
 			    		tipo: pData.tipo,
-			    		puesto: pData.puesto,
+			    		puesto: pData.puesto.id,
 			    		jornada: pData.jornada,
 			    		fechaAutorizacionInicio: pData.fechaAutorizacionInicial,
 			    		fechaAutorizacionFinal: pData.fechaAutorizacionFinal,
@@ -70,6 +72,7 @@
 			    		fechaAcuerdo: pData.fechaAcuerdo,
 			    		tce: pData.tce
 			    	};
+					console.log(plazaInfo);
 			    	plazaService.addPlaza(plazaInfo).then(function(result) {
 			    		if(result.success) {
 			    			plazaInfo.idPlaza = result.data;
@@ -85,6 +88,8 @@
 									$scope.plaza.fechaAcuerdo = new Date();
 									$scope.plaza.fechaRegistro = new Date();
 									$scope.plaza.activo = 1;
+									$scope.categoria = undefined;
+
 					    		}
 					    		else{
 					    			messageHandlerService.notifyError(null, result.message);
@@ -109,16 +114,12 @@
 		    	});
 		    };
 
-		    $scope.getCategoriasPlaza = function() {
-		    	plazaService.getCategorias().then(function(result) {
-		    		if(result.success) {
-		    			$scope.categoriaList = result.data;
-		    		}
-		    	});
-		    };
+			$scope.setCategoria = function(puesto){
+				var puesto = JSON.parse(puesto);
+				$scope.categoria = puesto.categoria;
+			};
 
 		    $scope.getPuestosPlaza();
-		    $scope.getCategoriasPlaza();
 		    $scope.getUser();
 		}]);
 })();

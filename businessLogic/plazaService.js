@@ -69,7 +69,7 @@ exports.addPlazaInfo = function(data, callback) {
         data.fechaAutorizacionFinal = formatDateFromJSToMySQL(data.fechaAutorizacionFinal);
         sp_params = data.idPlaza + "," + "\"" + data.codigo + "\"" + "," + data.periodo + "," +
 					data.programa + "," + "\"" + data.tipo + "\"" + "," + data.categoria + "," +
-					"\"" + data.puesto + "\"" + "," +  data.jornada + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
+					data.puesto + "," +  data.jornada + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
 					"\"" + data.fechaAutorizacionFinal + "\"" + "," + data.articulo + "," + "\"" + data.numeroSesion + "\"" + "," +
 					"\"" + data.fechaAcuerdo + "\"" + "," + data.tce;
     }
@@ -77,10 +77,11 @@ exports.addPlazaInfo = function(data, callback) {
         data.fechaAutorizacionFinal = null;
         sp_params = data.idPlaza + "," + "\"" + data.codigo + "\"" + "," + data.periodo + "," +
 					data.programa + "," + "\"" + data.tipo + "\"" + "," + data.categoria + "," +
-					"\"" + data.puesto + "\"" + "," +  data.jornada + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
+					data.puesto + "," +  data.jornada + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
 					data.fechaAutorizacionFinal+ "," + data.articulo + "," + "\"" + data.numeroSesion + "\"" + "," +
 					"\"" + data.fechaAcuerdo + "\"" + "," + data.tce;
     }
+    console.log(sp_params);
     repository.executeQuery({ 
         spName: 'sp_agregarCaracteristicaPlaza',
         params: sp_params
@@ -114,14 +115,14 @@ exports.updatePlaza = function(data, callback){
         data.fechaAutorizacionFinal = formatDateFromJSToMySQL(data.fechaAutorizacionFinal);
         sp_params = data.id + ","+ data.idcp + "," + "\"" + data.codigo + "\"" + "," + "\"" + data.descripcion + "\"" + "," + data.periodo + "," +
                     data.programa + "," + "\"" + data.tipo + "\"" + "," + data.categoria + "," +
-                    "\"" + data.puesto + "\"" + "," +  data.jornada + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
+                    data.idPuesto + "," +  data.jornada + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
                     "\"" + data.fechaAutorizacionFinal + "\"" + "," + data.articulo + "," + "\"" + data.numeroSesion + "\"" + "," +
                     "\"" + data.fechaAcuerdo + "\"" + "," + data.tce;
     }
     else{
         sp_params = data.id + ","+ data.idcp + "," + "\"" + data.codigo + "\"" + "," + "\"" + data.descripcion + "\"" + "," + data.periodo + "," +
                     data.programa + "," + "\"" + data.tipo + "\"" + "," + data.categoria + "," +
-                    "\"" + data.puesto + "\"" + "," +  data.jornada + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
+                    data.idPuesto + "," +  data.jornada + "," + "\"" + data.fechaAutorizacionInicio + "\"" + "," +
                     data.fechaAutorizacionFinal + "," + data.articulo + "," + "\"" + data.numeroSesion + "\"" + "," +
                     "\"" + data.fechaAcuerdo + "\"" + "," + data.tce;
     }
@@ -132,10 +133,6 @@ exports.updatePlaza = function(data, callback){
         return;
     }
     
-     
-
-    console.log(sp_params);
-
     repository.executeQuery({
         spName: 'sp_actualizarPlaza',
         params: sp_params
@@ -150,7 +147,6 @@ exports.updatePlaza = function(data, callback){
                     data: null
                 });
             }
-
             else{
                 var paramsString2 = '\"'+data.usuarioActual+'\"'+','+
                                         data.id+','+ '\"' + 'm' + '\"';

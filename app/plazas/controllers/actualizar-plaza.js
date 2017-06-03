@@ -13,8 +13,9 @@
                 showAgreDate: false
 	    	}; 
 
+			$scope.puesto = {};
 	    	$scope.puestoList = [];
-	    	$scope.categoriaList = [];
+	    	$scope.categoria= undefined;
 			$scope.plaza.fechaAutorizacionInicio = new Date();
 			$scope.plaza.fechaAutorizacionFinal = new Date();
 			$scope.plaza.fechaAcuerdo = new Date();
@@ -46,9 +47,9 @@
 				plazaService.getPlaza(pId).then(function(result) {
 					if(result.success) {
 						$scope.plaza = result.data;
-						$scope.plaza.categoria = $scope.plaza.categoria + '';
 						$scope.plaza.programa = $scope.plaza.programa + '';
 						$scope.plaza.activo = $scope.plaza.activo.data[0];
+						$scope.categoria = $scope.plaza.categoria;
 					}
 					else {
 						messageHandlerService.notifyError(null, result.message);
@@ -81,6 +82,7 @@
 					categoria: parseInt(pData.categoria),
 					tipo: pData.tipo,
 					puesto: pData.puesto,
+					idPuesto: pData.idPuesto,
 					jornada: pData.jornada,
 					fechaAutorizacionInicio: pData.fechaAutorizacionInicio,
 					fechaAutorizacionFinal: pData.fechaAutorizacionFinal,
@@ -95,7 +97,6 @@
 					if(result.success) {
 						messageHandlerService.notifySuccess(null, result.message);
 						$scope.plaza = plazaInfo;
-						$scope.plaza.categoria = $scope.plaza.categoria + '';
 						$scope.plaza.programa = $scope.plaza.programa + '';
 						$scope.plaza.idcp = result.data;
 					}
@@ -113,16 +114,17 @@
 		    	});
 		    };
 
-		    $scope.getCategoriasPlaza = function() {
-		    	plazaService.getCategorias().then(function(result) {
-		    		if(result.success) {
-		    			$scope.categoriaList = result.data;
-		    		}
-		    	});
-		    };
+			$scope.setCategoria = function(puesto){
+				for(var i=0; i<$scope.puestoList.length; i++) {
+					if($scope.puestoList[i].puesto == puesto) {
+						$scope.plaza.idPuesto = $scope.puestoList[i].id;
+						$scope.plaza.categoria = $scope.puestoList[i].categoria;
+						break;
+					}
+				}
+			};
 
 		    $scope.getPuestosPlaza();
-		    $scope.getCategoriasPlaza();
 		    $scope.getUser();
 		    getPlazaId();
 			getPlaza($scope.plaza.id);

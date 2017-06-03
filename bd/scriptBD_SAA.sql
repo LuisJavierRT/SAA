@@ -166,6 +166,22 @@ create table `mydb`.`Plaza` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
+create table `mydb`.`CategoriasPlaza` ( 
+	`id` int not null auto_increment,
+    `categoria` int,
+    primary key(`id`)) 
+ENGINE = InnoDB;
+
+create table `mydb`.`PuestosPlaza` ( 
+	`id` int not null auto_increment, 
+    `codigoPuesto` int not null, 
+    `puesto` varchar(100) not null,
+	`idCategoria` int not null,
+    primary key(`id`),
+    CONSTRAINT `fk_categoria_puesto`
+		FOREIGN KEY (`idCategoria`)
+		REFERENCES `CategoriasPlaza` (`id`))
+ENGINE = InnoDB;
 
 create table `mydb`.`CaracteristicaPlaza` ( 
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -177,7 +193,7 @@ create table `mydb`.`CaracteristicaPlaza` (
   `categoria` INT NOT NULL,   	
   `tce` DOUBLE NOT NULL,
   `activo` BIT NOT NULL DEFAULT 1,
-  `puesto` VARCHAR(30) NOT NULL, 
+  `idPuesto` int NOT NULL, 
   `jornada` INT NOT NULL,
   `asignacionDependencia` BIT NOT NULL DEFAULT 0,
   `fechaAutorizacionInicio` DATETIME NOT NULL,
@@ -190,23 +206,10 @@ create table `mydb`.`CaracteristicaPlaza` (
   
   CONSTRAINT `fk_caracteristica_plaza`
 	FOREIGN KEY (`idPlaza`)
-    REFERENCES `Plaza` (`id`))
-ENGINE = InnoDB;
-
-create table `mydb`.`CategoriasPlaza` ( 
-	`id` int not null auto_increment,
-    `categoria` int,
-    primary key(`id`)) 
-ENGINE = InnoDB;
-
-create table `mydb`.`PuestosPlaza` (
-	`id` int not null auto_increment,
-    `puesto` int not null,
-	`idCategoria` int not null,
-    primary key(`id`),
-    CONSTRAINT `fk_categoria_puesto`
-		FOREIGN KEY (`idCategoria`)
-		REFERENCES `CategoriasPlaza` (`id`))
+    REFERENCES `Plaza` (`id`),
+  CONSTRAINT `fk_caracteristica_plaza_puesto`
+	FOREIGN KEY (`idPuesto`)
+    REFERENCES `PuestosPlaza` (`id`))
 ENGINE = InnoDB;
 
 create table `mydb`.`HistorialGestionPlaza` (
@@ -443,5 +446,129 @@ engine = innodb;
 
 INSERT INTO Usuario(usuario, contrasena, cedula, nombre, correo, tipo, activo, fechaInicioAutorizacion, fechaFinalAutorizacion) 
     VALUES('jose', md5('123'), '207510507', 'Jose', 'correo', 'Administrador', 1, '2017-01-02', '2017-02-03');
+
+insert into CategoriasPlaza(categoria) values(2);
+insert into CategoriasPlaza(categoria) values(3);
+insert into CategoriasPlaza(categoria) values(4);
+insert into CategoriasPlaza(categoria) values(5);
+insert into CategoriasPlaza(categoria) values(7);
+insert into CategoriasPlaza(categoria) values(8);
+insert into CategoriasPlaza(categoria) values(9);
+insert into CategoriasPlaza(categoria) values(10);
+insert into CategoriasPlaza(categoria) values(11);
+insert into CategoriasPlaza(categoria) values(12);
+insert into CategoriasPlaza(categoria) values(13);
+insert into CategoriasPlaza(categoria) values(14);
+insert into CategoriasPlaza(categoria) values(15);
+insert into CategoriasPlaza(categoria) values(16);
+insert into CategoriasPlaza(categoria) values(23);
+
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(110, 'Trabajador(a) en construcción y áreas verdes',1);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(111, 'Auxiliar Académico (A) – Administrativo (A) 1',1);
+
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(121, 'Auxiliar Académico (A) – Administrativo (A) 2',2);
+
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(130, 'Auxiliar de Administración 1',3);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(136, 'Conserje',3);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(137, 'Auxiliar de cocina',3);
+
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(140, 'Operario (A)',4);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(141, 'Auxiliar de Administración 2',4);
+
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(204, 'Cocinero (A) Institucional',5);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(214, 'Cajero 1',5);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(213, 'Chofer',5);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(217, 'Oficial de seguridad 1',5);
+
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(220, 'Asistente de administración 1',6);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(221, 'Asistente en soporte computacional',6);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(226, 'Bodeguero (A)',6);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(227, 'Asistente en bibliotecología 1',6);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(223, 'Asistente Académico (A) – Administrativo (A) 1',6);
+
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(224, 'Asistente en mantenimiento o artes gráficas',7);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(229, 'Asistente en bibliotecología 2',7);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(247, 'Asistente en Ingeniería o arquitectura',7);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(230, 'Secretaria (o) Ejecutiva (o) 1',7);
+
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(241, 'Asistente de administración 2',8);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(242, 'Asistente Académico (A) – Administrativo (A) 1',8);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(246, 'Asistente de Administración Supervisor (A)',8);
+
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(250, 'Secretaria (o) Ejecutiva (o) de Actas',9);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(251, 'Secretaria (o) Ejecutiva (o) 2',9);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(252, 'Asistente en soporte computacional 2',9);
+
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(260, 'Secretaria (o) Ejecutiva (o) 3',10);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(261, 'Asistente de Salud',10);
+
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(301, 'Oficial de Seguridad 3',11);
+
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(310, 'Técnico en Mantenimiento o Artes Gráficas',12);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(312, 'Técnico en Salud',12);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(313, 'Técnico Académico Administrativo',12);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(311, 'Cajero (A) 2',12);
+
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(320, 'Técnico en Bibliotecología',13);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(321, 'Técnico en Ingeniería y Arquitectura',13);
+
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(330, 'Técnico (A) en Soporte Computacional',14);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(331, 'Técnico (A) en Análisis de Sistemas',14);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(332, 'Técnico en Administración',14);
+
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(507, 'Auditor (a) Interno (a)',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(408, 'Auditor (a)',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(502, 'Director (a) de Centro Académico',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(504, 'Director (a) de Sede Regional',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(501, 'Director (a) Ejecutivo (a) de la Secretaría del Consejo Institucional',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(503, 'Director (a) Ejecutivo (a)',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(508, 'Miembro del Consejo Institucional',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(415, 'Profesional en Asesoría Académica',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(409, 'Profesional en Asesoría Estudiantil',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(411, 'Profesional en Asesoría Legal',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(401, 'Profesional en Bibliotecología',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(404, 'Profesional en Comunicación',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(403, 'Profesional en Gestión de Cooperación o Proyectos',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(410, 'Profesional en Ingeniería o Arquitectura',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(412, 'Profesional en Salud',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(406, 'Profesional en Tecnologías de Información y Comunicaciones',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(407, 'Profesor (a)',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(430, 'Regente',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(506, 'Rector (a)',15);
+insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(505, 'Vicerrector (a)',15);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

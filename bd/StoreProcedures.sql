@@ -444,15 +444,15 @@ end $$
 delimiter ;
 
 delimiter $$
-create procedure sp_agregarCaracteristicaPlaza ( 
+create procedure sp_agregarCaracteristicaPlaza (
 	
 	 in _idPlaza int, 
-	 in _codigo varchar(8),
+	 in _codigo varchar(8), 
 	 in _periodo double,
 	 in _programa int,
 	 in _tipo varchar(6),
      in _categoria int,
-	 in _puesto varchar(30),
+	 in _puesto int,
 	 in _jornada int,
 	 in _fechaAutorizacionInicio datetime,
 	 in _fechaAutorizacionFinal datetime,
@@ -462,7 +462,7 @@ create procedure sp_agregarCaracteristicaPlaza (
      in _tce double
 )
 begin
-	insert into CaracteristicaPlaza (idPlaza, codigo, periodo, programa, tipo, categoria, tce, puesto, 
+	insert into CaracteristicaPlaza (idPlaza, codigo, periodo, programa, tipo, categoria, tce, idPuesto, 
     jornada, fechaAutorizacionInicio, fechaAutorizacionFinal, articulo, numeroSesion, fechaAcuerdo)
     values (_idPlaza, _codigo, _periodo, _programa, _tipo, _categoria, _tce, _puesto, 
     _jornada, _fechaAutorizacionInicio, _fechaAutorizacionFinal, _articulo, _numeroSesion, _fechaAcuerdo);
@@ -480,7 +480,7 @@ create procedure sp_actualizarPlaza(
 	in _programa int,
 	in _tipo varchar(6),
 	in _categoria int,
-	in _puesto varchar(30),
+	in _puesto int,
 	in _jornada int,
 	in _fechaAutorizacionInicio datetime,
 	in _fechaAutorizacionFinal datetime,
@@ -495,7 +495,7 @@ begin
 		set valid = 0;
 	else
 		update CaracteristicaPlaza set activo = 0 where id = _idcp; 
-		insert into CaracteristicaPlaza (idPlaza, codigo, periodo, programa, tipo, categoria, tce, puesto, 
+		insert into CaracteristicaPlaza (idPlaza, codigo, periodo, programa, tipo, categoria, tce, idPuesto, 
 		jornada, fechaAutorizacionInicio, fechaAutorizacionFinal, articulo, numeroSesion, fechaAcuerdo)
 		values (_id, _codigo, _periodo, _programa, _tipo, _categoria, _tce, _puesto, 
 		_jornada, _fechaAutorizacionInicio, _fechaAutorizacionFinal, _articulo, _numeroSesion, _fechaAcuerdo);
@@ -514,11 +514,13 @@ end $$
 delimiter ; 
 
 delimiter $$
-create procedure sp_obtenerPuestosPlaza ()
+create procedure sp_obtenerPuestosPlaza () 
 begin
-	select puesto from PuestosPlaza;
+	select pp.id,pp.puesto,pp.codigoPuesto,cp.categoria from PuestosPlaza as pp join CategoriasPlaza as cp  where pp.idCategoria = cp.id;
 end $$
-delimiter ;
+delimiter ;  
+
+
 
 delimiter $$
 create procedure sp_obtenerCategoriasPlaza () 
@@ -533,8 +535,8 @@ create procedure sp_obtenerPlaza (
 )
 begin
 	select p.id,cp.id as idcp, p.fechaRegistro, p.activo, p.descripcion, cp.codigo, cp.categoria, cp.jornada, cp.fechaAutorizacionInicio,
-			fechaAutorizacionFinal, cp.periodo, cp.articulo, cp.numeroSesion, cp.fechaAcuerdo, cp.puesto, 
-            cp.programa, cp.categoria, cp.tipo, cp.tce from Plaza as p join CaracteristicaPlaza as cp on p.id = cp.idPlaza where p.id = _id and p.activo = 1 and cp.activo = 1;
+			fechaAutorizacionFinal, cp.periodo, cp.articulo, cp.numeroSesion, cp.fechaAcuerdo, pp.id as idPuesto, pp.codigoPuesto, pp.puesto, pp.idCategoria, 
+            cp.programa, cp.categoria, cp.tipo, cp.tce from Plaza as p join CaracteristicaPlaza as cp on p.id = cp.idPlaza join PuestosPlaza as pp on pp.id = cp.idPuesto where p.id = _id and p.activo = 1 and cp.activo = 1;
 end $$
 delimiter ;
 

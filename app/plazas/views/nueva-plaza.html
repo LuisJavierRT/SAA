@@ -140,16 +140,14 @@
                                         </p>
                                     </td>
                                     <td>     
-                                        <select class="form-control" ng-model="plaza.puesto">
+                                        <select class="form-control" ng-model="plaza.puesto" ng-change="setCategoria(plaza.puesto)">
                                             <option value="" disabled selected>Puesto</option>
-                                            <option ng-repeat="puesto in puestoList">{{puesto.puesto}}</option>
+                                            <option ng-repeat="puesto in puestoList" value="{{puesto}}" >{{puesto.puesto}}</option>
                                         </select> 
                                     </td> 
                                     <td>
-                                        <select class="form-control" ng-model="plaza.categoria">
-                                            <option value="" disabled selected>Categoría</option>
-                                            <option ng-repeat="cat in categoriaList">{{cat.categoria}}</option>
-                                        </select> 
+                                        <input class="form-control" type="number" ng-readonly= "true" placeholder="Categoria" required ng-model="categoria">
+                                        </input>
                                     </td>
                                     <td>
                                         <select class="form-control" ng-model="plaza.programa">
