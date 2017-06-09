@@ -15,6 +15,8 @@
             $scope.dependenciaList = [];
             $scope.user = {};
             $scope.selectedDependency = "";
+            $scope.mdlTag = "";
+			$scope.filters = 0; 
 
             $scope.getFuncionarios = function(pData) {
                 var idD = pData.split("-")[0];
