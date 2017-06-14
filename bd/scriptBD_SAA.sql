@@ -442,10 +442,10 @@ create table `mydb`.`PlazaContratacion` (
 		foreign key (`idContrato`, `idDependencia`, `idFuncionario`)
         references `mydb`.`Contrato` (`id`, `idDependencia`, `idFuncionario`)
 )
-engine = innodb; 
+engine = innodb;
 
 INSERT INTO Usuario(usuario, contrasena, cedula, nombre, correo, tipo, activo, fechaInicioAutorizacion, fechaFinalAutorizacion) 
-    VALUES('jose', md5('123'), '207510507', 'Jose', 'correo', 'Administrador', 1, '2017-01-02', '2017-02-03');
+    VALUES('user', md5('123'), '209870654', 'Jose', 'correo', 'Administrador', 1, '2017-01-02', '2017-02-03');
 
 insert into CategoriasPlaza(categoria) values(2);
 insert into CategoriasPlaza(categoria) values(3);
@@ -536,39 +536,3 @@ insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(407, 'Profeso
 insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(430, 'Regente',15);
 insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(506, 'Rector (a)',15);
 insert into PuestosPlaza(codigoPuesto, puesto, idCategoria) values(505, 'Vicerrector (a)',15);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

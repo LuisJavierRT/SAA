@@ -88,16 +88,6 @@ create procedure sp_obtenerUsuarios()
     end $$
 delimiter ;
 
--- Recupera un usuario por username
-delimiter $$
-create procedure sp_getUserByUsername(
-        in _usuario varchar(30)
-    )
-begin
-    select * from Usuario where usuario = _usuario;
-end $$
-delimiter ;
-
 delimiter $$
 create procedure sp_actualizarUsuario(
     IN _usuario varchar(30),
@@ -494,6 +484,7 @@ begin
 	if exists(select * from CaracteristicaPlaza where id != _idcp and codigo = _codigo and activo = 1) then
 		set valid = 0;
 	else
+		update Plaza set descripcion = _descripcion where id = _id;
 		update CaracteristicaPlaza set activo = 0 where id = _idcp; 
 		insert into CaracteristicaPlaza (idPlaza, codigo, periodo, programa, tipo, categoria, tce, idPuesto, 
 		jornada, fechaAutorizacionInicio, fechaAutorizacionFinal, articulo, numeroSesion, fechaAcuerdo)
