@@ -81,7 +81,6 @@ exports.addPlazaInfo = function(data, callback) {
 					data.fechaAutorizacionFinal+ "," + data.articulo + "," + "\"" + data.numeroSesion + "\"" + "," +
 					"\"" + data.fechaAcuerdo + "\"" + "," + data.tce;
     }
-    console.log(sp_params);
     repository.executeQuery({ 
         spName: 'sp_agregarCaracteristicaPlaza',
         params: sp_params
